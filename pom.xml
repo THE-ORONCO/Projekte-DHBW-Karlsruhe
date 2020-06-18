@@ -8,19 +8,21 @@
     <artifactId>SWE-Museumsverwaltung</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <distributionManagement>
+    <repositories>
         <repository>
             <id>iai-artifactory</id>
             <name>iai-artifactory.iai.kit.edu</name>
             <url>https://iai-artifactory.iai.kit.edu/artifactory/webis-public</url>
         </repository>
-    </distributionManagement>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>de.dhbw.ka.swe</groupId>
             <artifactId>swe-utils</artifactId>
             <version>3.5.0</version>
         </dependency>
+
     </dependencies>
 
 

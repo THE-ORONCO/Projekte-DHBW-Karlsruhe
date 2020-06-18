@@ -12,6 +12,11 @@
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="iai-artifactory" />
+      <option name="name" value="iai-artifactory.iai.kit.edu" />
+      <option name="url" value="https://iai-artifactory.iai.kit.edu/artifactory/webis-public" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
