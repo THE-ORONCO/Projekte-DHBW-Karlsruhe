@@ -14,12 +14,12 @@ public class MainGui {
 	public static void main(String[] args) {
 		final JFrame mainView = createMainView("test", new Dimension(800, 500));
 		mainView.setJMenuBar(creatMenuBar());
-
 	}
 
 	private static JFrame createMainView(String title, Dimension size) {
 		JFrame view = new JFrame(title);
 		view.setSize(size);
+		view.setMinimumSize(new Dimension(520, 500));
 		view.setLayout(new GridLayout(2, 0));
 		view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		view.setVisible(true);
