@@ -38,10 +38,8 @@ public class Bild {
 
     @Override
     public String toString() {
-        return "Bild{" +
-                "altText='" + altText + '\'' +
-                ", dateiName='" + dateiName + '\'' +
-                ", beschreibung='" + beschreibung + '\'' +
-                '}';
+        String bild = "";
+        bild += String.format("Bild%nAlt-Text: %s%nDateiname: %s%nBeschreibung: %s%n", this.altText, this.dateiName, this.beschreibung);
+        return bild;
     }
 }

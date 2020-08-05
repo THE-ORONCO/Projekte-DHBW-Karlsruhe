@@ -1,7 +1,7 @@
 package Museum.Exponat;
 
 import Museum.Bild.Bild;
-import Museum.Person.Förderer;
+import Museum.Person.Foerderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Exponat {
 
-    private final int inventarNummer;
+    private final int inventarNummer; // TODO sollte das int sein? vlt String oder anderes
     private String name;
     private final Date erstellungsDatum;
     private Date entstehungsDatum;
@@ -18,7 +18,7 @@ public class Exponat {
     private ArrayList<String> kategorien;
     private ArrayList<Epoche> epoche;
     private String herkunftsort;
-    private ArrayList<Förderer> förderer;
+    private ArrayList<Foerderer> foerderer;
     private Exponatwert exponatwert;
     private GeschichtilcheHistorie geschichtilcheH;
     private BearbeitungsHistorie bearbeitungsH;
@@ -26,7 +26,7 @@ public class Exponat {
     private Bild bild;
     private String beschreibung;
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Förderer> förderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
+    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
         this.inventarNummer = inventarNummer;
         this.name = name;
         this.erstellungsDatum = new Date(); // aktuelles Datum
@@ -36,7 +36,7 @@ public class Exponat {
         this.kategorien = kategorien;
         this.epoche = epoche;
         this.herkunftsort = herkunftsort;
-        this.förderer = förderer;
+        this.foerderer = foerderer;
         this.exponatwert = exponatwert;
         this.geschichtilcheH = geschichtilcheH;
         this.bearbeitungsH = bearbeitungsH;
@@ -45,16 +45,16 @@ public class Exponat {
         this.beschreibung = beschreibung;
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Förderer> förderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, förderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
+    public Exponat(int inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Förderer> förderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, förderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
+    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Förderer> förderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, förderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("default Exponat", "default.jpg", "default Bild"), "Exponat");
+    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
     }
 
@@ -122,12 +122,12 @@ public class Exponat {
         this.herkunftsort = herkunftsort;
     }
 
-    public ArrayList<Förderer> getFörderer() {
-        return förderer;
+    public ArrayList<Foerderer> getFörderer() {
+        return foerderer;
     }
 
-    public void setFörderer(ArrayList<Förderer> förderer) {
-        this.förderer = förderer;
+    public void setFörderer(ArrayList<Foerderer> foerderer) {
+        this.foerderer = foerderer;
     }
 
     public Exponatwert getExponatwert() {
