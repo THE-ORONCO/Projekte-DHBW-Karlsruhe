@@ -32,6 +32,7 @@ public class ElementSuche {
         return null; //TODO such-Algorythmus
     }
 
+
     public ArrayList<Exponat> sucheExponat() {
         return null; //TODO such-Algorythmus
     }

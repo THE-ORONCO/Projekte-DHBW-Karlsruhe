@@ -4,18 +4,18 @@ public class Raum {
 
     private int raumNr;
     private String beschreibung;
-    private double ausstellungsfläche;
+    private double ausstellungsflaeche;
     private String ausstellungsthema;
 
-    public Raum(int raumNr, String beschreibung, double ausstellungsfläche, String aussstellungsthema) {
+    public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String aussstellungsthema) {
         this.raumNr = raumNr;
         this.beschreibung = beschreibung;
-        this.ausstellungsfläche = ausstellungsfläche;
+        this.ausstellungsflaeche = ausstellungsflaeche;
         this.ausstellungsthema = aussstellungsthema;
     }
 
-    public Raum(int raumNr, double ausstellungsfläche) {
-        this(raumNr, "Raum", ausstellungsfläche, "divers");
+    public Raum(int raumNr, double ausstellungsflaeche) {
+        this(raumNr, "Raum", ausstellungsflaeche, "divers");
     }
 
     public int getRaumNr() {
@@ -34,12 +34,12 @@ public class Raum {
         this.beschreibung = beschreibung;
     }
 
-    public double getAusstellungsfläche() {
-        return ausstellungsfläche;
+    public double getAusstellungsflaeche() {
+        return ausstellungsflaeche;
     }
 
-    public void setAusstellungsfläche(double ausstellungsfläche) {
-        this.ausstellungsfläche = ausstellungsfläche;
+    public void setAusstellungsflaeche(double ausstellungsflaeche) {
+        this.ausstellungsflaeche = ausstellungsflaeche;
     }
 
     public String getAusstellungsthema() {
@@ -55,9 +55,9 @@ public class Raum {
         String raum = "";
         raum += String.format(
                 "Raum%nRaumNr: %d%n" +
-                        "Ausstellungsfläche : %d%n" +
+                        "Ausstellungsfläche : %f%n" +
                         "Ausstellungsthema: %s%n" +
-                        "Beschreibung: %s%n", this.raumNr, this.ausstellungsfläche, this.ausstellungsthema, this.beschreibung);
+                        "Beschreibung: %s%n", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.beschreibung);
         return raum;
     }
 }
