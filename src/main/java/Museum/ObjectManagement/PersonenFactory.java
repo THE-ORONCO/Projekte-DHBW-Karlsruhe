@@ -6,7 +6,7 @@ public class PersonenFactory {
 
     private PersonenManager personenM;
 
-    // TODO vielleicht wären spezifischere Factories für die einzelnen Personentypen besser
+    // TODO entweder verschiedene Methoden für die Personentypen oder das mit einem Argument in der Methode implementieren
     private Person create(PersonenManager personenM){
         return null;
     }

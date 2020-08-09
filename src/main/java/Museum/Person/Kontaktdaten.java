@@ -93,7 +93,7 @@ public class Kontaktdaten {
             }
         }
         if (this.teleNr.size() > 0) {
-            for (String tNr : this.teleNr){
+            for (String tNr : this.teleNr) {
                 kontakt += String.format("Telefon: %s%n", tNr);
             }
         }
@@ -104,14 +104,6 @@ public class Kontaktdaten {
         }
         return kontakt;
 
-    }
-
-    public static void main(String args[]) {
-        ArrayList<Anschrift> anschrifts = new ArrayList<Anschrift>();
-        anschrifts.add(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe", "Deutscheland"));
-        //String name, String strasse, int hausnummer, int plz, String stadt, String land
-        Kontaktdaten k = new Kontaktdaten("theo.roncoletta@posteo.net", "015782770476", anschrifts);
-        System.out.print(k);
     }
 }
 
