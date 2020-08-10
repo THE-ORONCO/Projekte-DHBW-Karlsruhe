@@ -26,7 +26,11 @@ public class Exponat {
     private Bild bild;
     private String beschreibung;
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
+    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
+                   double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
+                   String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert,
+                   GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH,
+                   Bild bild, String beschreibung) {
         this.inventarNummer = inventarNummer;
         this.name = name;
         this.erstellungsDatum = new Date(); // aktuelles Datum
@@ -57,6 +61,8 @@ public class Exponat {
         this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
     }
+
+
 
     public int getInventarNummer() {
         return inventarNummer;
