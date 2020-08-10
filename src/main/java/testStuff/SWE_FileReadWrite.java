@@ -1,3 +1,7 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package testStuff;
 
 import Museum.Exponat.Exponat;

@@ -1,3 +1,7 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum.Person;
 
 public class Firmenanschrift extends Anschrift {
@@ -6,6 +10,16 @@ public class Firmenanschrift extends Anschrift {
     private String strasse;
     private int hausnummer;
 
+    /**
+     *
+     * @param firma
+     * @param name
+     * @param strasse
+     * @param hausnummer
+     * @param plz Postleitzahl der Stadt
+     * @param stadt Stadt die mit der Anschrift refferenziert wird
+     * @param land Land der Anschrift (kann auch weggelassen werden)
+     */
     public Firmenanschrift(String firma, String name, String strasse, int hausnummer, int plz, String stadt, String land) {
         super(plz, stadt, land);
         this.firma = firma;

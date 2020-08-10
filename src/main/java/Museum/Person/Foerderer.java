@@ -1,7 +1,12 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum.Person;
 
 import Museum.Exponat.Exponat;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +14,7 @@ public class Foerderer extends Person {
 
     private ArrayList<Exponat> gefoerderteExponate;
 
-    public Foerderer(String name, Date gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ArrayList<Exponat> gefoerderteExponate) {
+    public Foerderer(String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ArrayList<Exponat> gefoerderteExponate) throws ParseException {
         super(name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = gefoerderteExponate;
     }

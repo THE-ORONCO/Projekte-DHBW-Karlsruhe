@@ -19,6 +19,7 @@ public class ElementSuche {
         this.raumM = museumsM.getRaumManager();
     }
 
+
     public MuseumsManager getMuseumsM() {
         return museumsM;
     }

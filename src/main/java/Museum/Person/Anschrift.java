@@ -1,3 +1,7 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum.Person;
 
 public class Anschrift {
@@ -5,6 +9,12 @@ public class Anschrift {
     private int plz;
     private String land; //DIFF Land hat bei der Definition gefehlt
 
+    /**
+     * definiert die Anschrift einer Person auf einem Stadt-Level
+     * @param plz Postleitzahl der Stadt
+     * @param stadt Stadt die mit der Anschrift refferenziert wird
+     * @param land Land der Anschrift (kann auch weggelassen werden)
+     */
     public Anschrift(int plz, String stadt, String land) {
         this.stadt = stadt;
         this.plz = plz;
@@ -41,6 +51,16 @@ public class Anschrift {
 
     @Override
     public String toString() {
-        return String.format("%s %s%n%s%n", this.stadt, this.plz, this.land);
+        return String.format("%s %s%n%s", this.stadt, this.plz, this.land);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Anschrift anschrift = (Anschrift) o;
+        return plz == anschrift.plz &&
+                stadt.equals(anschrift.stadt) &&
+                land.equals(anschrift.land);
     }
 }
