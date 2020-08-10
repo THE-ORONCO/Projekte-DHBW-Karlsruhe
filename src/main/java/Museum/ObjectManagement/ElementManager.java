@@ -1,6 +1,6 @@
 package Museum.ObjectManagement;
 
-public interface ElementManager {
+public interface ElementManager { // TODO es wäre potenziell besser wenn wir die hier nicht hätten
 
     public boolean contains(Object element);
     public boolean persist(Object element);

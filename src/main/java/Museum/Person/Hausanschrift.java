@@ -11,7 +11,7 @@ public class Hausanschrift extends Anschrift {
     private int hausnummer;
 
     /**
-     * Die Postfachadresse ist eine spezifischere Version der Anschrift welche zusätzlich eine Postfachnummer speichert
+     * Die Postfachadresse ist eine spezifischere Version der Anschrift
      * @see Anschrift
      *
      * @param name Name der Person die unter dieser Anschrift gemeldet ist

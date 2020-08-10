@@ -2,7 +2,7 @@
  * @autor Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package Museum.BackendTests;
+package Museum.BackendTests.Person;
 
 import Museum.Person.Anschrift;
 import org.junit.Test;

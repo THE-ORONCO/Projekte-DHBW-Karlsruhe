@@ -11,6 +11,14 @@ public class Raum {
     private double ausstellungsflaeche;
     private String ausstellungsthema;
 
+    /**
+     * repräsentiert einen Raum im Museum
+     *
+     * @param raumNr              Nummer mit der der Raum im System eindeutig identifiziert werden kann
+     * @param beschreibung        eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Türen)
+     * @param ausstellungsflaeche benutzbare Ausstellungsfläche die in diesem Raum zur Verfügung steht in Quadratmetern
+     * @param aussstellungsthema  Thema der Ausstellung im aktuellen Raum
+     */
     public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String aussstellungsthema) {
         this.raumNr = raumNr;
         this.beschreibung = beschreibung;
@@ -57,11 +65,21 @@ public class Raum {
     @Override
     public String toString() {
         String raum = "";
-        raum += String.format(
-                "Raum%nRaumNr: %d%n" +
-                        "Ausstellungsfläche : %f%n" +
-                        "Ausstellungsthema: %s%n" +
-                        "Beschreibung: %s%n", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.beschreibung);
+        raum += String.format("RaumNr: %d%n" +
+                "Ausstellungsfläche : %f%n" +
+                "Ausstellungsthema: %s%n" +
+                "Beschreibung: %s", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.beschreibung);
         return raum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Raum)) return false;
+        Raum raum = (Raum) o;
+        return getRaumNr() == raum.getRaumNr() &&
+                Double.compare(raum.getAusstellungsflaeche(), getAusstellungsflaeche()) == 0 &&
+                getBeschreibung().equals(raum.getBeschreibung()) &&
+                getAusstellungsthema().equals(raum.getAusstellungsthema());
     }
 }

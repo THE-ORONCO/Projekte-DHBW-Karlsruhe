@@ -2,7 +2,7 @@
  * @autor Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package Museum.BackendTests;
+package Museum.BackendTests.Person;
 
 import Museum.Person.Anschrift;
 import Museum.Person.Hausanschrift;
@@ -123,7 +123,6 @@ public class PersonTest {
                 "Théo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
-                "\n" +
                 "Telefon: +(49)1578 2770476\n" +
                 "E-Mail: theo.roncoletta@posteo.net";
         assert person.toString().equals(personAlsString);

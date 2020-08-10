@@ -1,4 +1,4 @@
-package Museum.BackendTests;
+package Museum.BackendTests.Person;
 
 import Museum.Person.Hausanschrift;
 import org.junit.Before;

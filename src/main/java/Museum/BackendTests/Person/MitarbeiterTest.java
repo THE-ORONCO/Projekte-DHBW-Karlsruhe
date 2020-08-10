@@ -1,8 +1,5 @@
-package Museum.BackendTests;
+package Museum.BackendTests.Person;
 
-import Museum.ObjectManagement.ElementSuche;
-import Museum.ObjectManagement.MuseumsManager;
-import Museum.ObjectManagement.PersonenManager;
 import Museum.Person.*;
 import org.junit.Before;
 import org.junit.Test;
