@@ -19,6 +19,11 @@ public class Foerderer extends Person {
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
+    public Foerderer(String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
+        super(name, gebDatum, beschreibung, kontakt);
+        this.gefoerderteExponate = new ArrayList<>();
+    }
+
     public ArrayList<Exponat> getGefoerderteExponate() {
         return gefoerderteExponate;
     }

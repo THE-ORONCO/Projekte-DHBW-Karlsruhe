@@ -2,14 +2,12 @@ package Museum.Exponat;
 
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
-import Museum.Person.Admin;
-import Museum.Person.Foerderer;
-import Museum.Person.HR;
-import Museum.Person.User;
+import Museum.Person.*;
 import Museum.Raum.Raum;
 import de.dhbwka.swe.utils.util.CSVReader;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +20,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param c       Klasse des erzeugten Objekts
      * @param csvData String[] welches die Daten beschreibt die zur erzeugung des Objekts benötigt werden
      * @return das erzeugte Objekt
+     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String[] csvData) {
+    public static MuseumsElement createElement(Class c, String[] csvData) throws ParseException {
         if (c == Exponat.class) {
             return createExponat(csvData);
         } else if (c == Bild.class) {
@@ -50,9 +49,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param dateiPfad Pfad zu der CSV-Datei
      * @param linie     Zeile der CSV-Datei die importiert werden soll (index startet bei 0)
      * @return das importierte Element
-     * @throws IOException wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws IOException {
+    public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws IOException, ParseException {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData();
         return createElement(c, csvData.get(linie));
@@ -64,9 +64,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param c         Klasse der Elemente in einer CSV-Datei
      * @param dateiPfad Pfad zu der CSV-Datei
      * @return eine Liste der importierten Elemente
-     * @throws IOException wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws IOException {
+    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws IOException, ParseException {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData();
 
@@ -95,7 +96,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     public static Raum createRaum(String[] csvData) {
         if (csvData.length != 5) {
-            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 3");
+            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 5");
         }
         int raumNr = Integer.valueOf(csvData[0]);
         String beschreibung = csvData[1];
@@ -107,8 +108,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return raum;
     }
 
-    public static Foerderer createFoerderer(String[] csvData) {
-        return null;
+    public static Foerderer createFoerderer(String[] csvData) throws ParseException {
+        if (csvData.length != 4) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
+            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 4");
+        }
+        String name = csvData[0];
+        String gebDatum = csvData[1];
+        String beschreibung = csvData[2];
+        ArrayList<Kontaktdaten> kontakte = new ArrayList<>();
+        for (String kontakt : csvData[3].split(",")) {
+            // TODO entweder Kontaktdaten in eigener CSV-Datei oder eigenes Format für die Kontaktdaten in der CSV-Datei
+            // TODO vielleicht könnten Listen-Elemente als JSON-Ähnliche Elemente gespeichert werten
+        }
+
+        Foerderer foerderer = new Foerderer(name, gebDatum, beschreibung, kontakte);
+        return foerderer;
     }
 
     public static Admin createAdmin(String[] csvData) {
@@ -120,6 +134,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static HR createHR(String[] csvData) {
+        return null;
+    }
+
+    public static Kontaktdaten createKontaktdaten(String[] csvData) {
         return null;
     }
 }
