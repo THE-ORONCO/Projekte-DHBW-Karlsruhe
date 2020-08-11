@@ -14,8 +14,8 @@ public class Admin extends Mitarbeiter {
 
     private MuseumsManager museumsM;
 
-    public Admin(int mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsManager museumsM) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
+    public Admin(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsManager museumsM) throws ParseException {
+        super("a" + mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
         this.museumsM = museumsM;
     }
 

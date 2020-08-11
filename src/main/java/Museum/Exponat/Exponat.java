@@ -10,7 +10,6 @@ import java.util.Date;
 
 public class Exponat extends MuseumsElement {
 
-    private final int inventarNummer; // TODO sollte das int sein? vlt String oder anderes
     private String name;
     private final Date erstellungsDatum;
     private Date entstehungsDatum;
@@ -26,13 +25,12 @@ public class Exponat extends MuseumsElement {
     private BesitzHistorie besitzH;
     private Bild bild;
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
                    double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
                    String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert,
                    GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH,
                    Bild bild, String beschreibung) {
-        super(beschreibung);
-        this.inventarNummer = inventarNummer;
+        super("e"+inventarNummer, beschreibung);
         this.name = name;
         this.erstellungsDatum = new Date(); // aktuelles Datum
         this.entstehungsDatum = entstehungsDatum;
@@ -49,23 +47,17 @@ public class Exponat extends MuseumsElement {
         this.bild = bild;
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
         this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
         this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("default Exponat", "default.jpg", "default Bild"), "Exponat");
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
-    }
-
-
-
-    public int getInventarNummer() {
-        return inventarNummer;
     }
 
     public String getName() {

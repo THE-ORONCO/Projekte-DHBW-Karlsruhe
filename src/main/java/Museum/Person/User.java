@@ -10,15 +10,14 @@ import Museum.ObjectManagement.RaumManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class User extends Mitarbeiter{
 
     private ExponatManager exponatM;
     private RaumManager raumM;
 
-    public User(int mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, ExponatManager exponatM, RaumManager raumM) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
+    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, ExponatManager exponatM, RaumManager raumM) throws ParseException {
+        super("u" + mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
         this.exponatM = exponatM;
         this.raumM = raumM;
     }

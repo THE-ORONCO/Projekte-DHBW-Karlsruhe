@@ -1,9 +1,15 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum;
 
 public abstract class MuseumsElement { //DIFF neue Überklasse für alle Elemente welche das managen einfacher macht
+    private String primaryKey; //DIFF identifikation aller Elemente findet nun über die MuseumsElement-Klasse statt
     private String beschreibung;
 
-    public MuseumsElement(String beschreibung) {
+    public MuseumsElement(String primaryKey, String beschreibung) {
+        this.primaryKey = primaryKey;
         this.beschreibung = beschreibung;
     }
 
@@ -23,4 +29,7 @@ public abstract class MuseumsElement { //DIFF neue Überklasse für alle Element
         return getBeschreibung().equals(that.getBeschreibung());
     }
 
+    public String getPrimaryKey(){
+        return primaryKey;
+    }
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Raum extends MuseumsElement { //DIFF neue Überklasse
 
-    private int raumNr;
     private double ausstellungsflaeche;
     private String ausstellungsthema;
     private ArrayList<Bild> bilder;
@@ -25,20 +24,11 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      * @param ausstellungsthema   Thema der Ausstellung im aktuellen Raum
      * @param bilder              bilder des Raumes
      */
-    public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) {
-        super(beschreibung);
-        this.raumNr = raumNr;
+    public Raum(String raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) {
+        super("r"+raumNr, beschreibung);
         this.ausstellungsflaeche = ausstellungsflaeche;
         this.ausstellungsthema = ausstellungsthema;
         this.bilder = bilder;
-    }
-
-    public int getRaumNr() {
-        return raumNr;
-    }
-
-    public void setRaumNr(int raumNr) {
-        this.raumNr = raumNr;
     }
 
     public double getAusstellungsflaeche() {
@@ -63,7 +53,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         raum += String.format("RaumNr: %d%n" +
                 "Ausstellungsfläche : %f%n" +
                 "Ausstellungsthema: %s%n" +
-                "Beschreibung: %s", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
+                "Beschreibung: %s", this.getPrimaryKey(), this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
         return raum;
     }
 
@@ -72,7 +62,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         if (this == o) return true;
         if (!(o instanceof Raum)) return false;
         Raum raum = (Raum) o;
-        return getRaumNr() == raum.getRaumNr() &&
+        return getPrimaryKey() == raum.getPrimaryKey() &&
                 Double.compare(raum.getAusstellungsflaeche(), getAusstellungsflaeche()) == 0 &&
                 getBeschreibung().equals(raum.getBeschreibung()) &&
                 getAusstellungsthema().equals(raum.getAusstellungsthema());

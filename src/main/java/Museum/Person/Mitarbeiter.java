@@ -9,30 +9,25 @@ import Museum.ObjectManagement.ElementSuche;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class Mitarbeiter extends Person{
+public class Mitarbeiter extends Person {
 
-    private final int mitarbeiterNr;
     private ElementSuche suche;
 
     /**
      * Mitarbeiter an dem Museum
-     * @param mitarbeiterNr Mittarbeiternummer die im System des Museums einen Mitarbeiter identifiziert
-     * @param name Name der Person
-     * @param gebDatum Geburtsdatum der Person
+     *
+     * @param name         Name der Person
+     * @param gebDatum     Geburtsdatum der Person
      * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
-     * @param kontakt Kontaktdaten unter der die Person zu erreichen is
-     * @param suche SuchObjekt mit welchem eine Suche in allen Elementen durchgeführt werden kann
+     * @param kontakt      Kontaktdaten unter der die Person zu erreichen is
+     * @param suche        SuchObjekt mit welchem eine Suche in allen Elementen durchgeführt werden kann
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
-    public Mitarbeiter(int mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche) throws ParseException {
-        super(name, gebDatum, beschreibung, kontakt);
-        this.mitarbeiterNr = mitarbeiterNr;
+    public Mitarbeiter(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche) throws ParseException {
+        super("m" + mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
         this.suche = suche;
     }
 
-    public int getMitarbeiterNr() {
-        return mitarbeiterNr;
-    }
 
     public ElementSuche getSuche() {
         return suche;
@@ -43,9 +38,9 @@ public class Mitarbeiter extends Person{
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         String mitarbeiter = "";
-        mitarbeiter += String.format("MitarbeiterNr: %d%n", this.mitarbeiterNr);
+        mitarbeiter += String.format("MitarbeiterNr: %d%n", this.getPrimaryKey());
         mitarbeiter += String.format("Rolle: %s%n", this.getClass().getName());
         mitarbeiter += super.toString();
         return mitarbeiter;
@@ -57,7 +52,7 @@ public class Mitarbeiter extends Person{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Mitarbeiter that = (Mitarbeiter) o;
-        return mitarbeiterNr == that.mitarbeiterNr &&
+        return getPrimaryKey() == that.getPrimaryKey() &&
                 suche.equals(that.suche);
     }
 }

@@ -19,8 +19,8 @@ public class Person extends MuseumsElement {
      * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
      * @param kontakt Kontaktdaten unter der die Person zu erreichen ist
      */
-    public Person( String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
-        super(beschreibung);
+    public Person(String personenNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
+        super("p" + personenNr, beschreibung);
         this.name = name;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         this.gebDatum = sdf.parse(gebDatum);

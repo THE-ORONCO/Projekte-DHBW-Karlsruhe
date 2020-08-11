@@ -11,18 +11,19 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
 
     /**
      * Repräsentiert ein Bild eines Exponats, einer Person oder eines Raumes
-     * @param altText Alternativ-Text der um die Barrierefreiheit zu erhöhen angegeben werden kann
-     * @param dateiName dateiname der Bild-Datei
+     *
+     * @param altText      Alternativ-Text der um die Barrierefreiheit zu erhöhen angegeben werden kann
+     * @param dateiName    dateiname der Bild-Datei
      * @param beschreibung eine kurze Beschreibung des Bildes
      */
-    public Bild(String altText, String dateiName, String beschreibung){ //TODO potenziell Methodensignatur ändern
-        super(beschreibung);
+    public Bild(String bildNr, String altText, String dateiName, String beschreibung) { //TODO potenziell Methodensignatur ändern
+        super("b" + bildNr, beschreibung);
         this.altText = altText;
         this.dateiName = dateiName;
     }
 
-    public Bild(String dateiName){
-        this(dateiName, "", "");
+    public Bild(String bildNr, String dateiName) {
+        this(bildNr, dateiName, "", "");
     }
 
     public String getAltText() {

@@ -98,9 +98,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (csvData.length != 5) {
             throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 5");
         }
-        int raumNr = Integer.valueOf(csvData[0]);
+        int raumNr = Integer.parseInt(csvData[0]);
         String beschreibung = csvData[1];
-        double ausstellungsflaeche = Integer.valueOf(csvData[2]);
+        double ausstellungsflaeche = Integer.parseInt(csvData[2]);
         String ausstellungsthema = csvData[3];
         ArrayList<Bild> bilder = new ArrayList<Bild>(); // TODO methode zum laden der Bilddaten schreiben
 
