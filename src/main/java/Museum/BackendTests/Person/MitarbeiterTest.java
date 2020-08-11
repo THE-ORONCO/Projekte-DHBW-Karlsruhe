@@ -4,10 +4,9 @@ import Museum.Person.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class MitarbeiterTest extends PersonTest {
 
@@ -25,8 +24,7 @@ public class MitarbeiterTest extends PersonTest {
 
 
     @Before
-    private void setUp() throws Exception {
-        Person mitarbeiter = null;
+    public void setUp() throws Exception {
         ArrayList<Kontaktdaten> kontakt = new ArrayList<Kontaktdaten>();
 
 
@@ -34,12 +32,9 @@ public class MitarbeiterTest extends PersonTest {
         anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt));
         Kontaktdaten heim = new Kontaktdaten(emailadresse, teleNr, anschriften);
         kontakt.add(heim);
-        try {
-            mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt,  null);
-            // TODO suche realisieren, damit sie hier getestet werden kann
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, null);
+        // TODO suche realisieren, damit sie hier getestet werden kann
+
     }
 
     @Test
@@ -59,10 +54,18 @@ public class MitarbeiterTest extends PersonTest {
 
     @Test
     public void testToString() {
-        String mitarbeiterAlsString = "";
-        mitarbeiterAlsString += String.format("MitarbeiterNr: %d%n", mitarbeiterNr);
-        mitarbeiterAlsString += String.format("Rolle: %s%n", this.getClass().getName());
-        mitarbeiterAlsString += mitarbeiter.toString();
+        String mitarbeiterAlsString = "MitarbeiterNr: 420\n" +
+                "Rolle: Museum.Person.Mitarbeiter\n" +
+                "Name: Théo Roncoletta\n" +
+                "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999\n" +
+                "Beschreibung: so ein Typ\n" +
+                "Kontakt:\n" +
+                "Anschrift:\n" +
+                "Théo Roncoletta\n" +
+                "Tenesseeallee 28\n" +
+                "76149 Karlsruhe\n" +
+                "Telefon: +(49)1578 2770476\n" +
+                "E-Mail: theo.roncoletta@posteo.net";
         assertEquals(mitarbeiter.toString(), mitarbeiterAlsString);
     }
 

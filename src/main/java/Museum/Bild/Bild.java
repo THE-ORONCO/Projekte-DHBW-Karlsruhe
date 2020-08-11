@@ -1,10 +1,13 @@
 package Museum.Bild;
 
-public class Bild { // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
+import Museum.MuseumsElement;
+
+public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
+    // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
+    // TODO möglicherweise eine BildId hinzufügen
 
     private String altText;
     private String dateiName;
-    private String beschreibung;
 
     /**
      * Repräsentiert ein Bild eines Exponats, einer Person oder eines Raumes
@@ -12,10 +15,10 @@ public class Bild { // TODO vielleicht ermöglichen eine fertige Bild-File oder 
      * @param dateiName dateiname der Bild-Datei
      * @param beschreibung eine kurze Beschreibung des Bildes
      */
-    public Bild(String altText, String dateiName, String beschreibung){
+    public Bild(String altText, String dateiName, String beschreibung){ //TODO potenziell Methodensignatur ändern
+        super(beschreibung);
         this.altText = altText;
         this.dateiName = dateiName;
-        this.beschreibung = beschreibung;
     }
 
     public Bild(String dateiName){
@@ -38,18 +41,10 @@ public class Bild { // TODO vielleicht ermöglichen eine fertige Bild-File oder 
         this.dateiName = dateiName;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
-
     @Override
     public String toString() {
         String bild = "";
-        bild += String.format("Bild%nAlt-Text: %s%nDateiname: %s%nBeschreibung: %s%n", this.altText, this.dateiName, this.beschreibung);
+        bild += String.format("Alt-Text: %s%nDateiname: %s%nBeschreibung: %s", this.altText, this.dateiName, this.getBeschreibung());
         return bild;
     }
 
@@ -57,10 +52,9 @@ public class Bild { // TODO vielleicht ermöglichen eine fertige Bild-File oder 
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Bild)) return false;
+        if (!super.equals(o)) return false;
         Bild bild = (Bild) o;
         return getAltText().equals(bild.getAltText()) &&
-                getDateiName().equals(bild.getDateiName()) &&
-                getBeschreibung().equals(bild.getBeschreibung());
+                getDateiName().equals(bild.getDateiName());
     }
-
 }

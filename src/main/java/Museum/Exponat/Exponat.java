@@ -1,13 +1,14 @@
 package Museum.Exponat;
 
 import Museum.Bild.Bild;
+import Museum.MuseumsElement;
 import Museum.Person.Foerderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class Exponat {
+public class Exponat extends MuseumsElement {
 
     private final int inventarNummer; // TODO sollte das int sein? vlt String oder anderes
     private String name;
@@ -24,13 +25,13 @@ public class Exponat {
     private BearbeitungsHistorie bearbeitungsH;
     private BesitzHistorie besitzH;
     private Bild bild;
-    private String beschreibung;
 
     public Exponat(int inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
                    double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
                    String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert,
                    GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH,
                    Bild bild, String beschreibung) {
+        super(beschreibung);
         this.inventarNummer = inventarNummer;
         this.name = name;
         this.erstellungsDatum = new Date(); // aktuelles Datum
@@ -46,7 +47,6 @@ public class Exponat {
         this.bearbeitungsH = bearbeitungsH;
         this.besitzH = besitzH;
         this.bild = bild;
-        this.beschreibung = beschreibung;
     }
 
     public Exponat(int inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
@@ -174,13 +174,5 @@ public class Exponat {
 
     public void setBild(Bild bild) {
         this.bild = bild;
-    }
-
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
     }
 }

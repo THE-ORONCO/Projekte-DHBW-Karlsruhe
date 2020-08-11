@@ -1,14 +1,15 @@
 package Museum.Person;
 
+import Museum.MuseumsElement;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Person {
+public class Person extends MuseumsElement {
     private String name;
     private Date gebDatum;
-    private String beschreibung;
     private ArrayList<Kontaktdaten> kontakt;
 
     /**
@@ -18,11 +19,11 @@ public class Person {
      * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
      * @param kontakt Kontaktdaten unter der die Person zu erreichen ist
      */
-    public Person(String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
+    public Person( String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
+        super(beschreibung);
         this.name = name;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         this.gebDatum = sdf.parse(gebDatum);
-        this.beschreibung = beschreibung;
         this.kontakt = kontakt;
     }
 
@@ -42,14 +43,6 @@ public class Person {
         this.gebDatum = gebDatum;
     }
 
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
-
     public ArrayList<Kontaktdaten> getKontakt() {
         return kontakt;
     }
@@ -66,7 +59,7 @@ public class Person {
         String person = "";
         person += String.format("Name: %s%n", this.name);
         person += String.format("Geburtsdatum: %s%n", this.gebDatum);
-        person += String.format("Beschreibung: %s%n", this.beschreibung);
+        person += String.format("Beschreibung: %s%n", this.getBeschreibung());
         for(Kontaktdaten kontakt : this.kontakt){
             person += String.format("Kontakt:%n%s", kontakt);
         }
@@ -80,7 +73,7 @@ public class Person {
         Person person = (Person) o;
         return name.equals(person.name) &&
                 gebDatum.equals(person.gebDatum) &&
-                beschreibung.equals(person.beschreibung) &&
+                this.getBeschreibung().equals(person.getBeschreibung()) &&
                 kontakt.equals(person.kontakt);
     }
 }

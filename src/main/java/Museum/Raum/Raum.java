@@ -5,13 +5,13 @@
 package Museum.Raum;
 
 import Museum.Bild.Bild;
+import Museum.MuseumsElement;
 
 import java.util.ArrayList;
 
-public class Raum {
+public class Raum extends MuseumsElement { //DIFF neue Überklasse
 
     private int raumNr;
-    private String beschreibung;
     private double ausstellungsflaeche;
     private String ausstellungsthema;
     private ArrayList<Bild> bilder;
@@ -22,12 +22,12 @@ public class Raum {
      * @param raumNr              Nummer mit der der Raum im System eindeutig identifiziert werden kann
      * @param beschreibung        eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Türen)
      * @param ausstellungsflaeche benutzbare Ausstellungsfläche die in diesem Raum zur Verfügung steht in Quadratmetern
-     * @param ausstellungsthema  Thema der Ausstellung im aktuellen Raum
+     * @param ausstellungsthema   Thema der Ausstellung im aktuellen Raum
      * @param bilder              bilder des Raumes
      */
     public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) {
+        super(beschreibung);
         this.raumNr = raumNr;
-        this.beschreibung = beschreibung;
         this.ausstellungsflaeche = ausstellungsflaeche;
         this.ausstellungsthema = ausstellungsthema;
         this.bilder = bilder;
@@ -39,14 +39,6 @@ public class Raum {
 
     public void setRaumNr(int raumNr) {
         this.raumNr = raumNr;
-    }
-
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
     }
 
     public double getAusstellungsflaeche() {
@@ -71,7 +63,7 @@ public class Raum {
         raum += String.format("RaumNr: %d%n" +
                 "Ausstellungsfläche : %f%n" +
                 "Ausstellungsthema: %s%n" +
-                "Beschreibung: %s", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.beschreibung);
+                "Beschreibung: %s", this.raumNr, this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
         return raum;
     }
 

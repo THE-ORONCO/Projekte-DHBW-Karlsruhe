@@ -108,7 +108,6 @@ public class PersonTest {
         ArrayList<Kontaktdaten> alteKontaktdaten = new ArrayList<Kontaktdaten>();
         alteKontaktdaten.add(altesHeim);
         person.setKontakt(kontakt);
-        System.out.println(person.toString() + "ufffff");
         assert person.getKontakt().equals(kontakt);
     }
 
