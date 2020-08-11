@@ -1,46 +1,65 @@
 package Museum.ObjectManagement;
 
 import Museum.Raum.Raum;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
-public class RaumManager implements ElementManager {
+public class RaumManager{//DIFF ElementManager nicht implementiert
+    // TODO wie machen wir das mit ElementManager; um ein Interface zu verwenden müssten alle verwalteten Elemente vom gleichen Interface oder Oberklasse kommen
 
-    private HashSet<Raum> raume;
+    private HashMap<Integer, Raum> raume; //DIFF HahMap statt HashSet, da die Räume einfach mit der raumNr identifiziert werden können
 
-    public RaumManager(HashSet<Raum> raume) {
+    /**
+     * Manager-Objekt für Raum-Objekte. Unter anderem verhindert es das mehrere Räume mit gleicher Raumnummer existieren
+     * @param raume Räume die in diesem Manager-Objekt verwaltet werden
+     */
+    public RaumManager(HashMap<Integer, Raum> raume) {
         this.raume = raume;
     }
 
     public RaumManager(){
-        this(new HashSet<Raum>());
+        this(new HashMap<Integer, Raum>());
     }
 
-    public boolean contains(Object element) {
-        return raume.contains(element);
+    public boolean contains(Raum raum) {
+        return raume.containsValue(raum);
     }
 
-    public boolean persist(Object element) {
-        return raume.add((Raum) element);
+    public boolean contains(int raumNr){
+        return raume.containsKey(raumNr);
     }
 
-    public boolean remove(Object element) {
-        return this.raume.remove(element);
+    public void persist(Raum raum) throws ValueException{
+        if(this.contains(raum.getRaumNr())){
+            throw new ValueException("Raum mit der raumNr bereits vorhanden!");
+        }
+        raume.put(raum.getRaumNr(), raum);
+    }
+
+    public boolean remove(Raum raum) {
+        if(this.contains(raum) ){
+            raume.remove(raum);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean remove(int raumNr){
+        if(this.contains(raumNr)){
+            raume.remove(raume.get(raumNr));
+            return true;
+        }
+        return false;
     }
 
     public Object find(int raumNr) {
-        for(Raum raum : this.raume){
-            if(raum.getRaumNr() == raumNr){
-                return raum;
-            }
-        }
-        return null;
+        return this.raume.get(raumNr);
     }
 
-    public boolean edit(Object element) {
-        if(this.contains(element)){
-            this.remove(element);
-            this.persist(element);
+    public boolean edit(Raum raum) {
+        if(this.contains(raum)){
+            raume.put(raum.getRaumNr(), raum);
             return true;
         }
         return false;

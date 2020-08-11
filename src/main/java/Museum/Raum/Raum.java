@@ -22,23 +22,15 @@ public class Raum {
      * @param raumNr              Nummer mit der der Raum im System eindeutig identifiziert werden kann
      * @param beschreibung        eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Türen)
      * @param ausstellungsflaeche benutzbare Ausstellungsfläche die in diesem Raum zur Verfügung steht in Quadratmetern
-     * @param aussstellungsthema  Thema der Ausstellung im aktuellen Raum
+     * @param ausstellungsthema  Thema der Ausstellung im aktuellen Raum
      * @param bilder              bilder des Raumes
      */
-    public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String aussstellungsthema, ArrayList<Bild> bilder) {
+    public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) {
         this.raumNr = raumNr;
         this.beschreibung = beschreibung;
         this.ausstellungsflaeche = ausstellungsflaeche;
-        this.ausstellungsthema = aussstellungsthema;
+        this.ausstellungsthema = ausstellungsthema;
         this.bilder = bilder;
-    }
-
-    public Raum(int raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema){
-        this(raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, new ArrayList<Bild>());
-    }
-
-    public Raum(int raumNr, double ausstellungsflaeche) {
-        this(raumNr, "Raum", ausstellungsflaeche, "divers", new ArrayList<Bild>());
     }
 
     public int getRaumNr() {
