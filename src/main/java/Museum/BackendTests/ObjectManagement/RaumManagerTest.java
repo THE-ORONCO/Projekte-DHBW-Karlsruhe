@@ -18,19 +18,19 @@ import static org.junit.Assert.assertThrows;
 public class RaumManagerTest {
 
     private RaumManager raumManager;
-    private static final int raumNr = 123;
+    private static final String raumNr = "r123";
     private static final String beschreibung = "Toller Raum mit 5 Fenstern";
     private static final double ausstellungsflaeche = 642.9;
     private static final String ausstellungsthema = "Tolle Sachen";
     private static final ArrayList<Bild> bilder =
             new ArrayList<Bild>(Arrays.asList(
-                    new Bild("tolles Exponat", "hier.png", "ein Tolles Exponat das voll toll ist")));
+                    new Bild("b1234", "tolles Exponat", "hier.png", "ein Tolles Exponat das voll toll ist")));
     private static final Raum raum = new Raum( raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder);
 
     @Before
     public void setUp() throws Exception {
-        HashMap<Integer, Raum> raume = new HashMap<Integer, Raum>();
-        raume.put(raum.getRaumNr(), raum);
+        HashMap<String, Raum> raume = new HashMap<String , Raum>();
+        raume.put(raum.getPrimaryKey(), raum);
         raumManager = new RaumManager(raume);
     }
 
@@ -41,7 +41,7 @@ public class RaumManagerTest {
 
     @Test
     public void containsRaumNr() {
-        assert raumManager.contains(raum.getRaumNr());
+        assert raumManager.contains(raum.getPrimaryKey());
     }
 
     @Test

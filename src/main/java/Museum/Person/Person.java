@@ -20,7 +20,7 @@ public class Person extends MuseumsElement {
      * @param kontakt Kontaktdaten unter der die Person zu erreichen ist
      */
     public Person(String personenNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
-        super("p" + personenNr, beschreibung);
+        super(personenNr, beschreibung);
         this.name = name;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         this.gebDatum = sdf.parse(gebDatum);

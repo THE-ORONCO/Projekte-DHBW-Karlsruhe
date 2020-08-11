@@ -5,6 +5,6 @@ public interface ElementManager { // TODO es wäre potenziell besser wenn wir di
     public boolean contains(Object element);
     public boolean persist(Object element);
     public boolean remove(Object element);
-    public Object find(int id);
+    public Object find(String id);
     public boolean edit(Object element);
 }

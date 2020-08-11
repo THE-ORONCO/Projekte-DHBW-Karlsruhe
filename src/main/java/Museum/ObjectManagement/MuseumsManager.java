@@ -45,6 +45,7 @@ public class MuseumsManager {
         this.exponatM = exponatM;
     }
 
+    @Deprecated
     public boolean importieren(String path, ImportableElements type) throws IOException {
         CSVReader reader = new CSVReader(path);
         String[] header = reader.readFirstCommentsFromFile(type.nrOfArguments, CSVReader.DEFAULT_DELIMITER, "#");
@@ -54,7 +55,7 @@ public class MuseumsManager {
             case EXPONAT:
                 // jedes exponat mit hilfe der Daten der CSV-Datei generieren
                 for (String[] exponat : data) {
-                    int inventarNummer = Integer.parseInt(exponat[0]);
+                    String inventarNummer = exponat[0];
                     String name = exponat[1];
                     Date entstehungsdatum = new Date();//TODO rausfinden wie Datumse und co gemacht werden
                     ArrayList<String> urheber = new ArrayList<String>(Arrays.asList(exponat[3].split(",")));
@@ -74,7 +75,7 @@ public class MuseumsManager {
                     BesitzHistorie besitzH = null; //TODO Besitzhistorie iwoher anfordern
                     //bild
                     String[] bildAttribute = exponat[13].split(",");
-                    Bild bild = new Bild(bildAttribute[0], bildAttribute[1], bildAttribute[3]);
+                    Bild bild = new Bild("", bildAttribute[0], bildAttribute[1], bildAttribute[3]);
                     String beschreibung = exponat[14];
 
                     Exponat exponatInstance = new Exponat(inventarNummer, name, entstehungsdatum, urheber,

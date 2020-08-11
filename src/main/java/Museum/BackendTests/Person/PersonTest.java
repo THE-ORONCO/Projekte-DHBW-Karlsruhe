@@ -28,7 +28,7 @@ public class PersonTest {
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
         try {
-            person = new Person("Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
+            person = new Person("p2312","Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -140,7 +140,7 @@ public class PersonTest {
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
         try {
-            person2 = new Person("Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
+            person2 = new Person("p2312","Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
         } catch (ParseException e) {
             e.printStackTrace();
         }

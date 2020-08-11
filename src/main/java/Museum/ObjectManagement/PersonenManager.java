@@ -38,7 +38,7 @@ public class PersonenManager implements ElementManager {
         return false;
     }
 
-    public Object find(int id) {
+    public Object find(String id) {
         return null;
     }
 

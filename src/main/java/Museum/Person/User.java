@@ -17,7 +17,7 @@ public class User extends Mitarbeiter{
     private RaumManager raumM;
 
     public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, ExponatManager exponatM, RaumManager raumM) throws ParseException {
-        super("u" + mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
+        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
         this.exponatM = exponatM;
         this.raumM = raumM;
     }

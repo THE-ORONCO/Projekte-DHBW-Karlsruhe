@@ -18,7 +18,7 @@ public class MitarbeiterTest extends PersonTest {
     private static final String stadt = "Karlsruhe";
     private static final String emailadresse = "theo.roncoletta@posteo.net";
     private static final String teleNr = "+(49)1578 2770476";
-    private static final int mitarbeiterNr = 420;
+    private static final String mitarbeiterNr = "m420";
     private static final String gebDatum = "1999.12.23";
     private static final String beschreibung = "so ein Typ";
 
@@ -39,7 +39,7 @@ public class MitarbeiterTest extends PersonTest {
 
     @Test
     public void getMitarbeiterNr() {
-        assertEquals(mitarbeiter.getMitarbeiterNr(), mitarbeiterNr);
+        assertEquals(mitarbeiter.getPrimaryKey(), mitarbeiterNr);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class MitarbeiterTest extends PersonTest {
 
     @Test
     public void testToString() {
-        String mitarbeiterAlsString = "MitarbeiterNr: 420\n" +
+        String mitarbeiterAlsString = "MitarbeiterNr: m420\n" +
                 "Rolle: Museum.Person.Mitarbeiter\n" +
                 "Name: Théo Roncoletta\n" +
                 "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999\n" +

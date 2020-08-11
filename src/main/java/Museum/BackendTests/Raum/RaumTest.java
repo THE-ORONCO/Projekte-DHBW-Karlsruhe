@@ -13,13 +13,13 @@ import static org.junit.Assert.assertEquals;
 public class RaumTest {
 
     private Raum raum;
-    private static final int raumNr = 42;
+    private static final String raumNr = "r42";
     private static final String beschreibung = "Abstellraum";
     private static final double ausstellungsflaeche = 420.69;
     private static final String ausstellungsthema = "alles was sonst nirgendwo unterkommen kann";
     private static final ArrayList<Bild> bilder =
             new ArrayList<Bild>(Arrays.asList(
-                    new Bild("tolles Exponat", "hier.png", "ein Tolles Exponat das voll toll ist")));
+                    new Bild("b23", "tolles Exponat", "hier.png", "ein Tolles Exponat das voll toll ist")));
 
 
     @Before
@@ -29,14 +29,7 @@ public class RaumTest {
 
     @Test
     public void getRaumNr() {
-        assertEquals(raum.getRaumNr(), raumNr);
-    }
-
-    @Test
-    public void setRaumNr() {
-        int neueRaumNr = 2;
-        raum.setRaumNr(neueRaumNr);
-        assertEquals(raum.getRaumNr(), neueRaumNr);
+        assertEquals(raum.getPrimaryKey(), raumNr);
     }
 
     @Test
@@ -77,7 +70,7 @@ public class RaumTest {
 
     @Test
     public void testToString() {
-        String raumAlsString = "RaumNr: 42\n" +
+        String raumAlsString = "RaumNr: r42\n" +
                 "Ausstellungsfläche : 420.690000\n" +
                 "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann\n" +
                 "Beschreibung: Abstellraum";

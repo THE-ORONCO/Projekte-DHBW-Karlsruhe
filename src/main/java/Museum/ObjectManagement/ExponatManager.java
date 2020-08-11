@@ -26,9 +26,9 @@ public class ExponatManager implements ElementManager{
         return this.exponate.remove(element);
     }
 
-    public Object find(int inventarNr) {
+    public Object find(String inventarNr) {
         for(Exponat exponat : this.exponate){
-            if(exponat.getInventarNummer() == inventarNr){
+            if(exponat.getPrimaryKey() == inventarNr){
                 return exponat;
             }
         }

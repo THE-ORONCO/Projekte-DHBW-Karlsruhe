@@ -9,13 +9,14 @@ import static org.junit.Assert.*;
 public class BildTest { // TODO Bild-Test
 
     private Bild bild;
+    private static final String bildNr = "b2344";
     private static final String altText  = "tolles Bild";
     private static final String dateiName = "bild.png";
     private static final String beschreibung = "voll tolles Bild";
 
     @Before
     public void setUp() throws Exception {
-        bild = new Bild(altText, dateiName, beschreibung);
+        bild = new Bild(bildNr, altText, dateiName, beschreibung);
     }
 
     @Test
@@ -64,7 +65,7 @@ public class BildTest { // TODO Bild-Test
 
     @Test
     public void testEquals() {
-        Bild neuesBild = new Bild(altText, dateiName, beschreibung);
+        Bild neuesBild = new Bild(bildNr, altText, dateiName, beschreibung);
         assertEquals(bild, neuesBild);
     }
 }

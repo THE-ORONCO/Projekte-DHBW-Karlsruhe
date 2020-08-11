@@ -24,7 +24,7 @@ public class Mitarbeiter extends Person {
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
     public Mitarbeiter(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche) throws ParseException {
-        super("m" + mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
+        super(  mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
         this.suche = suche;
     }
 
@@ -40,7 +40,7 @@ public class Mitarbeiter extends Person {
     @Override
     public String toString() {
         String mitarbeiter = "";
-        mitarbeiter += String.format("MitarbeiterNr: %d%n", this.getPrimaryKey());
+        mitarbeiter += String.format("MitarbeiterNr: %s%n", this.getPrimaryKey());
         mitarbeiter += String.format("Rolle: %s%n", this.getClass().getName());
         mitarbeiter += super.toString();
         return mitarbeiter;

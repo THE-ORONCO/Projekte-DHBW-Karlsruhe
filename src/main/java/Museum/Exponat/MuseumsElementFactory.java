@@ -84,13 +84,14 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Bild createBild(String[] csvData) {
-        if (csvData.length != 3) {
+        if (csvData.length != 4) {
             throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 3");
         }
-        String altText = csvData[0];
-        String dateiName = csvData[1];
-        String beschreibung = csvData[2];
-        Bild bild = new Bild(altText, dateiName, beschreibung);
+        String bildNr = csvData[0];
+        String altText = csvData[1];
+        String dateiName = csvData[2];
+        String beschreibung = csvData[3];
+        Bild bild = new Bild(bildNr, altText, dateiName, beschreibung);
         return bild;
     }
 
@@ -98,7 +99,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (csvData.length != 5) {
             throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 5");
         }
-        int raumNr = Integer.parseInt(csvData[0]);
+        String raumNr = csvData[0];
         String beschreibung = csvData[1];
         double ausstellungsflaeche = Integer.parseInt(csvData[2]);
         String ausstellungsthema = csvData[3];
@@ -109,19 +110,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Foerderer createFoerderer(String[] csvData) throws ParseException {
-        if (csvData.length != 4) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
+        if (csvData.length != 5) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
             throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 4");
         }
-        String name = csvData[0];
-        String gebDatum = csvData[1];
-        String beschreibung = csvData[2];
+
+        String foerdererNr = csvData[0];
+        String name = csvData[1];
+        String gebDatum = csvData[2];
+        String beschreibung = csvData[3];
         ArrayList<Kontaktdaten> kontakte = new ArrayList<>();
-        for (String kontakt : csvData[3].split(",")) {
+        for (String kontakt : csvData[4].split(",")) {
             // TODO entweder Kontaktdaten in eigener CSV-Datei oder eigenes Format für die Kontaktdaten in der CSV-Datei
             // TODO vielleicht könnten Listen-Elemente als JSON-Ähnliche Elemente gespeichert werten
         }
 
-        Foerderer foerderer = new Foerderer(name, gebDatum, beschreibung, kontakte);
+        Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontakte);
         return foerderer;
     }
 

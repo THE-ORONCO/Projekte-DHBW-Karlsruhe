@@ -14,12 +14,12 @@ public class Foerderer extends Person {
     private ArrayList<Exponat> gefoerderteExponate;
 
     public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ArrayList<Exponat> gefoerderteExponate) throws ParseException {
-        super("f" + foerderNr, name, gebDatum, beschreibung, kontakt);
+        super(foerderNr, name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
     public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
-        super("f" + foerderNr, name, gebDatum, beschreibung, kontakt);
+        super(foerderNr, name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = new ArrayList<>();
     }
 
@@ -27,9 +27,9 @@ public class Foerderer extends Person {
         return gefoerderteExponate;
     }
 
-    public Exponat getGefoerdertesExponat(int inventarNR) {
+    public Exponat getGefoerdertesExponat(String inventarNR) {
         for (Exponat exponat : this.gefoerderteExponate) {
-            if (exponat.getInventarNummer() == inventarNR) {
+            if (exponat.getPrimaryKey() == inventarNR) {
                 return exponat;
             }
         }

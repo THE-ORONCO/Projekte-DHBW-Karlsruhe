@@ -17,7 +17,7 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
      * @param beschreibung eine kurze Beschreibung des Bildes
      */
     public Bild(String bildNr, String altText, String dateiName, String beschreibung) { //TODO potenziell Methodensignatur ändern
-        super("b" + bildNr, beschreibung);
+        super(bildNr, beschreibung);
         this.altText = altText;
         this.dateiName = dateiName;
     }

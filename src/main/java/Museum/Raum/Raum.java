@@ -25,7 +25,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      * @param bilder              bilder des Raumes
      */
     public Raum(String raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) {
-        super("r"+raumNr, beschreibung);
+        super(raumNr, beschreibung);
         this.ausstellungsflaeche = ausstellungsflaeche;
         this.ausstellungsthema = ausstellungsthema;
         this.bilder = bilder;
@@ -50,7 +50,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
     @Override
     public String toString() {
         String raum = "";
-        raum += String.format("RaumNr: %d%n" +
+        raum += String.format("RaumNr: %s%n" +
                 "Ausstellungsfläche : %f%n" +
                 "Ausstellungsthema: %s%n" +
                 "Beschreibung: %s", this.getPrimaryKey(), this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
