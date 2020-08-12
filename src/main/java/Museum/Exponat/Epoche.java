@@ -1,6 +1,8 @@
 package Museum.Exponat;
 
-public class Epoche {
+import Museum.MuseumsElement;
+
+public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
     //DIFF so ziemlich das ganze Ding, weil das vorher eher unschön war -> Epochen Manager
     //TODO abklären mit Kai wie das jetzt implementiert werden soll
 
@@ -8,7 +10,8 @@ public class Epoche {
     private final String stilrichtung;
     private final String zeitalter;
 
-    public Epoche(String epoche, String stilrichtung, String zeitalter) {
+    public Epoche(String epochenID, String epoche, String stilrichtung, String zeitalter, String beschreibung) {
+        super(epochenID, beschreibung);
         this.epoche = epoche;
         this.stilrichtung = stilrichtung;
         this.zeitalter = zeitalter;

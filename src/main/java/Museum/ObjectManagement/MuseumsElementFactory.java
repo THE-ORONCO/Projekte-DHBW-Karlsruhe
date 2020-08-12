@@ -1,6 +1,8 @@
-package Museum.Exponat;
+package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
+import Museum.Exponat.Epoche;
+import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.Person.*;
 import Museum.Raum.Raum;
@@ -37,6 +39,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             return createUser(csvData);
         } else if (c == HR.class) {
             return createHR(csvData);
+        } else if (c == Epoche.class) {
+            return createEpoche(csvData);
         } else {
             throw new IllegalArgumentException("Unbekannte Klasse!");
         }
@@ -85,7 +89,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     public static Bild createBild(String[] csvData) {
         if (csvData.length != 4) {
-            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 3");
+            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 4");
         }
         String bildNr = csvData[0];
         String altText = csvData[1];
@@ -110,9 +114,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Foerderer createFoerderer(String[] csvData) throws ParseException {
-        if (csvData.length != 5) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
-            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 4");
-        }
+        checkCSVarghLength(csvData, 5);
 
         String foerdererNr = csvData[0];
         String name = csvData[1];
@@ -140,7 +142,78 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return null;
     }
 
-    public static Kontaktdaten createKontaktdaten(String[] csvData) {
-        return null;
+    private static Kontaktdaten createKontaktdaten(String[] csvData) {
+        checkCSVarghLength(csvData, 3);
+
+        // E-Mail-Adressen
+        ArrayList<String> emailAdressen = new ArrayList<>();
+        for (String email : csvData[0].split(",")) {
+            emailAdressen.add(email);
+        }
+        // Telefonnummern
+        ArrayList<String> teleNr = new ArrayList<>();
+        for (String tele : csvData[1].split(",")) {
+            emailAdressen.add(tele);
+        }
+        // Anschriften
+        ArrayList<Anschrift> anschriften = new ArrayList<>();
+        // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
+        // TODO vielleicht eigene Datei mit Attributen
+        for (String anschrift : csvData[2].split("|")) {
+            String[] anschriftAttribute = anschrift.split(",");
+            //Postfachadresse
+            if (anschriftAttribute.length == 4) {
+                int postfachnummer = Integer.getInteger(anschriftAttribute[0]);
+                int plz = Integer.getInteger(anschriftAttribute[1]);
+                String stadt = anschriftAttribute[2];
+                String land = anschriftAttribute[3];
+                anschriften.add(new Postfachadresse(postfachnummer, plz, stadt, land));
+                //Hausanschrift
+            } else if (anschriftAttribute.length == 6) {
+                String name = anschriftAttribute[0];
+                String strasse = anschriftAttribute[1];
+                int hausnummer = Integer.getInteger(anschriftAttribute[2]);
+                int plz = Integer.getInteger(anschriftAttribute[3]);
+                String stadt = anschriftAttribute[4];
+                String land = anschriftAttribute[5];
+                anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt, land));
+                //Firmenanschrift
+            } else if (anschriftAttribute.length == 7) {
+                String fimra = anschriftAttribute[0];
+                String name = anschriftAttribute[1];
+                String strasse = anschriftAttribute[2];
+                int hausnummer = Integer.getInteger(anschriftAttribute[3]);
+                int plz = Integer.getInteger(anschriftAttribute[4]);
+                String stadt = anschriftAttribute[5];
+                String land = anschriftAttribute[6];
+                anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
+            } else {
+                throw new IllegalArgumentException("keine der Anschrifttypen matched die gegebenen Daten");
+            }
+        }
+        Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);
+        return kontakt;
+    }
+
+
+    public static MuseumsElement createEpoche(String[] csvData) {
+        checkCSVarghLength(csvData, Epoche.class.getDeclaredFields().length + 2);
+
+        String epochnenID = csvData[0];
+        String epoche = csvData[1];
+        String stilrichtung = csvData[2];
+        String zeitalter = csvData[3];
+        String beschreibung = csvData[4];
+
+        Epoche e = new Epoche(epochnenID, epoche, stilrichtung, zeitalter, beschreibung);
+        return e;
+    }
+
+    private static boolean checkCSVarghLength(String[] csvData, int expectedLength) {
+        if (csvData.length != expectedLength) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
+            String errorMessage = String.format("falsche Anzahl an Argumenten gegeben: erhalten %d - erwartet %d", csvData.length, expectedLength);
+            throw new IllegalArgumentException(errorMessage);
+        }
+        return true;
     }
 }

@@ -3,12 +3,19 @@ package Museum.Exponat;
 public class Exponatwert {
 
     private final float einkaufsWert;
-    private float aktuellerSchätzwert;
-    private float leihwert; // DIFF leihwert statt leihwerte
+    private float aktuellerSchaetzwert;
+    private float leihwert; // DIFF leihwert statt leihwerte, da mehr als einer vlt nicht sinnvoll ist
 
-    public Exponatwert(float einkaufsWert, float aktuellerSchätzwert, float leihwert) {
+    /**
+     * Diese Klasse representiert den Wert den ein Exponat hat
+     *
+     * @param einkaufsWert         Einkaufswert des Exponats
+     * @param aktuellerSchaetzwert Aktueller schätzwert des Exponats
+     * @param leihwert             Leihwert des Exponats
+     */
+    public Exponatwert(float einkaufsWert, float aktuellerSchaetzwert, float leihwert) {
         this.einkaufsWert = einkaufsWert;
-        this.aktuellerSchätzwert = aktuellerSchätzwert;
+        this.aktuellerSchaetzwert = aktuellerSchaetzwert;
         this.leihwert = leihwert;
     }
 
@@ -16,12 +23,12 @@ public class Exponatwert {
         return einkaufsWert;
     }
 
-    public float getAktuellerSchätzwert() {
-        return aktuellerSchätzwert;
+    public float getAktuellerSchaetzwert() {
+        return aktuellerSchaetzwert;
     }
 
-    public void setAktuellerSchätzwert(float aktuellerSchätzwert) {
-        this.aktuellerSchätzwert = aktuellerSchätzwert;
+    public void setAktuellerSchaetzwert(float aktuellerSchaetzwert) {
+        this.aktuellerSchaetzwert = aktuellerSchaetzwert;
     }
 
     public float getLeihwert() {
@@ -30,5 +37,15 @@ public class Exponatwert {
 
     public void setLeihwert(float leihwert) {
         this.leihwert = leihwert;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Exponatwert)) return false;
+        Exponatwert that = (Exponatwert) o;
+        return Float.compare(that.getEinkaufsWert(), getEinkaufsWert()) == 0 &&
+                Float.compare(that.getAktuellerSchaetzwert(), getAktuellerSchaetzwert()) == 0 &&
+                Float.compare(that.getLeihwert(), getLeihwert()) == 0;
     }
 }

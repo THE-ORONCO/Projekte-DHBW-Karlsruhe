@@ -12,6 +12,11 @@ public class MuseumsElementManager {
 
     private HashMap<String, MuseumsElement> museumsElemente;
 
+    /**
+     * mit diesem Manager lassen sich alle Museums-Elemente verwalten
+     *
+     * @param museumsElemente von diesem Manager verweltete Elemente
+     */
     public MuseumsElementManager(HashMap<String, MuseumsElement> museumsElemente) {
         this.museumsElemente = museumsElemente;
     }

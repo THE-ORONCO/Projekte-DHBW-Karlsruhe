@@ -4,6 +4,7 @@
  */
 package testStuff;
 
+import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.CSVReader;
@@ -60,7 +61,6 @@ public class SWE_FileReadWrite {
         }
 
         System.out.println(Arrays.toString(read.readFirstCommentsFromFile(4, ';', "#")));
-
 
     }
 }

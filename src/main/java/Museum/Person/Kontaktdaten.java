@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
-public class Kontaktdaten {
+public class Kontaktdaten { //TODO vielleicht von MuseumsElement erben lassen
     private ArrayList<String> emailAdressen;
     private ArrayList<String> teleNr;
     private ArrayList<Anschrift> anschriften;
