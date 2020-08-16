@@ -8,15 +8,11 @@ import java.util.ArrayList;
 
 public class ElementSuche {
     private MuseumsManager museumsM;
-    private PersonenManager personenM;
-    private ExponatManager exponatM;
-    private RaumManager raumM;
+
 
     public ElementSuche(MuseumsManager museumsM) {
         this.museumsM = museumsM;
-        this.personenM = museumsM.getPersonenM();
-        this.exponatM = museumsM.getExponatManager();
-        this.raumM = museumsM.getRaumManager();
+
     }
 
 

@@ -1,10 +1,13 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum.Bild;
 
 import Museum.MuseumsElement;
 
 public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
     // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
-    // TODO möglicherweise eine BildId hinzufügen
 
     private String altText;
     private String dateiName;

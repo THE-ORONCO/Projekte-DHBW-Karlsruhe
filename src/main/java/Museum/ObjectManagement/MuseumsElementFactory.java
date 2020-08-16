@@ -1,3 +1,7 @@
+/**
+ * @autor Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
 package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
@@ -123,7 +127,6 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         ArrayList<Kontaktdaten> kontakte = new ArrayList<>();
         for (String kontakt : csvData[4].split(",")) {
             // TODO entweder Kontaktdaten in eigener CSV-Datei oder eigenes Format für die Kontaktdaten in der CSV-Datei
-            // TODO vielleicht könnten Listen-Elemente als JSON-Ähnliche Elemente gespeichert werten
         }
 
         Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontakte);
@@ -153,12 +156,11 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         // Telefonnummern
         ArrayList<String> teleNr = new ArrayList<>();
         for (String tele : csvData[1].split(",")) {
-            emailAdressen.add(tele);
+            teleNr.add(tele);
         }
         // Anschriften
         ArrayList<Anschrift> anschriften = new ArrayList<>();
         // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
-        // TODO vielleicht eigene Datei mit Attributen
         for (String anschrift : csvData[2].split("|")) {
             String[] anschriftAttribute = anschrift.split(",");
             //Postfachadresse

@@ -5,36 +5,35 @@
 package Museum.Person;
 
 import Museum.ObjectManagement.ElementSuche;
-import Museum.ObjectManagement.ExponatManager;
-import Museum.ObjectManagement.RaumManager;
+import Museum.ObjectManagement.MuseumsElementManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
 public class User extends Mitarbeiter{
 
-    private ExponatManager exponatM;
-    private RaumManager raumM;
+    private MuseumsElementManager exponatM;
+    private MuseumsElementManager raumM;
 
-    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, ExponatManager exponatM, RaumManager raumM) throws ParseException {
+    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsElementManager exponatM, MuseumsElementManager raumM) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
         this.exponatM = exponatM;
         this.raumM = raumM;
     }
 
-    public ExponatManager getExponatM() {
+    public MuseumsElementManager getExponatM() {
         return exponatM;
     }
 
-    public void setExponatM(ExponatManager exponatM) {
+    public void setExponatM(MuseumsElementManager exponatM) {
         this.exponatM = exponatM;
     }
 
-    public RaumManager getRaumM() {
+    public MuseumsElementManager getRaumM() {
         return raumM;
     }
 
-    public void setRaumM(RaumManager raumM) {
+    public void setRaumM(MuseumsElementManager raumM) {
         this.raumM = raumM;
     }
 }

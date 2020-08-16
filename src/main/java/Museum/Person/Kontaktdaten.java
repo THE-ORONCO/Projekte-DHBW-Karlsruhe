@@ -17,6 +17,7 @@ public class Kontaktdaten { //TODO vielleicht von MuseumsElement erben lassen
 
     /**
      * erstellt ein Kontaktdaten-Objekt welches Daten über alle Kontaktmöglichkeiten über eine Person enthält
+     *
      * @param emailAdressen Liste alle E-Mail-Adressen unter der eine Person erreichbar ist
      * @param teleNr Alle Telefonnummern unter der eine Person erreichbar ist
      * @param anschriften Alle Anschriften unter der eine Person erreichbar ist

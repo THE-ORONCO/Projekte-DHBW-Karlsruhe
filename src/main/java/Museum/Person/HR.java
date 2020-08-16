@@ -5,14 +5,14 @@
 package Museum.Person;
 
 import Museum.ObjectManagement.ElementSuche;
-import Museum.ObjectManagement.PersonenManager;
+import Museum.ObjectManagement.MuseumsElementManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
 public class HR extends Mitarbeiter{
 
-    private PersonenManager personenM;
+    private MuseumsElementManager personenM;
 
     /**
      * @param name
@@ -23,16 +23,16 @@ public class HR extends Mitarbeiter{
      * @param personenM
      * @throws ParseException
      */
-    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, PersonenManager personenM) throws ParseException {
+    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsElementManager personenM) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
         this.personenM = personenM;
     }
 
-    public PersonenManager getPersonenM() {
+    public MuseumsElementManager getPersonenM() {
         return personenM;
     }
 
-    public void setPersonenM(PersonenManager personenM) {
+    public void setPersonenM(MuseumsElementManager personenM) {
         this.personenM = personenM;
     }
 }

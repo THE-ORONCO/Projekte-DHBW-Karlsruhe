@@ -4,6 +4,7 @@
  */
 package Museum.ObjectManagement;
 
+import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class MuseumsElementManager {
         return this.museumsElemente.containsKey(elementNr);
     }
 
-    public void persit(MuseumsElement element) throws Exception {
+    public void persist(MuseumsElement element) throws Exception {
         if (this.contains(element)) {
             throw new Exception("Museumselement existiert bereits in diesem MuseumsElementManager!");
         }

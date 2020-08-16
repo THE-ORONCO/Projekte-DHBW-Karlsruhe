@@ -2,14 +2,21 @@ package Museum.Exponat;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 
-public abstract class Historie {
-    //DIFF abstract statt interface weil die Methoden alle gleich implementiert sind
-    /* TODO vlt sollte das eher eine abstrakte Klasse sein oder vielleicht alles eine einzelne Klasse anstatt das in 4 aufzuteilen
-     da sonst in jeder Historie die gleichen Methoden nochmals implementiert und die Ereignisse instanziert werden müssen
-     für konkrete Implementierung der Methoden siehe Besitzhistorie.java*/
+public class Historie {
+    //DIFF nur eine Historie, da alle Historien praktisch das gleiche machen
+    // TODO nur noch eine Historien-Klasse
+
     private HashMap<Date, Ereignis> ereignisse;
+
+    /**
+     * Eine Historie ist eine Ansammlung an verschiedensten Ereignissen die sich aus dem Datum und einer Beschreibung zusammensetzen.
+     *
+     *  @param ereignisse sind die Ereignisse die in dieser Historie festgehalten werden
+     */
+    public Historie(HashMap<Date, Ereignis> ereignisse) {
+        this.ereignisse = ereignisse;
+    }
 
     public void addEreignis(Ereignis ereignis){
         this.ereignisse.put(ereignis.getDatum(), ereignis);
@@ -21,9 +28,10 @@ public abstract class Historie {
 
     /**
      * Diese Methode modifiziert ein Ereignis in der jeweiligen Historie
+     *
      * @param datum
      * @param beschreibung
-     * @return es wird ein boolean zurückgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war um es zu bearbeiten.
+     * @return es wird ein boolean zurückgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war und es bearbeitet wurde.
      */
     public boolean modifyEreignis(Date datum, String beschreibung){
         if(this.ereignisse.containsKey(datum)){
