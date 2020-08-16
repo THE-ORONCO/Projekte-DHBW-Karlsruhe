@@ -4,7 +4,6 @@
  */
 package Museum.ObjectManagement;
 
-import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class MuseumsElementManager {
 
     public boolean remove(MuseumsElement element){
         if(this.contains(element)){
-            this.museumsElemente.remove(element);
+            this.museumsElemente.remove(element.getPrimaryKey());
             return true;
         }
         return false;
@@ -60,7 +59,7 @@ public class MuseumsElementManager {
 
     public boolean remove(String elementNr){
         if(this.contains(elementNr)){
-            this.museumsElemente.remove(this.museumsElemente.get(elementNr));
+            this.museumsElemente.remove(elementNr);
             return true;
         }
         return false;

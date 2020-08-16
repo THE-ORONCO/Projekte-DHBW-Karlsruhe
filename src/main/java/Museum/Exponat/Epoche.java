@@ -4,12 +4,20 @@ import Museum.MuseumsElement;
 
 public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
     //DIFF so ziemlich das ganze Ding, weil das vorher eher unschön war -> Epochen Manager
-    //TODO abklären mit Kai wie das jetzt implementiert werden soll
 
     private final String epoche;
     private final String stilrichtung;
     private final String zeitalter;
 
+    /**
+     * Kunstepoche aus der ein Exponat stammen kann.
+     *
+     * @param epochenID eindeutige ID einer Epoche
+     * @param epoche Name der Epoche
+     * @param stilrichtung stilrichtung innerhalb der Epoche
+     * @param zeitalter Zeitalter in der der spezifische Epoche stattfand
+     * @param beschreibung kurze Beschreigung der Epoche
+     */
     public Epoche(String epochenID, String epoche, String stilrichtung, String zeitalter, String beschreibung) {
         super(epochenID, beschreibung);
         this.epoche = epoche;

@@ -25,10 +25,6 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
         this.dateiName = dateiName;
     }
 
-    public Bild(String bildNr, String dateiName) {
-        this(bildNr, dateiName, "", "");
-    }
-
     public String getAltText() {
         return altText;
     }

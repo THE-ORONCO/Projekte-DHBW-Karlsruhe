@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public class Historie {
     //DIFF nur eine Historie, da alle Historien praktisch das gleiche machen
-    // TODO nur noch eine Historien-Klasse
 
     private HashMap<Date, Ereignis> ereignisse;
 

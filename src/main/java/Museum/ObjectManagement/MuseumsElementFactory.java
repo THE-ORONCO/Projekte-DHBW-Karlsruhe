@@ -15,6 +15,7 @@ import de.dhbwka.swe.utils.util.CSVReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
@@ -62,7 +63,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      */
     public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws IOException, ParseException {
         CSVReader reader = new CSVReader(dateiPfad);
-        List<String[]> csvData = reader.readData();
+        //TODO MuseumsElement mit einer getFields
+        List<String[]> csvData = reader.readData(getNumberOfAttributes(c),CSVSeparationLevel.LEVEL1.getSeparator(), '#');
+        System.out.println(Arrays.toString(csvData.get(linie)));
         return createElement(c, csvData.get(linie));
     }
 
@@ -198,8 +201,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
 
-    public static MuseumsElement createEpoche(String[] csvData) {
-        checkCSVarghLength(csvData, Epoche.class.getDeclaredFields().length + 2);
+    public static Epoche createEpoche(String[] csvData) {
+        checkCSVarghLength(csvData, getNumberOfAttributes(Epoche.class));
 
         String epochnenID = csvData[0];
         String epoche = csvData[1];
@@ -217,5 +220,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             throw new IllegalArgumentException(errorMessage);
         }
         return true;
+    }
+
+    /**
+     * diese Methode gibt die Anzahl der Attribute die gegebene Klasse c zusammen mit ihren Überkalssen besitzt
+     *
+     * @param c untersuchte Klasse
+     * @return Anzahl der Attribute der Klasse
+     */
+    private static int getNumberOfAttributes(Class<?> c){
+        int counter = 0;
+        while(c.getSuperclass()!=null){
+            counter += c.getDeclaredFields().length;
+            c = c.getSuperclass();
+        }
+
+        return counter;
     }
 }

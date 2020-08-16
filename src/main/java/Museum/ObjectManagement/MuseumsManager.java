@@ -5,7 +5,6 @@ import Museum.Exponat.*;
 import Museum.Person.Foerderer;
 import de.dhbwka.swe.utils.util.CSVReader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -70,9 +69,9 @@ public class MuseumsManager {
                     Float aktuellerSchaetzwert = Float.valueOf(exponatwertAttribute[1]);
                     Float leihwert = Float.valueOf(exponatwertAttribute[2]);
                     Exponatwert exponatwert = new Exponatwert(einkaufswert, aktuellerSchaetzwert, leihwert);
-                    GeschichtilcheHistorie geschichtilcheH = null; //TODO geschichtliche Historie iwoher anfordern
-                    BearbeitungsHistorie bearbeitungsH = null; //TODO Bearbeitungshistorie iwoher anfordern
-                    BesitzHistorie besitzH = null; //TODO Besitzhistorie iwoher anfordern
+                    Historie geschichtilcheH = null; //TODO geschichtliche Historie iwoher anfordern
+                    Historie bearbeitungsH = null; //TODO Bearbeitungshistorie iwoher anfordern
+                    Historie besitzH = null; //TODO Besitzhistorie iwoher anfordern
                     //bild
                     String[] bildAttribute = exponat[13].split(",");
                     Bild bild = new Bild("", bildAttribute[0], bildAttribute[1], bildAttribute[3]);
