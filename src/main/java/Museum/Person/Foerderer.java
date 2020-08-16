@@ -36,8 +36,8 @@ public class Foerderer extends Person {
         return null;
     }
 
-    public void setGeförderteExponate(ArrayList<Exponat> geförderteExponate) {
-        this.gefoerderteExponate = geförderteExponate;
+    public void setGefoerderteExponate(ArrayList<Exponat> gefoerderteExponate) {
+        this.gefoerderteExponate = gefoerderteExponate;
     }
 
     @Override

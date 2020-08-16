@@ -14,7 +14,7 @@ public class Exponat extends MuseumsElement {
     private final Date erstellungsDatum;
     private Date entstehungsDatum;
     private ArrayList<String> urheber; //könnte auch eine Liste aus Personen sein
-    private double benötigteAusstellungsfläche;
+    private double benoetigteAusstellungsflaeche;
     private ArrayList<String> kategorien;
     private ArrayList<Epoche> epoche;
     private String herkunftsort;
@@ -26,7 +26,7 @@ public class Exponat extends MuseumsElement {
     private Bild bild;
 
     public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
-                   double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
+                   double benoetigteAusstellungsfaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
                    String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert,
                    GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH,
                    Bild bild, String beschreibung) {
@@ -35,7 +35,7 @@ public class Exponat extends MuseumsElement {
         this.erstellungsDatum = new Date(); // aktuelles Datum
         this.entstehungsDatum = entstehungsDatum;
         this.urheber = urheber;
-        this.benötigteAusstellungsfläche = benötigteAusstellungsfläche;
+        this.benoetigteAusstellungsflaeche = benoetigteAusstellungsflaeche;
         this.kategorien = kategorien;
         this.epoche = epoche;
         this.herkunftsort = herkunftsort;
@@ -47,16 +47,16 @@ public class Exponat extends MuseumsElement {
         this.bild = bild;
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, Bild bild) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benötigteAusstellungsfläche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benötigteAusstellungsfläche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, GeschichtilcheHistorie geschichtilcheH, BearbeitungsHistorie bearbeitungsH, BesitzHistorie besitzH, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
     }
 
@@ -88,12 +88,12 @@ public class Exponat extends MuseumsElement {
         this.urheber = urheber;
     }
 
-    public double getBenötigteAusstellungsfläche() {
-        return benötigteAusstellungsfläche;
+    public double getBenoetigteAusstellungsflaeche() {
+        return benoetigteAusstellungsflaeche;
     }
 
-    public void setBenötigteAusstellungsfläche(double benötigteAusstellungsfläche) {
-        this.benötigteAusstellungsfläche = benötigteAusstellungsfläche;
+    public void setBenoetigteAusstellungsflaeche(double benoetigteAusstellungsflaeche) {
+        this.benoetigteAusstellungsflaeche = benoetigteAusstellungsflaeche;
     }
 
     public ArrayList<String> getKategorien() {
@@ -120,11 +120,11 @@ public class Exponat extends MuseumsElement {
         this.herkunftsort = herkunftsort;
     }
 
-    public ArrayList<Foerderer> getFörderer() {
+    public ArrayList<Foerderer> getFoerderer() {
         return foerderer;
     }
 
-    public void setFörderer(ArrayList<Foerderer> foerderer) {
+    public void setFoerderer(ArrayList<Foerderer> foerderer) {
         this.foerderer = foerderer;
     }
 
