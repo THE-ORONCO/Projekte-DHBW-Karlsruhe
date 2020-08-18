@@ -79,4 +79,5 @@ public class MuseumsElementManagerTest {
         assertFalse(meManager.contains(bild));
         assertFalse(meManager.contains(bild.getPrimaryKey()));
     }
+
 }

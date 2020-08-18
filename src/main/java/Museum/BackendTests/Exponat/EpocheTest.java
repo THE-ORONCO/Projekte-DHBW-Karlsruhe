@@ -23,7 +23,7 @@ public class EpocheTest {
 
     @Test
     public void getEpoche() {
-        assertEquals(e1.getEpoche(), epoche);
+        assertEquals(e1.getEpochenName(), epoche);
     }
 
     @Test

@@ -6,7 +6,7 @@ import Museum.Raum.Raum;
 
 import java.util.ArrayList;
 
-public class ElementSuche {
+public class ElementSuche { // TODO vielleicht static machen
     private MuseumsManager museumsM;
 
 

@@ -1,114 +1,178 @@
 package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
-import Museum.Exponat.*;
-import Museum.Person.Foerderer;
-import de.dhbwka.swe.utils.util.CSVReader;
+import Museum.Exponat.Epoche;
+import Museum.Exponat.Exponat;
+import Museum.MuseumsElement;
+import Museum.Person.Person;
+import Museum.Raum.Raum;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+public class MuseumsManager { //TODO das hier könnte komplett static sein, da es nur einen geben darf
+    private static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
+    private static MuseumsElementManager raumM = new MuseumsElementManager();
+    private static MuseumsElementManager exponatM = new MuseumsElementManager();
+    private static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
+    private static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
 
-public class MuseumsManager {
-    private MuseumsElementManager personenM;
-    private MuseumsElementManager raumM;
-    private MuseumsElementManager exponatM;
+    public MuseumsManager(MuseumsElementManager personenM, MuseumsElementManager raumM, MuseumsElementManager exponatM, MuseumsElementManager epochenM, MuseumsElementManager bildM) {
+        MuseumsManager.personenM = personenM;
+        MuseumsManager.raumM = raumM;
+        MuseumsManager.exponatM = exponatM;
+        MuseumsManager.epochenM = epochenM;
+        MuseumsManager.bildM = bildM;
+    }
 
-    public MuseumsManager(MuseumsElementManager personenM, MuseumsElementManager raumM, MuseumsElementManager exponatM) {
-        this.personenM = personenM;
-        this.raumM = raumM;
-        this.exponatM = exponatM;
+    public MuseumsManager() {
+        this(new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager());
     }
 
     public MuseumsElementManager getPersonenM() {
         return personenM;
     }
 
-    public void setPersonenManager(MuseumsElementManager personenM) {
-        this.personenM = personenM;
+    public void setPersonenM(MuseumsElementManager personenM) {
+        MuseumsManager.personenM = personenM;
     }
 
-    public MuseumsElementManager getRaumManager() {
+    public MuseumsElementManager getRaumM() {
         return raumM;
     }
 
-    public void setRaumManager(MuseumsElementManager raumM) {
-        this.raumM = raumM;
+    public void setRaumM(MuseumsElementManager raumM) {
+        MuseumsManager.raumM = raumM;
     }
 
-    public MuseumsElementManager getExponatManager() {
+    public MuseumsElementManager getExponatM() {
         return exponatM;
     }
 
-    public void setExponatManger(MuseumsElementManager exponatM) {
-        this.exponatM = exponatM;
+    public void setExponatM(MuseumsElementManager exponatM) {
+        MuseumsManager.exponatM = exponatM;
+    }
+
+    public MuseumsElementManager getEpochenM() {
+        return epochenM;
+    }
+
+    public void setEpochenM(MuseumsElementManager epochenM) {
+        MuseumsManager.epochenM = epochenM;
+    }
+
+    /**
+     * Diese Methode testet ob ein MuseumsElement mit einem bestimmte Primarykey im Museum vorhanden ist
+     *
+     * @param c          Klasse des MuseumsElements
+     * @param primaryKey Key des gesuchtes Museumselement
+     * @return ob ein Element mit dem Primarykey vorhanden ist
+     */
+    public static boolean contains(Class<?> c, String primaryKey) {
+        if (c == Person.class) {
+            return personenM.contains(primaryKey);
+        } else if (c == Raum.class) {
+            return raumM.contains(primaryKey);
+        } else if (c == Exponat.class) {
+            return exponatM.contains(primaryKey);
+        } else if (c == Epoche.class) {
+            return epochenM.contains(primaryKey);
+        } else if (c == Bild.class) {
+            return bildM.contains(primaryKey);
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+    }
+
+    /**
+     * Diese Methode testet ob ein MuseumsElement im Muesum vorhanden ist
+     *
+     * @param c       Klasse des MuseumsElements
+     * @param element Key des gesuchtes Museumselement
+     * @return ob das Element vorhanden ist
+     */
+    public static boolean contains(Class<?> c, MuseumsElement element) {
+        return contains(c, element.getPrimaryKey());
+    }
+
+    public static void persist(Class<?> c, MuseumsElement element) throws Exception {
+        if (c == Person.class) {
+            personenM.persist(element);
+        } else if (c == Raum.class) {
+            raumM.persist(element);
+        } else if (c == Exponat.class) {
+            exponatM.persist(element);
+        } else if (c == Epoche.class) {
+            epochenM.persist(element);
+        } else if (c == Bild.class) {
+            bildM.persist(element);
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+    }
+
+    public static MuseumsElement find(Class<?> c, String primaryKey) {
+        if (c == Person.class) {
+            return personenM.find(c, primaryKey);
+        } else if (c == Raum.class) {
+            return raumM.find(c, primaryKey);
+        } else if (c == Exponat.class) {
+            return exponatM.find(c, primaryKey);
+        } else if (c == Epoche.class) {
+            return epochenM.find(c, primaryKey);
+        } else if (c == Bild.class) {
+            return bildM.find(c, primaryKey);
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+    }
+
+    public static boolean remove(Class<?> c, String primaryKey) {
+        if (c == Person.class) {
+            return personenM.remove(primaryKey);
+        } else if (c == Raum.class) {
+            return raumM.remove(primaryKey);
+        } else if (c == Exponat.class) {
+            return exponatM.remove(primaryKey);
+        } else if (c == Epoche.class) {
+            return epochenM.remove(primaryKey);
+        } else if (c == Bild.class) {
+            return bildM.remove(primaryKey);
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+    }
+
+    public static boolean remove(Class<?> c, MuseumsElement element) {
+        if (c == Person.class) {
+            return personenM.remove(element);
+        } else if (c == Raum.class) {
+            return raumM.remove(element);
+        } else if (c == Exponat.class) {
+            return exponatM.remove(element);
+        } else if (c == Epoche.class) {
+            return epochenM.remove(element);
+        } else if (c == Bild.class) {
+            return bildM.remove(element);
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
     }
 
     @Deprecated
-    public boolean importieren(String path, ImportableElements type) throws Exception {
-        CSVReader reader = new CSVReader(path);
-        String[] header = reader.readFirstCommentsFromFile(type.nrOfArguments, CSVReader.DEFAULT_DELIMITER, "#");
-        ArrayList<String[]> data = new ArrayList<String[]>(reader.readData(type.nrOfArguments, CSVReader.DEFAULT_DELIMITER, CSVReader.DEFAULT_COMMENT));
-
-        switch (type) {
-            case EXPONAT:
-                // jedes exponat mit hilfe der Daten der CSV-Datei generieren
-                for (String[] exponat : data) {
-                    String inventarNummer = exponat[0];
-                    String name = exponat[1];
-                    Date entstehungsdatum = new Date();//TODO rausfinden wie Datumse und co gemacht werden
-                    ArrayList<String> urheber = new ArrayList<String>(Arrays.asList(exponat[3].split(",")));
-                    double benoetigteAusstellungsflaeche = Double.valueOf(exponat[4]);
-                    ArrayList<String> kategorien = new ArrayList<String>(Arrays.asList(exponat[5].split(",")));
-                    ArrayList<Epoche> epoche = new ArrayList<Epoche>(); //TODO Epochen-Implementierung damit das hier funktioniert
-                    String herkunftsort = exponat[7];
-                    ArrayList<Foerderer> foerderer = null; //TODO foerderer von personenM abgreifen
-                    // exponartwert
-                    String[] exponatwertAttribute = exponat[9].split(",");
-                    Float einkaufswert = Float.valueOf(exponatwertAttribute[0]);
-                    Float aktuellerSchaetzwert = Float.valueOf(exponatwertAttribute[1]);
-                    Float leihwert = Float.valueOf(exponatwertAttribute[2]);
-                    Exponatwert exponatwert = new Exponatwert(einkaufswert, aktuellerSchaetzwert, leihwert);
-                    Historie geschichtilcheH = null; //TODO geschichtliche Historie iwoher anfordern
-                    Historie bearbeitungsH = null; //TODO Bearbeitungshistorie iwoher anfordern
-                    Historie besitzH = null; //TODO Besitzhistorie iwoher anfordern
-                    //bild
-                    String[] bildAttribute = exponat[13].split(",");
-                    Bild bild = new Bild("", bildAttribute[0], bildAttribute[1], bildAttribute[3]);
-                    String beschreibung = exponat[14];
-
-                    Exponat exponatInstance = new Exponat(inventarNummer, name, entstehungsdatum, urheber,
-                            benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert,
-                            geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
-                    this.getExponatManager().persist(exponatInstance);
-                }
-                break;
-            case PERSON:
-                break;
-            case RAUM:
-                break;
-            case BILD:
-                break;
-            default:
-
+    public void importieren(Class<?> c, String dateiPfad) throws Exception {
+        // TODO vielleicht hier exception handling einfügen -> methode gibt false zurück wenn das importieren fehlgeschlagen ist
+        for (MuseumsElement element : MuseumsElementFactory.createElement(c, dateiPfad)) {
+            persist(c, element);
         }
-        for (String item : header) {
-
-        }
-
-        //TODO Spezifikation der Methodensignatur
-        //TODO SWE-Tools benutzen um dat zu importieren
-        return false;
     }
 
-    // TODO vielleicht sollte man die export-Methoden für die einzelnen Elementtypen aufteilen
     // Standartmethode exportiert im CSV-Format
-    public boolean exportieren(String path, ArrayList<Object> exportedElements, boolean ueberschreiben) {
-        return this.exportieren(path, exportedElements, ueberschreiben, "CSV");
-    }
-
-    public boolean exportieren(String path, ArrayList<Object> exportedElements, boolean ueberschreiben, String exportType) {
-        // TODO SWE-Tools benutzen um dat zu exportieren
+    public boolean exportieren(Class<?> c, String path, boolean ueberschreiben) {
+        // TODO export methode
+        MuseumsElementManager relevanterManager;
+        if (c == Person.class) {
+            relevanterManager = personenM;
+        } else if (c == Raum.class) {
+            relevanterManager = raumM;
+        } else if (c == Exponat.class) {
+            relevanterManager = exponatM;
+        } else if (c == Epoche.class) {
+            relevanterManager = epochenM;
+        } else if (c == Bild.class) {
+            relevanterManager = bildM;
+        } else {
+            throw new ValueException("Falsche Klasse angegeben");
+        }
         return false;
     }
+
 }

@@ -73,12 +73,13 @@ public class RaumTest {
         String raumAlsString = "RaumNr: r42\n" +
                 "Ausstellungsfläche : 420.690000\n" +
                 "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann\n" +
-                "Beschreibung: Abstellraum";
+                "Beschreibung: Abstellraum\n" +
+                "Ausgestellte Exponate:\n";
         assertEquals(raum.toString(), raumAlsString);
     }
 
     @Test
-    public void testEquals() {
+    public void testEquals() throws Exception {
         Raum raum2 = new Raum( raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder);
         assert raum.equals(raum2);
     }

@@ -4,14 +4,15 @@ public enum CSVSeparationLevel {
     LEVEL1(';'),
     LEVEL2(','),
     LEVEL3('|'),
-    LEVEL4('~');
+    LEVEL4('_'),
+    LEVEL5('~');
 
     private char separator;
     CSVSeparationLevel(char separator) {
         this.separator = separator;
     }
 
-    public char getSeparator(){
+    public char toChar(){
         return this.separator;
     }
 

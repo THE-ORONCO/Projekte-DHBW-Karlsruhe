@@ -15,8 +15,8 @@ public class User extends Mitarbeiter{
     private MuseumsElementManager exponatM;
     private MuseumsElementManager raumM;
 
-    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsElementManager exponatM, MuseumsElementManager raumM) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
+    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt,  MuseumsElementManager exponatM, MuseumsElementManager raumM) throws ParseException {
+        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
         this.exponatM = exponatM;
         this.raumM = raumM;
     }

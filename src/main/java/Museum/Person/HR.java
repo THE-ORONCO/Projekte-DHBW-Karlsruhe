@@ -19,12 +19,11 @@ public class HR extends Mitarbeiter{
      * @param gebDatum
      * @param beschreibung
      * @param kontakt
-     * @param suche
      * @param personenM
      * @throws ParseException
      */
-    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ElementSuche suche, MuseumsElementManager personenM) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, suche);
+    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, MuseumsElementManager personenM) throws ParseException {
+        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
         this.personenM = personenM;
     }
 

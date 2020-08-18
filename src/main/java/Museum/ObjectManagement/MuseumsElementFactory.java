@@ -15,6 +15,7 @@ import de.dhbwka.swe.utils.util.CSVReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @return das erzeugte Objekt
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String[] csvData) throws ParseException {
+    public static MuseumsElement createElement(Class c, String[] csvData) throws Exception {
         if (c == Exponat.class) {
             return createExponat(csvData);
         } else if (c == Bild.class) {
@@ -61,10 +62,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws IOException, ParseException {
+    public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
-        //TODO MuseumsElement mit einer getFields
-        List<String[]> csvData = reader.readData(getNumberOfAttributes(c),CSVSeparationLevel.LEVEL1.getSeparator(), '#');
+        List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVSeparationLevel.LEVEL1.toChar(), '#');
         System.out.println(Arrays.toString(csvData.get(linie)));
         return createElement(c, csvData.get(linie));
     }
@@ -78,7 +78,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws IOException, ParseException {
+    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData();
 
@@ -94,29 +94,62 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return null;
     }
 
-    public static Bild createBild(String[] csvData) {
-        if (csvData.length != 4) {
-            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 4");
-        }
+    public static Bild createBild(String[] csvData) throws Exception {
+        checkCSVarghLength(csvData, getNumberOfAttributes(Bild.class));
+
         String bildNr = csvData[0];
+
+        // Existiert ein Raum mit der RaumNR bereits im Museum?
+        if (MuseumsManager.contains(Raum.class, bildNr)) {
+            throw new Exception("Bild mit gleicher BildNr exisitert bereits");
+        }
+
         String altText = csvData[1];
         String dateiName = csvData[2];
         String beschreibung = csvData[3];
         Bild bild = new Bild(bildNr, altText, dateiName, beschreibung);
+
+        // Bild in Museum ablegen
+        MuseumsManager.persist(Bild.class, bild);
         return bild;
     }
 
-    public static Raum createRaum(String[] csvData) {
-        if (csvData.length != 5) {
-            throw new IllegalArgumentException("falsche Anzahl an Argumenten gegeben: erhalten " + String.valueOf(csvData.length) + " - erwartet 5");
-        }
+    public static Raum createRaum(String[] csvData) throws Exception {
+        checkCSVarghLength(csvData, getNumberOfAttributes(Raum.class));
+
         String raumNr = csvData[0];
+
+        // Existiert ein Raum mit der RaumNR bereits im Museum?
+        if (MuseumsManager.contains(Raum.class, raumNr)) {
+            throw new Exception("Raum mit gleicher RaumNr exisitert bereits");
+        }
+
         String beschreibung = csvData[1];
         double ausstellungsflaeche = Integer.parseInt(csvData[2]);
         String ausstellungsthema = csvData[3];
+        // Bilder finden
         ArrayList<Bild> bilder = new ArrayList<Bild>(); // TODO methode zum laden der Bilddaten schreiben
+        for (String bildNr : csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
+            if (MuseumsManager.contains(Exponat.class, bildNr)) {
+                bilder.add((Bild) MuseumsManager.find(Bild.class, bildNr));
+            } else {
+                System.out.println("Bild " + bildNr + "ignoriert");
+            }
+        }
+        // Exponate finden
+        ArrayList<Exponat> exponate = new ArrayList<>(); // TODO methode zum laden der Exponate schreiben
+        for (String exponatNr : csvData[5].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
+            if (MuseumsManager.contains(Exponat.class, exponatNr)) {
+                bilder.add((Bild) MuseumsManager.find(Bild.class, exponatNr));
+            }else {
+                System.out.println("Exponat " + exponatNr + "ignoriert");
+            }
+        }
 
-        Raum raum = new Raum(raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder);
+        Raum raum = new Raum(raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder, exponate);
+
+        // Raum in Museum ablegen
+        MuseumsManager.persist(Raum.class, raum);
         return raum;
     }
 
@@ -136,8 +169,32 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return foerderer;
     }
 
-    public static Admin createAdmin(String[] csvData) {
-        return null;
+    public static Admin createAdmin(String[] csvData) throws Exception {
+        checkCSVarghLength(csvData, getNumberOfAttributes(Admin.class));
+
+        String mitarbeiterNr = csvData[0];
+
+        // Existiert ein Raum mit der RaumNR bereits im Museum?
+        if (MuseumsManager.contains(Admin.class, mitarbeiterNr)) {
+            throw new Exception("Bild mit gleicher BildNr exisitert bereits");
+        }
+
+        String name = csvData[1];
+        String gebDatum = csvData[2];
+        String beschreibung = csvData[3];
+
+        //Kontakte laden
+        ArrayList<Kontaktdaten> kontaktdaten = new ArrayList<>();
+        for(String kontakt: csvData[4].split(CSVSeparationLevel.LEVEL2.toString())){
+            Kontaktdaten neuerKontakt = createKontaktdaten(kontakt.split(CSVSeparationLevel.LEVEL3.toString()));
+            kontaktdaten.add(neuerKontakt);
+        }
+
+        Admin admin = new Admin(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten);
+
+        // Bild in Museum ablegen
+        MuseumsManager.persist(Admin.class, admin);
+        return admin;
     }
 
     public static User createUser(String[] csvData) {
@@ -153,19 +210,19 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         // E-Mail-Adressen
         ArrayList<String> emailAdressen = new ArrayList<>();
-        for (String email : csvData[0].split(",")) {
+        for (String email : csvData[0].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
             emailAdressen.add(email);
         }
         // Telefonnummern
         ArrayList<String> teleNr = new ArrayList<>();
-        for (String tele : csvData[1].split(",")) {
+        for (String tele : csvData[1].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
             teleNr.add(tele);
         }
         // Anschriften
         ArrayList<Anschrift> anschriften = new ArrayList<>();
         // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
-        for (String anschrift : csvData[2].split("|")) {
-            String[] anschriftAttribute = anschrift.split(",");
+        for (String anschrift : csvData[2].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
+            String[] anschriftAttribute = anschrift.split(String.valueOf(CSVSeparationLevel.LEVEL5));
             //Postfachadresse
             if (anschriftAttribute.length == 4) {
                 int postfachnummer = Integer.getInteger(anschriftAttribute[0]);
@@ -201,25 +258,33 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
 
-    public static Epoche createEpoche(String[] csvData) {
+    public static Epoche createEpoche(String[] csvData) throws Exception {
         checkCSVarghLength(csvData, getNumberOfAttributes(Epoche.class));
 
         String epochnenID = csvData[0];
-        String epoche = csvData[1];
+
+        // Existiert eine Epoche mit der RaumNR bereits im Museum?
+        if (MuseumsManager.contains(Raum.class, epochnenID)) {
+            throw new Exception("Raum mit gleicher RaumNr exisitert bereits");
+        }
+
+        String epochenName = csvData[1];
         String stilrichtung = csvData[2];
         String zeitalter = csvData[3];
         String beschreibung = csvData[4];
 
-        Epoche e = new Epoche(epochnenID, epoche, stilrichtung, zeitalter, beschreibung);
-        return e;
+        Epoche epoche = new Epoche(epochnenID, epochenName, stilrichtung, zeitalter, beschreibung);
+
+        // Epoche dem Museum hinzufügen
+        MuseumsManager.persist(Epoche.class, epoche);
+        return epoche;
     }
 
-    private static boolean checkCSVarghLength(String[] csvData, int expectedLength) {
-        if (csvData.length != expectedLength) { // TODO klären ob Exponate speichern wer sie fördert oder umgekehrt
+    private static void checkCSVarghLength(String[] csvData, int expectedLength) {
+        if (csvData.length != expectedLength) {
             String errorMessage = String.format("falsche Anzahl an Argumenten gegeben: erhalten %d - erwartet %d", csvData.length, expectedLength);
             throw new IllegalArgumentException(errorMessage);
         }
-        return true;
     }
 
     /**
@@ -228,9 +293,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param c untersuchte Klasse
      * @return Anzahl der Attribute der Klasse
      */
-    private static int getNumberOfAttributes(Class<?> c){
+    private static int getNumberOfAttributes(Class<?> c) {
         int counter = 0;
-        while(c.getSuperclass()!=null){
+        while (c.getSuperclass() != null) {
             counter += c.getDeclaredFields().length;
             c = c.getSuperclass();
         }

@@ -30,4 +30,21 @@ public class Ereignis {
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
+
+    @Override
+    public String toString() {
+        String ereignis = "";
+        ereignis += String.format("%s : %s", datum.toString(), beschreibung);
+        return ereignis;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ereignis)) return false;
+        Ereignis ereignis = (Ereignis) o;
+        return getDatum().equals(ereignis.getDatum()) &&
+                getBeschreibung().equals(ereignis.getBeschreibung());
+    }
+
 }
