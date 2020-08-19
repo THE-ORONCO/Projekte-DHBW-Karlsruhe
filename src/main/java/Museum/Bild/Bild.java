@@ -1,5 +1,5 @@
 /**
- * @autor Théo Roncoletta - TINF18B1
+ * @author Théo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Bild;

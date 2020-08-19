@@ -4,37 +4,27 @@ import Museum.Exponat.Exponat;
 import Museum.Person.Person;
 import Museum.Raum.Raum;
 
-import java.util.ArrayList;
-
 public class ElementSuche { // TODO vielleicht static machen
-    private MuseumsManager museumsM;
 
 
-    public ElementSuche(MuseumsManager museumsM) {
-        this.museumsM = museumsM;
+    /**
+     * Dieses Objekt stellt eine Suche dar mit der auf den MuseumsManager zugegriffen werden kann.
+     * Sie ist hier nicht weiter als mit find-methoden implementiert.
+     */
+    public ElementSuche() {
 
-    }
-
-
-    public MuseumsManager getMuseumsM() {
-        return museumsM;
-    }
-
-    public void setMuseumsM(MuseumsManager museumsM) {
-        this.museumsM = museumsM;
     }
 
     // TODO Aufbau der Methoden der Suche festlegen
-    public ArrayList<Person> suchePerson() {
-        return null; //TODO such-Algorythmus
+    public Person suchePerson(String primaryKey) {
+        return (Person) MuseumsManager.find(Person.class, primaryKey); //TODO such-Algorythmus
     }
 
-
-    public ArrayList<Exponat> sucheExponat() {
-        return null; //TODO such-Algorythmus
+    public Exponat sucheExponat(String primaryKey) {
+        return (Exponat) MuseumsManager.find(Exponat.class, primaryKey); //TODO such-Algorythmus
     }
 
-    public ArrayList<Raum> sucheRaum() {
-        return null; //TODO such-Algorythmus
+    public Raum sucheRaum(String primaryKey) {
+        return (Raum) MuseumsManager.find(Raum.class, primaryKey); //TODO such-Algorythmus
     }
 }
