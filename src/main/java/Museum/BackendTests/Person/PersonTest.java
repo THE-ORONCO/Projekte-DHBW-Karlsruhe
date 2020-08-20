@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PersonTest {
-
+/*
 
     private Person initialize(){
         Person person = null;
@@ -147,5 +147,5 @@ public class PersonTest {
 
         assert person1.equals(person2);
 
-    }
+    }*/
 }

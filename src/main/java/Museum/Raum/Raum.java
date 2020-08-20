@@ -122,4 +122,14 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
                 getBeschreibung().equals(raum.getBeschreibung()) &&
                 getAusstellungsthema().equals(raum.getAusstellungsthema());
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String parsToCSV() {
+        return null;
+    }
 }

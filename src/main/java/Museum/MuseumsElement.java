@@ -4,6 +4,8 @@
  */
 package Museum;
 
+import Museum.ObjectManagement.CSVSeparationLevel;
+
 public abstract class MuseumsElement { //DIFF neue Überklasse für alle Elemente welche das managen einfacher macht
     private String primaryKey; //DIFF identifikation aller Elemente findet nun über die MuseumsElement-Klasse statt
     private String beschreibung;
@@ -32,4 +34,11 @@ public abstract class MuseumsElement { //DIFF neue Überklasse für alle Element
     public String getPrimaryKey(){
         return primaryKey;
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    public abstract String parsToCSV();
 }

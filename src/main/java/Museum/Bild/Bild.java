@@ -9,7 +9,7 @@ import Museum.MuseumsElement;
 public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
     // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
 
-    private String altText;
+    private String altText; // TODO alt-text ist praktisch beschreibung. könnte man egtl weglassen
     private String dateiName;
 
     /**
@@ -56,5 +56,15 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
         Bild bild = (Bild) o;
         return getAltText().equals(bild.getAltText()) &&
                 getDateiName().equals(bild.getDateiName());
+    }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String parsToCSV() {
+        return null;
     }
 }

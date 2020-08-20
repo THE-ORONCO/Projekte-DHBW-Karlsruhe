@@ -51,4 +51,14 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
                 getStilrichtung().equals(epoche1.getStilrichtung()) &&
                 getZeitalter().equals(epoche1.getZeitalter());
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String parsToCSV() {
+        return null;
+    }
 }

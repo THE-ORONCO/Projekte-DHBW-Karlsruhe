@@ -15,7 +15,6 @@ import de.dhbwka.swe.utils.util.CSVReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -128,9 +127,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         double ausstellungsflaeche = Integer.parseInt(csvData[2]);
         String ausstellungsthema = csvData[3];
         // Bilder finden
-        ArrayList<Bild> bilder = new ArrayList<Bild>(); // TODO methode zum laden der Bilddaten schreiben
+        ArrayList<Bild> bilder = new ArrayList<Bild>();
         for (String bildNr : csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
-            if (MuseumsManager.contains(Exponat.class, bildNr)) {
+            if (MuseumsManager.contains(Bild.class, bildNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, bildNr));
             } else {
                 System.out.println("Bild " + bildNr + "ignoriert");
@@ -141,7 +140,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         for (String exponatNr : csvData[5].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
             if (MuseumsManager.contains(Exponat.class, exponatNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, exponatNr));
-            }else {
+            } else {
                 System.out.println("Exponat " + exponatNr + "ignoriert");
             }
         }
@@ -153,19 +152,41 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return raum;
     }
 
-    public static Foerderer createFoerderer(String[] csvData) throws ParseException {
+    public static Foerderer createFoerderer(String[] csvData) throws Exception {
         checkCSVarghLength(csvData, 5);
 
         String foerdererNr = csvData[0];
         String name = csvData[1];
         String gebDatum = csvData[2];
         String beschreibung = csvData[3];
-        ArrayList<Kontaktdaten> kontakte = new ArrayList<>();
-        for (String kontakt : csvData[4].split(",")) {
-            // TODO entweder Kontaktdaten in eigener CSV-Datei oder eigenes Format für die Kontaktdaten in der CSV-Datei
+        // Kontaktdaten
+        ArrayList<Kontaktdaten> kontaktdaten = new ArrayList<>();
+        for (String kontakt : csvData[4].split(CSVSeparationLevel.LEVEL2.toString())) {
+            Kontaktdaten neuerKontakt = createKontaktdaten(kontakt.split(CSVSeparationLevel.LEVEL3.toString()));
+            kontaktdaten.add(neuerKontakt);
         }
 
-        Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontakte);
+        // geförderte Exponate
+        Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontaktdaten);
+        for (String exponatNr : csvData[5].split(CSVSeparationLevel.LEVEL2.toString())) {
+            try {
+                Exponat exponat = (Exponat) MuseumsManager.find(Exponat.class, exponatNr);
+                if(exponat == null){
+                    throw new Exception("Ein Exponat muss angelegt werden bevor es von einem Foerderer gesponsert werden kann.");
+                }
+                foerderer.foerdereWeiteresExponat(exponat);
+            } catch (Exception e) {
+                System.out.println(e.getStackTrace());
+            }
+        }
+
+        if(!csvData[6].equals("")){
+            foerderer.setBilder((Bild) MuseumsManager.find(Bild.class, csvData[6]));
+        }
+
+        // Förderer im Museum ablegen
+        MuseumsManager.persist(Person.class, foerderer);
+
         return foerderer;
     }
 
@@ -185,7 +206,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         //Kontakte laden
         ArrayList<Kontaktdaten> kontaktdaten = new ArrayList<>();
-        for(String kontakt: csvData[4].split(CSVSeparationLevel.LEVEL2.toString())){
+        for (String kontakt : csvData[4].split(CSVSeparationLevel.LEVEL2.toString())) {
             Kontaktdaten neuerKontakt = createKontaktdaten(kontakt.split(CSVSeparationLevel.LEVEL3.toString()));
             kontaktdaten.add(neuerKontakt);
         }

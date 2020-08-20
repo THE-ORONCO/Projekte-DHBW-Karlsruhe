@@ -39,4 +39,14 @@ public class Mitarbeiter extends Person {
         Mitarbeiter that = (Mitarbeiter) o;
         return getPrimaryKey() == that.getPrimaryKey();
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String parsToCSV() {
+        return null;
+    }
 }

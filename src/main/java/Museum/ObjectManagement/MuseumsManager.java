@@ -13,54 +13,31 @@ import Museum.Raum.Raum;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 public class MuseumsManager { //TODO das hier könnte komplett static sein, da es nur einen geben darf
-    private static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
-    private static MuseumsElementManager raumM = new MuseumsElementManager();
-    private static MuseumsElementManager exponatM = new MuseumsElementManager();
-    private static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
-    private static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
+    private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
+    private final static MuseumsElementManager raumM = new MuseumsElementManager();
+    private final static MuseumsElementManager exponatM = new MuseumsElementManager();
+    private final static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
+    private final static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
 
-    public MuseumsManager(MuseumsElementManager personenM, MuseumsElementManager raumM, MuseumsElementManager exponatM, MuseumsElementManager epochenM, MuseumsElementManager bildM) {
-        MuseumsManager.personenM = personenM;
-        MuseumsManager.raumM = raumM;
-        MuseumsManager.exponatM = exponatM;
-        MuseumsManager.epochenM = epochenM;
-        MuseumsManager.bildM = bildM;
-    }
 
-    public MuseumsManager() {
-        this(new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager(), new MuseumsElementManager());
-    }
-
-    public MuseumsElementManager getPersonenM() {
+    public MuseumsElementManager getPersonenManager() {
         return personenM;
     }
 
-    public void setPersonenM(MuseumsElementManager personenM) {
-        MuseumsManager.personenM = personenM;
-    }
-
-    public MuseumsElementManager getRaumM() {
+    public MuseumsElementManager getRaumManager() {
         return raumM;
     }
 
-    public void setRaumM(MuseumsElementManager raumM) {
-        MuseumsManager.raumM = raumM;
-    }
-
-    public MuseumsElementManager getExponatM() {
+    public MuseumsElementManager getExponatManager() {
         return exponatM;
     }
 
-    public void setExponatM(MuseumsElementManager exponatM) {
-        MuseumsManager.exponatM = exponatM;
-    }
-
-    public MuseumsElementManager getEpochenM() {
+    public MuseumsElementManager getEpochenManager() {
         return epochenM;
     }
 
-    public void setEpochenM(MuseumsElementManager epochenM) {
-        MuseumsManager.epochenM = epochenM;
+    public MuseumsElementManager getBildManager() {
+        return bildM;
     }
 
     /**

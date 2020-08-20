@@ -35,7 +35,7 @@ public class Exponat extends MuseumsElement {
         this.erstellungsDatum = new Date(); // aktuelles Datum
         this.entstehungsDatum = entstehungsDatum;
         this.urheber = urheber;
-        this.benoetigteAusstellungsflaeche = benoetigteAusstellungsflaeche;
+        this.benoetigteAusstellungsflaeche = benoetigteAusstellungsfaeche;
         this.kategorien = kategorien;
         this.epoche = epoche;
         this.herkunftsort = herkunftsort;
@@ -166,5 +166,15 @@ public class Exponat extends MuseumsElement {
 
     public void setBild(Bild bild) {
         this.bild = bild;
+    }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String parsToCSV() {
+        return null;
     }
 }
