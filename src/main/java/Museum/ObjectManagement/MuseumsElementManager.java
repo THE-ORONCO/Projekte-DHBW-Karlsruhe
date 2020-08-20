@@ -6,9 +6,10 @@ package Museum.ObjectManagement;
 
 import Museum.MuseumsElement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MuseumsElementManager {
+public class MuseumsElementManager{
 
     private HashMap<String, MuseumsElement> museumsElemente;
 
@@ -102,5 +103,27 @@ public class MuseumsElementManager {
             return true;
         }
         return false;
+    }
+
+    public HashMap<String, MuseumsElement> getMuseumsElemente(){
+        return this.museumsElemente;
+    }
+
+    public ArrayList<String[]> parseToCSV(){
+        ArrayList<String[]> csvStrings = new ArrayList<>();
+        for(MuseumsElement element: this.museumsElemente.values()){
+            csvStrings.add(element.parsToCSV());
+        }
+        return csvStrings;
+    }
+
+    public String[] getCSVHeader() throws Exception {
+        if(this.museumsElemente.size() <= 0){
+            throw new Exception("ElementManger hat noch keine Elemente. Die beschaffenheit der Elemente kann nicht bestimmt werden");
+        }
+
+        // methode mit Reflection-API abfragen
+        Class<?> relevanteKlasse = this.museumsElemente.get(0).getClass();
+        return (String[]) relevanteKlasse.getMethod("getCSVHeader").invoke(null);
     }
 }

@@ -101,5 +101,5 @@ public abstract class Person extends MuseumsElement {
      * @return Objekt im CSV-Format
      */
     @Override
-    public abstract String parsToCSV();
+    public abstract String[] parsToCSV();
 }

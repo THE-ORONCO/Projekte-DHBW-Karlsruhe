@@ -36,7 +36,9 @@ public class MuseumsElementFactoryTest {
     @Before
     public void setUp() throws Exception {
         epoche = new Epoche("e15", "Begin der Moderne / 19. Jahrhundert", "Romantik", "ca. 1790 - 1840", "");
+        MuseumsManager.persist(Epoche.class, epoche);
         bild = new Bild("b23", "tolles Bild", "bild.png", "tolles Bild");
+        MuseumsManager.persist(Bild.class, bild);
     }
 
     @After
@@ -71,7 +73,7 @@ public class MuseumsElementFactoryTest {
 
     @Test
     public void createBild() throws Exception {
-        String[] CSVdata = new String[]{"b23", "tolles Bild", "bild.png", "tolles Bild"};
+        String[] CSVdata = new String[]{"b24", "tolles Bild", "bild.png", "tolles Bild"};
         Bild erstelltesBild = MuseumsElementFactory.createBild(CSVdata);
         assertEquals(bild, erstelltesBild);
         try {
@@ -105,7 +107,7 @@ public class MuseumsElementFactoryTest {
     @Test
     public void createEpoche() throws Exception {
 
-        String[] CSVdata = new String[]{"e15", "Begin der Moderne / 19. Jahrhundert", "Romantik", "ca. 1790 - 1840", ""};
+        String[] CSVdata = new String[]{"e13", "Begin der Moderne / 19. Jahrhundert", "Romantik", "ca. 1790 - 1840", ""};
         Epoche erstellteEpoche = MuseumsElementFactory.createEpoche(CSVdata);
         assertEquals(erstellteEpoche, epoche);
         try {

@@ -40,5 +40,9 @@ public abstract class MuseumsElement { //DIFF neue Überklasse für alle Element
      *
      * @return Objekt im CSV-Format
      */
-    public abstract String parsToCSV();
+    public abstract String[] parsToCSV();
+
+    public static String[] getCSVHeader() { //TODO in jeder Untermethode implementieren
+        return new String[0];
+    }
 }

@@ -58,7 +58,7 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
      * @return Objekt im CSV-Format
      */
     @Override
-    public String parsToCSV() {
+    public String[] parsToCSV() {
         return null;
     }
 }

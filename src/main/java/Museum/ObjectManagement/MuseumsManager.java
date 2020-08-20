@@ -10,15 +10,18 @@ import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.Person.Person;
 import Museum.Raum.Raum;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import de.dhbwka.swe.utils.util.CSVWriter;
 
-public class MuseumsManager { //TODO das hier könnte komplett static sein, da es nur einen geben darf
+import java.util.ArrayList;
+
+public class MuseumsManager {
     private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
     private final static MuseumsElementManager raumM = new MuseumsElementManager();
     private final static MuseumsElementManager exponatM = new MuseumsElementManager();
     private final static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
     private final static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
 
+    //TODO standartwerte in den Museumsmanager laden (default-bild, Lagerraum und co)
 
     public MuseumsElementManager getPersonenManager() {
         return personenM;
@@ -48,17 +51,8 @@ public class MuseumsManager { //TODO das hier könnte komplett static sein, da e
      * @return ob ein Element mit dem Primarykey vorhanden ist
      */
     public static boolean contains(Class<?> c, String primaryKey) {
-        if (c == Person.class) {
-            return personenM.contains(primaryKey);
-        } else if (c == Raum.class) {
-            return raumM.contains(primaryKey);
-        } else if (c == Exponat.class) {
-            return exponatM.contains(primaryKey);
-        } else if (c == Epoche.class) {
-            return epochenM.contains(primaryKey);
-        } else if (c == Bild.class) {
-            return bildM.contains(primaryKey);
-        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        return relevanterManager.contains(primaryKey);
     }
 
     /**
@@ -73,63 +67,27 @@ public class MuseumsManager { //TODO das hier könnte komplett static sein, da e
     }
 
     public static void persist(Class<?> c, MuseumsElement element) throws Exception {
-        if (c == Person.class) {
-            personenM.persist(element);
-        } else if (c == Raum.class) {
-            raumM.persist(element);
-        } else if (c == Exponat.class) {
-            exponatM.persist(element);
-        } else if (c == Epoche.class) {
-            epochenM.persist(element);
-        } else if (c == Bild.class) {
-            bildM.persist(element);
-        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        relevanterManager.persist(element);
     }
 
     public static MuseumsElement find(Class<?> c, String primaryKey) {
-        if (c == Person.class) {
-            return personenM.find(c, primaryKey);
-        } else if (c == Raum.class) {
-            return raumM.find(c, primaryKey);
-        } else if (c == Exponat.class) {
-            return exponatM.find(c, primaryKey);
-        } else if (c == Epoche.class) {
-            return epochenM.find(c, primaryKey);
-        } else if (c == Bild.class) {
-            return bildM.find(c, primaryKey);
-        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        return relevanterManager.find(c, primaryKey);
     }
 
     public static boolean remove(Class<?> c, String primaryKey) {
-        if (c == Person.class) {
-            return personenM.remove(primaryKey);
-        } else if (c == Raum.class) {
-            return raumM.remove(primaryKey);
-        } else if (c == Exponat.class) {
-            return exponatM.remove(primaryKey);
-        } else if (c == Epoche.class) {
-            return epochenM.remove(primaryKey);
-        } else if (c == Bild.class) {
-            return bildM.remove(primaryKey);
-        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        return relevanterManager.remove(primaryKey);
     }
 
     public static boolean remove(Class<?> c, MuseumsElement element) {
-        if (c == Person.class) {
-            return personenM.remove(element);
-        } else if (c == Raum.class) {
-            return raumM.remove(element);
-        } else if (c == Exponat.class) {
-            return exponatM.remove(element);
-        } else if (c == Epoche.class) {
-            return epochenM.remove(element);
-        } else if (c == Bild.class) {
-            return bildM.remove(element);
-        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        return relevanterManager.remove(element);
     }
 
     @Deprecated
-    public void importieren(Class<?> c, String dateiPfad) throws Exception {
+    public static void importieren(Class<?> c, String dateiPfad) throws Exception {
         // TODO vielleicht hier exception handling einfügen -> methode gibt false zurück wenn das importieren fehlgeschlagen ist
         for (MuseumsElement element : MuseumsElementFactory.createElement(c, dateiPfad)) {
             persist(c, element);
@@ -137,23 +95,31 @@ public class MuseumsManager { //TODO das hier könnte komplett static sein, da e
     }
 
     // Standartmethode exportiert im CSV-Format
-    public boolean exportieren(Class<?> c, String path, boolean ueberschreiben) {
+    public static boolean exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
         // TODO export methode
-        MuseumsElementManager relevanterManager;
-        if (c == Person.class) {
-            relevanterManager = personenM;
-        } else if (c == Raum.class) {
-            relevanterManager = raumM;
-        } else if (c == Exponat.class) {
-            relevanterManager = exponatM;
-        } else if (c == Epoche.class) {
-            relevanterManager = epochenM;
-        } else if (c == Bild.class) {
-            relevanterManager = bildM;
-        } else {
-            throw new ValueException("Falsche Klasse angegeben");
-        }
+        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+
+        ArrayList<String[]> csvData = relevanterManager.parseToCSV();
+
+        CSVWriter writer = new CSVWriter(path, true);
+        writer.writeDataToFile(csvData, relevanterManager.getCSVHeader());
+
+
         return false;
+    }
+
+    private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {
+        if (c == Person.class) {
+            return personenM;
+        } else if (c == Raum.class) {
+            return raumM;
+        } else if (c == Exponat.class) {
+            return exponatM;
+        } else if (c == Epoche.class) {
+            return epochenM;
+        } else if (c == Bild.class) {
+            return bildM;
+        } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
     }
 
 }

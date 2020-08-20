@@ -129,7 +129,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      * @return Objekt im CSV-Format
      */
     @Override
-    public String parsToCSV() {
+    public String[] parsToCSV() {
         return null;
     }
 }

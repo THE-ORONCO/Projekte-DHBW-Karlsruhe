@@ -46,7 +46,7 @@ public class Mitarbeiter extends Person {
      * @return Objekt im CSV-Format
      */
     @Override
-    public String parsToCSV() {
+    public String[] parsToCSV() {
         return null;
     }
 }

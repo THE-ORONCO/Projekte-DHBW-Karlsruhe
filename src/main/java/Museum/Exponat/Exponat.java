@@ -174,7 +174,7 @@ public class Exponat extends MuseumsElement {
      * @return Objekt im CSV-Format
      */
     @Override
-    public String parsToCSV() {
+    public String[] parsToCSV() {
         return null;
     }
 }
