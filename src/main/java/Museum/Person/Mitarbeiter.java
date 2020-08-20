@@ -4,6 +4,9 @@
  */
 package Museum.Person;
 
+import Museum.Bild.Bild;
+import Museum.ObjectManagement.CSVSeparationLevel;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -16,10 +19,11 @@ public class Mitarbeiter extends Person {
      * @param gebDatum     Geburtsdatum der Person
      * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
      * @param kontakt      Kontaktdaten unter der die Person zu erreichen is
+     * @param bild         Bild des Mitarbeiters
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
-    public Mitarbeiter(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
+    public Mitarbeiter(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
+        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
     }
 
     @Override
@@ -47,6 +51,14 @@ public class Mitarbeiter extends Person {
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                this.getName(),
+                this.getGebDatum().toString(),
+                this.getBeschreibung(),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsKontakteToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV()),
+        };
+        return csvData;
     }
 }

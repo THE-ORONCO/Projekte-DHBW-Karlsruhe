@@ -32,7 +32,7 @@ public class MitarbeiterTest extends PersonTest {
         anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt));
         Kontaktdaten heim = new Kontaktdaten(emailadresse, teleNr, anschriften);
         kontakt.add(heim);
-        mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
+        mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, null);
         // TODO suche realisieren, damit sie hier getestet werden kann
 
     }

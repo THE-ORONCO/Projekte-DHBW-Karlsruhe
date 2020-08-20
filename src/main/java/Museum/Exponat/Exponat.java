@@ -2,6 +2,7 @@ package Museum.Exponat;
 
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
+import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.Person.Foerderer;
 
 import java.util.ArrayList;
@@ -16,21 +17,38 @@ public class Exponat extends MuseumsElement {
     private ArrayList<String> urheber; //könnte auch eine Liste aus Personen sein
     private double benoetigteAusstellungsflaeche;
     private ArrayList<String> kategorien;
-    private ArrayList<Epoche> epoche;
+    private Epoche epoche;
     private String herkunftsort;
-    private ArrayList<Foerderer> foerderer;
     private Exponatwert exponatwert;
     private Historie geschichtilcheH;
     private Historie bearbeitungsH;
     private Historie besitzH;
     private Bild bild;
 
+    /**
+     * Dieses Objekt repräsentiert ein Exponat im Museum
+     *
+     * @param inventarNummer
+     * @param name
+     * @param entstehungsDatum
+     * @param urheber
+     * @param benoetigteAusstellungsfaeche
+     * @param kategorien
+     * @param epoche
+     * @param herkunftsort
+     * @param exponatwert
+     * @param geschichtilcheH
+     * @param bearbeitungsH
+     * @param besitzH
+     * @param bild
+     * @param beschreibung
+     */
     public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
-                   double benoetigteAusstellungsfaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche,
-                   String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert,
+                   double benoetigteAusstellungsfaeche, ArrayList<String> kategorien, Epoche epoche,
+                   String herkunftsort, Exponatwert exponatwert,
                    Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH,
                    Bild bild, String beschreibung) {
-        super("e"+inventarNummer, beschreibung);
+        super("e" + inventarNummer, beschreibung);
         this.name = name;
         this.erstellungsDatum = new Date(); // aktuelles Datum
         this.entstehungsDatum = entstehungsDatum;
@@ -39,7 +57,6 @@ public class Exponat extends MuseumsElement {
         this.kategorien = kategorien;
         this.epoche = epoche;
         this.herkunftsort = herkunftsort;
-        this.foerderer = foerderer;
         this.exponatwert = exponatwert;
         this.geschichtilcheH = geschichtilcheH;
         this.bearbeitungsH = bearbeitungsH;
@@ -47,16 +64,16 @@ public class Exponat extends MuseumsElement {
         this.bild = bild;
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort,  Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, ArrayList<Epoche> epoche, String herkunftsort, ArrayList<Foerderer> foerderer, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, foerderer, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort,  Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
+        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
     }
 
@@ -104,11 +121,11 @@ public class Exponat extends MuseumsElement {
         this.kategorien = kategorien;
     }
 
-    public ArrayList<Epoche> getEpoche() {
+    public Epoche getEpoche() {
         return epoche;
     }
 
-    public void setEpoche(ArrayList<Epoche> epoche) {
+    public void setEpoche(Epoche epoche) {
         this.epoche = epoche;
     }
 
@@ -118,14 +135,6 @@ public class Exponat extends MuseumsElement {
 
     public void setHerkunftsort(String herkunftsort) {
         this.herkunftsort = herkunftsort;
-    }
-
-    public ArrayList<Foerderer> getFoerderer() {
-        return foerderer;
-    }
-
-    public void setFoerderer(ArrayList<Foerderer> foerderer) {
-        this.foerderer = foerderer;
     }
 
     public Exponatwert getExponatwert() {
@@ -175,6 +184,23 @@ public class Exponat extends MuseumsElement {
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                this.getName(),
+                this.getEntstehungsDatum().toString(),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getUrheber()),// Urheber sind eine Liste
+                String.valueOf(this.getBenoetigteAusstellungsflaeche()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getKategorien()), //Kategorien ist eine Liste
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getEpoche().parsToCSV()),// Epochen haben mehere Attribute
+                this.getHerkunftsort(),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getExponatwert().parsToCSV()), // Exponatwerte haben mehere Attribute
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getGeschichtilcheH().parseToCSV()), // Historien sind listen
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBearbeitungsH().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBesitzH().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV()),// Bilder haben mehere Attribute
+                this.getBeschreibung()
+        };
+        return csvData;
     }
 }

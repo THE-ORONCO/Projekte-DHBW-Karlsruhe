@@ -139,5 +139,8 @@ public class Kontaktdaten {
                 anschriften.equals(that.anschriften);
     }
 
+    public String[] parseToCSV() {
+        return null;
+    }
 }
 

@@ -65,6 +65,12 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                this.getAltText(),
+                this.getDateiName(),
+                this.getBeschreibung()
+        };
+        return csvData;
     }
 }

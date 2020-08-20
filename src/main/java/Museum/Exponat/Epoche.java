@@ -12,10 +12,10 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
     /**
      * Kunstepoche aus der ein Exponat stammen kann.
      *
-     * @param epochenID eindeutige ID einer Epoche
-     * @param epochenName Name der Epoche
+     * @param epochenID    eindeutige ID einer Epoche
+     * @param epochenName  Name der Epoche
      * @param stilrichtung stilrichtung innerhalb der Epoche
-     * @param zeitalter Zeitalter in der der spezifische Epoche stattfand
+     * @param zeitalter    Zeitalter in der der spezifische Epoche stattfand
      * @param beschreibung kurze Beschreigung der Epoche
      */
     public Epoche(String epochenID, String epochenName, String stilrichtung, String zeitalter, String beschreibung) {
@@ -59,6 +59,13 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                this.getEpochenName(),
+                this.getStilrichtung(),
+                this.getZeitalter(),
+                this.getBeschreibung()
+        };
+        return csvData;
     }
 }

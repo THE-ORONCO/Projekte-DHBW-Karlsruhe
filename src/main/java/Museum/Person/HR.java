@@ -4,6 +4,7 @@
  */
 package Museum.Person;
 
+import Museum.Bild.Bild;
 import Museum.ObjectManagement.ElementSuche;
 import Museum.ObjectManagement.MuseumsElementManager;
 
@@ -22,8 +23,8 @@ public class HR extends Mitarbeiter{
      * @param personenM
      * @throws ParseException
      */
-    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, MuseumsElementManager personenM) throws ParseException {
-        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt);
+    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, MuseumsElementManager personenM, Bild bild) throws ParseException {
+        super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
         this.personenM = personenM;
     }
 

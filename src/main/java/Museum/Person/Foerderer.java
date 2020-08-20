@@ -6,6 +6,7 @@ package Museum.Person;
 
 import Museum.Bild.Bild;
 import Museum.Exponat.Exponat;
+import Museum.ObjectManagement.CSVSeparationLevel;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -88,7 +89,24 @@ public class Foerderer extends Person {
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                this.getName(),
+                this.getGebDatum().toString(),
+                this.getBeschreibung(),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsKontakteToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsExponateToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV())
+        };
+        return csvData;
+    }
+
+    private String[] parsExponateToCSV(){
+        ArrayList<String > exponatCSVData = new ArrayList<>();
+        for(Exponat exponat: this.gefoerderteExponate){
+            exponatCSVData.add(exponat.getPrimaryKey());
+        }
+        return exponatCSVData.toArray(new String[exponatCSVData.size()]);
     }
 
 }

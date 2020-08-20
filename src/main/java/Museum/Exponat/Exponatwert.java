@@ -48,4 +48,13 @@ public class Exponatwert {
                 Float.compare(that.getAktuellerSchaetzwert(), getAktuellerSchaetzwert()) == 0 &&
                 Float.compare(that.getLeihwert(), getLeihwert()) == 0;
     }
+
+    public String[] parsToCSV() {
+        String[] csvData = new String[]{
+                String.valueOf(this.getEinkaufsWert()),
+                String.valueOf(this.getAktuellerSchaetzwert()),
+                String.valueOf(this.getLeihwert())
+        };
+        return csvData;
+    }
 }

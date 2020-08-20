@@ -181,7 +181,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
 
         if(!csvData[6].equals("")){
-            foerderer.setBilder((Bild) MuseumsManager.find(Bild.class, csvData[6]));
+            foerderer.setBild((Bild) MuseumsManager.find(Bild.class, csvData[6]));
         }
 
         // Förderer im Museum ablegen
@@ -211,7 +211,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             kontaktdaten.add(neuerKontakt);
         }
 
-        Admin admin = new Admin(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten);
+        Bild bild = createBild(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()));
+
+        Admin admin = new Admin(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten, bild);
 
         // Bild in Museum ablegen
         MuseumsManager.persist(Admin.class, admin);

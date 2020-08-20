@@ -7,6 +7,7 @@ package Museum.Raum;
 import Museum.Bild.Bild;
 import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
+import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.ObjectManagement.MuseumsManager;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
                 && !this.ausgestellteExponate.contains(exponat)) {
 
             // wenn das Exponat noch nicht existiert wird es dem MuseumsManager hinzugefügt
-            if(!MuseumsManager.contains(Exponat.class, exponat)){
+            if (!MuseumsManager.contains(Exponat.class, exponat)) {
                 MuseumsManager.persist(Exponat.class, exponat);
             }
 
@@ -130,6 +131,23 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      */
     @Override
     public String[] parsToCSV() {
-        return null;
+        ArrayList<String> bildNrn = new ArrayList<>();
+        for (Bild bild : bilder) {
+            bildNrn.add(bild.getPrimaryKey());
+        }
+        ArrayList<String> exponatNrn = new ArrayList<>();
+        for (Exponat exponat : ausgestellteExponate) {
+            exponatNrn.add(exponat.getPrimaryKey());
+        }
+
+
+        String[] csvData = new String[]{
+                this.getPrimaryKey(),
+                String.valueOf(this.getAusstellungsflaeche()),
+                this.getAusstellungsthema(),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), bildNrn),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), exponatNrn),
+        };
+        return csvData;
     }
 }

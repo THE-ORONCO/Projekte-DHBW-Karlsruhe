@@ -2,6 +2,7 @@ package Museum.Person;
 
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
+import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
@@ -13,7 +14,7 @@ public abstract class Person extends MuseumsElement {
     private String name;
     private Date gebDatum;
     private ArrayList<Kontaktdaten> kontakt;
-    private Bild bilder;
+    private Bild bild;
 
     /**
      * erstelle eine Person mit den gegebenen Daten
@@ -22,15 +23,15 @@ public abstract class Person extends MuseumsElement {
      * @param gebDatum     Geburtsdatum der Person
      * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
      * @param kontakt      Kontaktdaten unter der die Person zu erreichen ist
-     * @param bilder       Bilder von dieser Person
+     * @param bild       Bilder von dieser Person
      */
-    public Person(String personenNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bilder) throws ParseException {
+    public Person(String personenNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
         super(personenNr, beschreibung);
         this.name = name;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         this.gebDatum = sdf.parse(gebDatum);
         this.kontakt = kontakt;
-        this.bilder = bilder;
+        this.bild = bild;
     }
 
     public Person(String personenNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
@@ -61,12 +62,12 @@ public abstract class Person extends MuseumsElement {
         this.kontakt = kontakt;
     }
 
-    public Bild getBilder() {
-        return bilder;
+    public Bild getBild() {
+        return bild;
     }
 
-    public void setBilder(Bild bilder) {
-        this.bilder = bilder;
+    public void setBild(Bild bild) {
+        this.bild = bild;
     }
 
     @Override
@@ -102,4 +103,12 @@ public abstract class Person extends MuseumsElement {
      */
     @Override
     public abstract String[] parsToCSV();
+
+    protected String[] parsKontakteToCSV(){
+        ArrayList<String> csvKontaktDaten = new ArrayList<>();
+        for(Kontaktdaten kontakt : this.kontakt){
+            csvKontaktDaten.add(String.join(CSVSeparationLevel.LEVEL3.toString(), kontakt.parseToCSV()));
+        }
+        return csvKontaktDaten.toArray(new String[csvKontaktDaten.size()]);
+    }
 }
