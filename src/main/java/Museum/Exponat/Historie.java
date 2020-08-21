@@ -4,6 +4,8 @@
  */
 package Museum.Exponat;
 
+import Museum.ObjectManagement.CSVSeparationLevel;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,8 +90,8 @@ public class Historie {
 
     public String[] parseToCSV() {
         ArrayList<String> csvData = new ArrayList<>();
-        for(Ereignis ereignis: this.ereignisse.values()){
-            csvData.add(String.format("%s : %s", ereignis.getDatum().toString(), ereignis.toString()));
+        for (Ereignis ereignis : this.ereignisse.values()) {
+            csvData.add(String.join(CSVSeparationLevel.LEVEL3.toString(), ereignis.parsToCSV()));
         }
         return csvData.toArray(new String[csvData.size()]);
     }

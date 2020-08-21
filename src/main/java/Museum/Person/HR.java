@@ -7,6 +7,7 @@ package Museum.Person;
 import Museum.Bild.Bild;
 import Museum.ObjectManagement.ElementSuche;
 import Museum.ObjectManagement.MuseumsElementManager;
+import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,12 +21,11 @@ public class HR extends Mitarbeiter{
      * @param gebDatum
      * @param beschreibung
      * @param kontakt
-     * @param personenM
      * @throws ParseException
      */
-    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, MuseumsElementManager personenM, Bild bild) throws ParseException {
+    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.personenM = personenM;
+        this.personenM = MuseumsManager.getPersonenManager();
     }
 
     public MuseumsElementManager getPersonenM() {

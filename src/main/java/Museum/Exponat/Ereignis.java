@@ -47,4 +47,11 @@ public class Ereignis {
                 getBeschreibung().equals(ereignis.getBeschreibung());
     }
 
+    public String[] parsToCSV(){
+        String[] csvData = new String[]{
+                String.valueOf(this.datum), this.beschreibung
+        };
+        return csvData;
+    }
+
 }

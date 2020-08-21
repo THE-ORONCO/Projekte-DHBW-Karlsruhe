@@ -5,8 +5,8 @@
 package Museum.Person;
 
 import Museum.Bild.Bild;
-import Museum.ObjectManagement.ElementSuche;
 import Museum.ObjectManagement.MuseumsElementManager;
+import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ public class User extends Mitarbeiter{
     private MuseumsElementManager exponatM;
     private MuseumsElementManager raumM;
 
-    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, MuseumsElementManager exponatM, MuseumsElementManager raumM, Bild bild) throws ParseException {
+    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.exponatM = exponatM;
-        this.raumM = raumM;
+        this.exponatM = MuseumsManager.getExponatManager();
+        this.raumM = MuseumsManager.getRaumManager();
     }
 
     public MuseumsElementManager getExponatM() {

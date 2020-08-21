@@ -23,23 +23,23 @@ public class MuseumsManager {
 
     //TODO standartwerte in den Museumsmanager laden (default-bild, Lagerraum und co)
 
-    public MuseumsElementManager getPersonenManager() {
+    public static MuseumsElementManager getPersonenManager() {
         return personenM;
     }
 
-    public MuseumsElementManager getRaumManager() {
+    public static MuseumsElementManager getRaumManager() {
         return raumM;
     }
 
-    public MuseumsElementManager getExponatManager() {
+    public static MuseumsElementManager getExponatManager() {
         return exponatM;
     }
 
-    public MuseumsElementManager getEpochenManager() {
+    public static MuseumsElementManager getEpochenManager() {
         return epochenM;
     }
 
-    public MuseumsElementManager getBildManager() {
+    public static MuseumsElementManager getBildManager() {
         return bildM;
     }
 
