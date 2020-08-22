@@ -1,9 +1,14 @@
 package Museum.BackendTests.Person;
 
-import Museum.Person.*;
+import Museum.Bild.Bild;
+import Museum.Person.Anschrift;
+import Museum.Person.Hausanschrift;
+import Museum.Person.Kontaktdaten;
+import Museum.Person.Mitarbeiter;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +38,6 @@ public class MitarbeiterTest extends PersonTest {
         Kontaktdaten heim = new Kontaktdaten(emailadresse, teleNr, anschriften);
         kontakt.add(heim);
         mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, null);
-        // TODO suche realisieren, damit sie hier getestet werden kann
 
     }
 
@@ -42,15 +46,6 @@ public class MitarbeiterTest extends PersonTest {
         assertEquals(mitarbeiter.getPrimaryKey(), mitarbeiterNr);
     }
 
-    @Test
-    public void getSuche() {
-        //TODO
-    }
-
-    @Test
-    public void setSuche() {
-        //TODO
-    }
 
     @Test
     public void testToString() {
@@ -70,6 +65,14 @@ public class MitarbeiterTest extends PersonTest {
     }
 
     @Test
-    public void testEquals() {
+    public void testEquals() throws ParseException {
+        ArrayList<Kontaktdaten> neuerKontakt = new ArrayList<>();
+        ArrayList<Anschrift> neueAnschriften = new ArrayList<>();
+        neueAnschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt));
+        neuerKontakt.add(new Kontaktdaten(emailadresse, teleNr, neueAnschriften));
+        Bild neuesBild = null;
+        Mitarbeiter neuerMitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, neuerKontakt, neuesBild);
+
+        assertEquals(mitarbeiter, neuerMitarbeiter);
     }
 }

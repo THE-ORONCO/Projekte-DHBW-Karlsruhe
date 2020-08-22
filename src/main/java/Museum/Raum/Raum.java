@@ -9,7 +9,9 @@ import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.ObjectManagement.MuseumsManager;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
+import java.security.KeyException;
 import java.util.ArrayList;
 
 public class Raum extends MuseumsElement { //DIFF neue Überklasse
@@ -87,16 +89,16 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         for (Exponat e : this.ausgestellteExponate) {
             verbrauchteAusstellungsflaeche += e.getBenoetigteAusstellungsflaeche();
         }
-        if (verbrauchteAusstellungsflaeche + exponat.getBenoetigteAusstellungsflaeche() <= this.ausstellungsflaeche
-                && !this.ausgestellteExponate.contains(exponat)) {
+        if (verbrauchteAusstellungsflaeche + exponat.getBenoetigteAusstellungsflaeche() <= this.ausstellungsflaeche) {
+            if (!this.ausgestellteExponate.contains(exponat)) {
+                // wenn das Exponat noch nicht existiert wird es dem MuseumsManager hinzugefügt
+                if (!MuseumsManager.contains(Exponat.class, exponat)) {
+                    MuseumsManager.persist(Exponat.class, exponat);
+                }
 
-            // wenn das Exponat noch nicht existiert wird es dem MuseumsManager hinzugefügt
-            if (!MuseumsManager.contains(Exponat.class, exponat)) {
-                MuseumsManager.persist(Exponat.class, exponat);
-            }
-
-            this.ausgestellteExponate.add(exponat);
-        } else throw new Exception("Ausstellungsflaeche zu klein oder Exponat bereits im Raum");
+                this.ausgestellteExponate.add(exponat);
+            }else throw new ValueException("Aehnliches Exponat bereits im Raum");
+        } else throw new KeyException("Ausstellungsflaeche zu klein ");
     }
 
     @Override

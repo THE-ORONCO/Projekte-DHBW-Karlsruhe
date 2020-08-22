@@ -89,24 +89,19 @@ public class MuseumsManager {
 
     @Deprecated
     public static void importieren(Class<?> c, String dateiPfad) throws Exception {
-        // TODO vielleicht hier exception handling einfügen -> methode gibt false zurück wenn das importieren fehlgeschlagen ist
         for (MuseumsElement element : MuseumsElementFactory.createElement(c, dateiPfad)) {
             persist(c, element);
         }
     }
 
     // Standartmethode exportiert im CSV-Format
-    public static boolean exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
-        // TODO export methode
+    public static void exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
 
         ArrayList<String[]> csvData = relevanterManager.parseToCSV();
 
         CSVWriter writer = new CSVWriter(path, true);
         writer.writeDataToFile(csvData, relevanterManager.getCSVHeader());
-
-
-        return false;
     }
 
     private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {

@@ -57,6 +57,8 @@ public class MuseumsElementFactoryTest {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        System.out.println(epoche.toString());
     }
 
     @Test

@@ -42,7 +42,7 @@ public abstract class MuseumsElement { //DIFF neue Überklasse für alle Element
      */
     public abstract String[] parsToCSV();
 
-    public static String[] getCSVHeader() { //TODO in jeder Untermethode implementieren
+    public static String[] getCSVHeader() {
         return new String[0];
     }
 }

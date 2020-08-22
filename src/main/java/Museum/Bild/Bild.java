@@ -9,7 +9,7 @@ import Museum.MuseumsElement;
 public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
     // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
 
-    private String altText; // TODO alt-text ist praktisch beschreibung. könnte man egtl weglassen
+    private String altText;
     private String dateiName;
 
     /**
@@ -20,7 +20,7 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
      * @param dateiName    dateiname der Bild-Datei
      * @param beschreibung eine kurze Beschreibung des Bildes
      */
-    public Bild(String bildNr, String altText, String dateiName, String beschreibung) { //TODO potenziell Methodensignatur ändern
+    public Bild(String bildNr, String altText, String dateiName, String beschreibung) {
         super(bildNr, beschreibung);
         this.altText = altText;
         this.dateiName = dateiName;

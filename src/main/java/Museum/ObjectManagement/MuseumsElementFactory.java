@@ -14,12 +14,12 @@ import de.dhbwka.swe.utils.util.CSVReader;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.io.IOException;
+import java.security.KeyException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
-    //TODO Factory implementieren
 
     /**
      * diese Methode ermöglicht das erzeugen eines Objekt welches von MuseumsElement erbt und ein Blatt im Vererbungsbaum ist
@@ -92,7 +92,17 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
 
         for (String[] csvLine : csvData) {
-            geladeneElemente.add(createElement(c, csvLine));
+            try {
+                geladeneElemente.add(createElement(c, csvLine));
+            }catch (Exception e){
+                //TODO ist das hadling hier ok?
+                if(ParseException.class.isInstance(e)){
+                    System.out.println(e.getStackTrace());
+                }else if(IllegalArgumentException.class.isInstance(e)){
+                    System.out.println(e.getStackTrace());
+                }
+                System.out.println(Arrays.toString(csvLine) + " wurde ignoriert");
+            }
         }
 
         return geladeneElemente;
@@ -101,8 +111,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     /**
      * Funktioniert wie die createElement-Methode mit längerer Signatur, nur das der Header einer CSV-Datei immer ignoriert wird
      *
-     * @param c          Klasse der Elemente in einer CSV-Datei
-     * @param dateiPfad  Pfad zu der CSV-Datei
+     * @param c         Klasse der Elemente in einer CSV-Datei
+     * @param dateiPfad Pfad zu der CSV-Datei
      * @return eine Liste der importierten Elemente
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
@@ -166,6 +176,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.toString()));
                 ereignisse.put(ereignis.getDatum(), ereignis);
             } catch (Exception e) {
+                System.out.println(Arrays.toString(csvData) + " wurde ignoriert");
                 // TODO vielleicht logging oder so um den User zu informieren das etwas schief gegangen ist
             }
         }
@@ -224,16 +235,16 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             if (MuseumsManager.contains(Bild.class, bildNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, bildNr));
             } else {
-                System.out.println("Bild " + bildNr + "ignoriert");
+                System.out.println("Bild " + bildNr + " unbekannt");
             }
         }
         // Exponate finden
-        ArrayList<Exponat> exponate = new ArrayList<>(); // TODO methode zum laden der Exponate schreiben
+        ArrayList<Exponat> exponate = new ArrayList<>();
         for (String exponatNr : csvData[5].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
             if (MuseumsManager.contains(Exponat.class, exponatNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, exponatNr));
             } else {
-                System.out.println("Exponat " + exponatNr + "ignoriert");
+                System.out.println("Exponat " + exponatNr + " unbekannt");
             }
         }
 
@@ -477,9 +488,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param c          Klasse des Objekts
      * @param primaryKey gesuchter Primary key
      */
-    private static void ueberpruefeExistenz(Class<?> c, String primaryKey) throws Exception {
+    private static void ueberpruefeExistenz(Class<?> c, String primaryKey) throws KeyException {
         if (MuseumsManager.contains(c, primaryKey)) {
-            throw new Exception(c.getSimpleName() + " mit gleichem PrimaryKey exisitert bereits");
+            throw new KeyException(c.getSimpleName() + " mit gleichem PrimaryKey exisitert bereits");
         }
     }
 }

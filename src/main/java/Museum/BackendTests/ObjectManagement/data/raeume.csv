@@ -1,1 +1,4 @@
 raumNr; ausstellungsflaeche; ausstellungsthema; bilder; ausgestellteExponate; beschreibung
+r0; 209.3; alles ; b10; x2, x4, x5; Raum in dem alles abgestellt wir was aktuell nicht ausgestellt ist
+r1; 9.3; Bilder ; b12; x1, x2; Raum voller Bilder
+r2; 342; Bananen ; b11; xBanane; Der Bananenaltar Raum

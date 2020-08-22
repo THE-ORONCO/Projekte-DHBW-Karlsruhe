@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BildTest { // TODO Bild-Test
+public class BildTest {
 
     private Bild bild;
     private static final String bildNr = "b2344";
