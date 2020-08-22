@@ -8,8 +8,9 @@ import Museum.Bild.Bild;
 import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
-import Museum.Person.Person;
+import Museum.Person.*;
 import Museum.Raum.Raum;
+import Museum.StringProcessor;
 import de.dhbwka.swe.utils.util.CSVWriter;
 
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class MuseumsManager {
     }
 
     private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {
-        if (c == Person.class) {
+        if (Person.class.isAssignableFrom(c) ) {
             return personenM;
         } else if (c == Raum.class) {
             return raumM;
@@ -122,4 +123,16 @@ public class MuseumsManager {
         } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
     }
 
+    public static String generiereUnbenutzenSchluessel(Class<?> c) {
+        char startingCharacter = StringProcessor.waehleKeyStartCharakter(c);
+
+        MuseumsElementManager relevantenManager = waehleRelevantenManager(c);
+
+        String key = "";
+
+        do {
+            key = startingCharacter + StringProcessor.generiereRandomAlphaNumString();
+        } while (relevantenManager.contains(key));
+        return key;
+    }
 }

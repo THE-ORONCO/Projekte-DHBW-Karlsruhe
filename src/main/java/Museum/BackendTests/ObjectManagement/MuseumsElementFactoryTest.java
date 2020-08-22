@@ -7,6 +7,7 @@ package Museum.BackendTests.ObjectManagement;
 import Museum.Bild.Bild;
 import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
+import Museum.MuseumsElement;
 import Museum.ObjectManagement.MuseumsElementFactory;
 import Museum.ObjectManagement.MuseumsManager;
 import Museum.Person.Admin;
@@ -20,6 +21,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,9 +38,7 @@ public class MuseumsElementFactoryTest {
     @Before
     public void setUp() throws Exception {
         epoche = new Epoche("e15", "Begin der Moderne / 19. Jahrhundert", "Romantik", "ca. 1790 - 1840", "");
-        MuseumsManager.persist(Epoche.class, epoche);
         bild = new Bild("b23", "tolles Bild", "bild.png", "tolles Bild");
-        MuseumsManager.persist(Bild.class, bild);
     }
 
     @After
@@ -61,6 +61,25 @@ public class MuseumsElementFactoryTest {
 
     @Test
     public void testCreateElement() {
+        ArrayList<MuseumsElement> bilder = null;
+        ArrayList<Bild> zuErstellendeBilder = new ArrayList<>();
+        zuErstellendeBilder.add(new Bild("b0", "default Bild", "/default.png", "default Bild"));
+        zuErstellendeBilder.add(new Bild("b1", "Bild einer Banane", "/banana.png", "ein Bündel Bananen in der Natur"));
+        zuErstellendeBilder.add(new Bild("b2", "Mona Lisa", "/mona.png", "Ein Bild von Mona Lisa"));
+        zuErstellendeBilder.add(new Bild("b3", "Der Schrai", "/schrai.png", "Ein Bild von dem Schrai auf der Brücke"));
+
+
+        try {
+            bilder =  MuseumsElementFactory.createElement(Bild.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/java/Museum/BackendTests/ObjectManagement/data/bilder.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < bilder.size(); i++){
+            assertEquals(bilder.get(i), zuErstellendeBilder.get(i)); // Bild wurde entsprechend der template erstellt
+            assert MuseumsManager.contains(Bild.class, bilder.get(i)); // Bild wurde im MuseumsManager abgelegt
+        }
+
     }
 
     @Test
@@ -79,7 +98,7 @@ public class MuseumsElementFactoryTest {
         try {
             MuseumsElementFactory.createBild(CSVdata);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Museumselement existiert bereits in diesem MuseumsElementManager!");
+            assertEquals(e.getMessage(), "Bild mit gleichem PrimaryKey exisitert bereits");
         }
     }
 

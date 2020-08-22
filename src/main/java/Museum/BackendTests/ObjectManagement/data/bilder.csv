@@ -1,1 +1,5 @@
 bildNr; altText; dateiName; beschreibung
+b0; default Bild; /default.png; default Bild
+b1; Bild einer Banane; /banana.png; ein Bündel Bananen in der Natur
+b2; Mona Lisa; /mona.png; Ein Bild von Mona Lisa
+b3; Der Schrai; /schrai.png; Ein Bild von dem Schrai auf der Brücke

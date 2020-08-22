@@ -9,7 +9,9 @@ import Museum.Exponat.*;
 import Museum.MuseumsElement;
 import Museum.Person.*;
 import Museum.Raum.Raum;
+import Museum.StringProcessor;
 import de.dhbwka.swe.utils.util.CSVReader;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -60,6 +62,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
     public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws Exception {
+        if (linie == 0) {
+            throw new ValueException("die 0e Reihe beinhaltet keine Objektdaten.");
+        }
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVSeparationLevel.LEVEL1.toChar(), '#');
         System.out.println(Arrays.toString(csvData.get(linie)));
@@ -69,17 +74,23 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     /**
      * diese Methode ermöglicht das laden einer kompletten CSV-Datei
      *
-     * @param c         Klasse der Elemente in einer CSV-Datei
-     * @param dateiPfad Pfad zu der CSV-Datei
+     * @param c          Klasse der Elemente in einer CSV-Datei
+     * @param dateiPfad  Pfad zu der CSV-Datei
+     * @param dropHeader wenn true wird der header einer CSV-File ignoriert
      * @return eine Liste der importierten Elemente
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
+    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad, boolean dropHeader) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData();
 
         ArrayList<MuseumsElement> geladeneElemente = new ArrayList<>();
+
+        if (dropHeader) {
+            csvData.remove(0);
+        }
+
         for (String[] csvLine : csvData) {
             geladeneElemente.add(createElement(c, csvLine));
         }
@@ -87,7 +98,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return geladeneElemente;
     }
 
+    /**
+     * Funktioniert wie die createElement-Methode mit längerer Signatur, nur das der Header einer CSV-Datei immer ignoriert wird
+     *
+     * @param c          Klasse der Elemente in einer CSV-Datei
+     * @param dateiPfad  Pfad zu der CSV-Datei
+     * @return eine Liste der importierten Elemente
+     * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
+     */
+    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
+        return createElement(c, dateiPfad, true);
+    }
+
     public static Exponat createExponat(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
 
         String inventarNr = csvData[0];
 
@@ -118,6 +143,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static Exponatwert createExponatwert(String[] csvData) {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Exponatwert.class));
 
         float einkaufswert = Float.parseFloat(csvData[0]);
@@ -129,6 +156,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static Historie createHistorie(String[] csvData) {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Historie.class));
 
         HashMap<Date, Ereignis> ereignisse = new HashMap<>();
@@ -146,6 +175,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static Ereignis createEreignis(String[] csvData) throws ParseException {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Ereignis.class));
 
         Date datum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[0]);
@@ -157,6 +188,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Bild createBild(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Bild.class));
 
         String bildNr = csvData[0];
@@ -174,6 +207,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Raum createRaum(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Raum.class));
 
         String raumNr = csvData[0];
@@ -210,6 +245,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Foerderer createFoerderer(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, 5);
 
         String foerdererNr = csvData[0];
@@ -249,6 +286,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static Mitarbeiter createMitarbeiterTemplate(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Admin.class));
 
         String mitarbeiterNr = csvData[0];
@@ -274,6 +313,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Admin createAdmin(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         Admin admin = new Admin(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
@@ -285,6 +326,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static User createUser(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         User user = new User(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
@@ -296,6 +339,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static HR createHR(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         HR hr = new HR(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
@@ -307,6 +352,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static Kontaktdaten createKontaktdaten(String[] csvData) {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, 3);
 
         // E-Mail-Adressen
@@ -359,6 +406,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     private static ArrayList<Kontaktdaten> generateKonaktdatenList(String[] csvData) {
+        StringProcessor.trimCSVData(csvData);
+
+        StringProcessor.trimCSVData(csvData);
+
         ArrayList<Kontaktdaten> kontaktdaten = new ArrayList<>();
         for (String kontakt : csvData) {
             Kontaktdaten neuerKontakt = createKontaktdaten(kontakt.split(CSVSeparationLevel.LEVEL3.toString()));
@@ -368,6 +419,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     public static Epoche createEpoche(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
         checkCSVarghLength(csvData, getNumberOfAttributes(Epoche.class));
 
         String epochnenID = csvData[0];
@@ -426,7 +479,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      */
     private static void ueberpruefeExistenz(Class<?> c, String primaryKey) throws Exception {
         if (MuseumsManager.contains(c, primaryKey)) {
-            throw new Exception("Raum mit gleicher RaumNr exisitert bereits");
+            throw new Exception(c.getSimpleName() + " mit gleichem PrimaryKey exisitert bereits");
         }
     }
 }
