@@ -19,6 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+// TODO StringProcessor.validierePrimaryKey() für alle klassen
+
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
 
     /**
@@ -94,11 +96,11 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         for (String[] csvLine : csvData) {
             try {
                 geladeneElemente.add(createElement(c, csvLine));
-            }catch (Exception e){
+            } catch (Exception e) {
                 //TODO ist das hadling hier ok?
-                if(ParseException.class.isInstance(e)){
+                if (ParseException.class.isInstance(e)) {
                     System.out.println(e.getStackTrace());
-                }else if(IllegalArgumentException.class.isInstance(e)){
+                } else if (IllegalArgumentException.class.isInstance(e)) {
                     System.out.println(e.getStackTrace());
                 }
                 System.out.println(Arrays.toString(csvLine) + " wurde ignoriert");
@@ -133,14 +135,22 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         ArrayList<String> urheber = (ArrayList<String>) Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString()));
         double benoetigteAusstellungsflaeche = Double.parseDouble(csvData[4]);
         ArrayList<String> kategorien = (ArrayList<String>) Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()));
-        String epochenNr = csvData[6];
-        Epoche epoche = (Epoche) MuseumsManager.find(Epoche.class, epochenNr);
+        Epoche epoche;
+        if (MuseumsManager.contains(Epoche.class, csvData[6])) {
+            epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
+        }else{
+            epoche = (Epoche) MuseumsManager.find(Epoche.class, "e0"); //TODO get default epoche
+        }
         String herkunftsort = csvData[7];
         Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.toString()));
         Historie geschichtlicheH = createHistorie(csvData[9].split(CSVSeparationLevel.LEVEL2.toString()));
         Historie bearbeitungsH = createHistorie(csvData[10].split(CSVSeparationLevel.LEVEL2.toString()));
         Historie besitzH = createHistorie(csvData[11].split(CSVSeparationLevel.LEVEL2.toString()));
-        Bild bild = createBild(csvData[12].split(CSVSeparationLevel.LEVEL2.toString()));
+        Bild bild;
+        if (MuseumsManager.contains(Bild.class, csvData[12])) {
+            bild = (Bild) MuseumsManager.find(Bild.class, csvData[12]);
+        } else bild = (Bild) MuseumsManager.find(Bild.class, "b0");//TODO get default bild
+
         String beschreibung = csvData[13];
 
         Exponat exponat = new Exponat(inventarNr, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche,
@@ -171,7 +181,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         checkCSVarghLength(csvData, getNumberOfAttributes(Historie.class));
 
         HashMap<Date, Ereignis> ereignisse = new HashMap<>();
-        for (String ereignisCSV : csvData[0].split(CSVSeparationLevel.LEVEL3.toString())) {
+        for (String ereignisCSV : StringProcessor.trimCSVData(
+                csvData[0].split(CSVSeparationLevel.LEVEL3.toString()))) {
             try {
                 Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.toString()));
                 ereignisse.put(ereignis.getDatum(), ereignis);
@@ -226,29 +237,32 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         ueberpruefeExistenz(Raum.class, raumNr);
 
-        String beschreibung = csvData[1];
-        double ausstellungsflaeche = Integer.parseInt(csvData[2]);
-        String ausstellungsthema = csvData[3];
+
+        double ausstellungsflaeche = Double.parseDouble(csvData[1]);
+        String ausstellungsthema = csvData[2];
         // Bilder finden
         ArrayList<Bild> bilder = new ArrayList<Bild>();
-        for (String bildNr : csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
+        for (String bildNr : StringProcessor
+                .trimCSVData(csvData[3].split(String.valueOf(CSVSeparationLevel.LEVEL2)))) {
             if (MuseumsManager.contains(Bild.class, bildNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, bildNr));
             } else {
-                System.out.println("Bild " + bildNr + " unbekannt");
+                System.out.println("Bild " + bildNr + " unbekannt -> ignoriert");
             }
         }
         // Exponate finden
         ArrayList<Exponat> exponate = new ArrayList<>();
-        for (String exponatNr : csvData[5].split(String.valueOf(CSVSeparationLevel.LEVEL2))) {
+        for (String exponatNr : StringProcessor
+                .trimCSVData(csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2)))) {
             if (MuseumsManager.contains(Exponat.class, exponatNr)) {
                 bilder.add((Bild) MuseumsManager.find(Bild.class, exponatNr));
             } else {
-                System.out.println("Exponat " + exponatNr + " unbekannt");
+                System.out.println("Exponat " + exponatNr + " unbekannt -> ignoriert");
             }
         }
+        String beschreibung = csvData[5];
 
-        Raum raum = new Raum(raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder, exponate);
+        Raum raum = new Raum(raumNr, ausstellungsflaeche, ausstellungsthema, bilder, exponate, beschreibung);
 
         // Raum in Museum ablegen
         MuseumsManager.persist(Raum.class, raum);
@@ -268,12 +282,12 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String gebDatum = csvData[2];
         String beschreibung = csvData[3];
         // Kontaktdaten
-        ArrayList<Kontaktdaten> kontaktdaten = generateKonaktdatenList(
-                csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
+        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
 
         // geförderte Exponate
         Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontaktdaten);
-        for (String exponatNr : csvData[5].split(CSVSeparationLevel.LEVEL2.toString())) {
+        for (String exponatNr : StringProcessor
+                .trimCSVData(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()))) {
             // suche das Exponat mit der gegebenen Exponatnummer im MuseumsManager und übergebe es dem erstellten Förderer
             try {
                 Exponat exponat = (Exponat) MuseumsManager.find(Exponat.class, exponatNr);
@@ -282,7 +296,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 }
                 foerderer.foerdereWeiteresExponat(exponat);
             } catch (Exception e) {
-                System.out.println(e.getStackTrace());
+                System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
 
@@ -308,14 +322,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String beschreibung = csvData[3];
 
         //Kontakte laden
-        ArrayList<Kontaktdaten> kontaktdaten = generateKonaktdatenList(
-                csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
+        Kontaktdaten kontaktdaten = createKontaktdaten( csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
 
         Bild bild;
-        if (csvData[6].equals("")) {
-            bild = (Bild) MuseumsManager.find(Bild.class, "b0");
+        if (MuseumsManager.contains(Bild.class, csvData[5])) {
+            bild = (Bild) MuseumsManager.find(Bild.class, csvData[5]);
         } else {
-            bild = createBild(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()));
+            bild = (Bild) MuseumsManager.find(Bild.class, "b0"); //TODO get default bild
         }
 
         Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten, bild);
@@ -368,20 +381,19 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         checkCSVarghLength(csvData, 3);
 
         // E-Mail-Adressen
-        ArrayList<String> emailAdressen = new ArrayList<>();
-        for (String email : csvData[0].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
-            emailAdressen.add(email);
-        }
+        ArrayList<String> emailAdressen = new ArrayList<>(
+                Arrays.asList(StringProcessor.trimCSVData(
+                        csvData[0].split(String.valueOf(CSVSeparationLevel.LEVEL2)))));
         // Telefonnummern
-        ArrayList<String> teleNr = new ArrayList<>();
-        for (String tele : csvData[1].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
-            teleNr.add(tele);
-        }
+        ArrayList<String> teleNr = new ArrayList<>(
+                Arrays.asList(StringProcessor.trimCSVData(
+                        csvData[1].split(String.valueOf(CSVSeparationLevel.LEVEL2)))));
         // Anschriften
         ArrayList<Anschrift> anschriften = new ArrayList<>();
         // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
-        for (String anschrift : csvData[2].split(String.valueOf(CSVSeparationLevel.LEVEL4))) {
-            String[] anschriftAttribute = anschrift.split(String.valueOf(CSVSeparationLevel.LEVEL5));
+        for (String anschrift : StringProcessor
+                .trimCSVData(csvData[2].split(String.valueOf(CSVSeparationLevel.LEVEL3)))) {
+            String[] anschriftAttribute = anschrift.split(String.valueOf(CSVSeparationLevel.LEVEL4));
             //Postfachadresse
             if (anschriftAttribute.length == 4) {
                 int postfachnummer = Integer.getInteger(anschriftAttribute[0]);
@@ -414,19 +426,6 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
         Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);
         return kontakt;
-    }
-
-    private static ArrayList<Kontaktdaten> generateKonaktdatenList(String[] csvData) {
-        StringProcessor.trimCSVData(csvData);
-
-        StringProcessor.trimCSVData(csvData);
-
-        ArrayList<Kontaktdaten> kontaktdaten = new ArrayList<>();
-        for (String kontakt : csvData) {
-            Kontaktdaten neuerKontakt = createKontaktdaten(kontakt.split(CSVSeparationLevel.LEVEL3.toString()));
-            kontaktdaten.add(neuerKontakt);
-        }
-        return kontaktdaten;
     }
 
     public static Epoche createEpoche(String[] csvData) throws Exception {

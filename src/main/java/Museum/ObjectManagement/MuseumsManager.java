@@ -18,9 +18,10 @@ import java.util.ArrayList;
 public class MuseumsManager {
     private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
     private final static MuseumsElementManager raumM = new MuseumsElementManager();
-    private final static MuseumsElementManager exponatM = new MuseumsElementManager();
+    private final static MuseumsElementManager exponatM = new MuseumsElementManager(); // TODO vielleicht eine Methode zum tracken der Änderungen am Objekt einbauen
     private final static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
     private final static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
+    //TODO vielleicht eine globale Liste für alle Kategorien wenn noch Zeit ist
 
     //TODO standartwerte in den Museumsmanager laden (default-bild, Lagerraum und co)
 
@@ -129,5 +130,9 @@ public class MuseumsManager {
             key = startingCharacter + StringProcessor.generiereRandomAlphaNumString();
         } while (relevantenManager.contains(key));
         return key;
+    }
+
+    public static void ladeDefaultElemente(String path){
+        // TODO lade die DefaultElemente aus "src/main/resources"
     }
 }

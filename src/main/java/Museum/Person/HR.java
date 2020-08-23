@@ -23,7 +23,7 @@ public class HR extends Mitarbeiter{
      * @param kontakt
      * @throws ParseException
      */
-    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
+    public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
         this.personenM = MuseumsManager.getPersonenManager();
     }

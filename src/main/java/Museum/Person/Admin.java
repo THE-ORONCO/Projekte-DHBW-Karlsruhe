@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Admin extends Mitarbeiter {
 
 
-    public Admin(String mitarbeiterNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
+    public Admin(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
     }
 

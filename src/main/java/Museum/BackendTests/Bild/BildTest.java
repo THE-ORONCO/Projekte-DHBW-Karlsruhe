@@ -57,7 +57,8 @@ public class BildTest {
 
     @Test
     public void testToString() {
-        String bildAlsString = "Alt-Text: tolles Bild\n" +
+        String bildAlsString = "BildNr: b2344\n" +
+                "Alt-Text: tolles Bild\n" +
                 "Dateiname: bild.png\n" +
                 "Beschreibung: voll tolles Bild";
         assertEquals(bild.toString(), bildAlsString);

@@ -15,6 +15,8 @@ public class Foerderer extends Person {
 
     private ArrayList<Exponat> gefoerderteExponate;
 
+    //TODO beschreibung ans ende der Signatur
+
     /**
      * Ein Förderer unterstützt das Museum mit verschiedenen Exponaten die er sponsort
      *
@@ -27,22 +29,22 @@ public class Foerderer extends Person {
      * @param bild                Bild des förderers
      * @throws ParseException wenn Telefonnummer oder E-Mail-Adresse falsch formatiert ist
      */
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
+    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, ArrayList<Exponat> gefoerderteExponate) throws ParseException {
+    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt, Bild bild) throws ParseException {
+    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
         this.gefoerderteExponate = new ArrayList<>();
     }
 
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, ArrayList<Kontaktdaten> kontakt) throws ParseException {
+    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = new ArrayList<>();
     }
@@ -53,7 +55,7 @@ public class Foerderer extends Person {
 
     public Exponat getGefoerdertesExponat(String inventarNR) {
         for (Exponat exponat : this.gefoerderteExponate) {
-            if (exponat.getPrimaryKey() == inventarNR) {
+            if (exponat.getPrimaryKey().equals(inventarNR)) {
                 return exponat;
             }
         }
@@ -94,7 +96,7 @@ public class Foerderer extends Person {
                 this.getName(),
                 this.getGebDatum().toString(),
                 this.getBeschreibung(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsKontakteToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getKontakt().parseToCSV()),
                 String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsExponateToCSV()),
                 String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV())
         };

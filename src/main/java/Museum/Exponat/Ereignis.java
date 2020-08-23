@@ -1,5 +1,8 @@
 package Museum.Exponat;
 
+import Museum.ObjectManagement.CSVSeparationLevel;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Ereignis {
@@ -48,10 +51,23 @@ public class Ereignis {
     }
 
     public String[] parsToCSV(){
+        String pattern = "yyyy.MM.dd";
         String[] csvData = new String[]{
-                String.valueOf(this.datum), this.beschreibung
+                new SimpleDateFormat(pattern).format(this.datum),
+                this.beschreibung
         };
         return csvData;
     }
+
+    public static void main(String[] args) {
+        String pattern = "yyyy.MM.dd";
+
+        Date d = new Date();
+        System.out.println(CSVSeparationLevel.LEVEL3);
+        System.out.println(new SimpleDateFormat(pattern).format(d));
+    }
+    /*
+    2020.08.01 | Erschaffung der Mona Lisa , 2020.08.02|Mona Lisa wurde von unserem Museum aufgekauft
+     */
 
 }

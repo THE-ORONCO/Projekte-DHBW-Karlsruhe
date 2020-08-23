@@ -1,0 +1,1 @@
+CSV-Dateien sind anders aufgebaut als geplant (z.B.: exponat.csv enthält keine Referenz zu den Förderern)

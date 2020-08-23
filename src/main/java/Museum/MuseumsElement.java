@@ -4,14 +4,12 @@
  */
 package Museum;
 
-import Museum.ObjectManagement.CSVSeparationLevel;
-
 public abstract class MuseumsElement { //DIFF neue Überklasse für alle Elemente welche das managen einfacher macht
     private String primaryKey; //DIFF identifikation aller Elemente findet nun über die MuseumsElement-Klasse statt
     private String beschreibung;
 
     public MuseumsElement(String primaryKey, String beschreibung) {
-        this.primaryKey = primaryKey;
+        this.primaryKey = primaryKey.trim();
         this.beschreibung = beschreibung;
     }
 

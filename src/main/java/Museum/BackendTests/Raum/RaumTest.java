@@ -24,7 +24,7 @@ public class RaumTest {
 
     @Before
     public void setUp() throws Exception {
-        this.raum = new Raum( raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder);
+        this.raum = new Raum( raumNr, ausstellungsflaeche, ausstellungsthema, bilder, beschreibung);
     }
 
     @Test
@@ -73,14 +73,13 @@ public class RaumTest {
         String raumAlsString = "RaumNr: r42\n" +
                 "Ausstellungsfläche : 420.690000\n" +
                 "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann\n" +
-                "Beschreibung: Abstellraum\n" +
-                "Ausgestellte Exponate:\n";
+                "Beschreibung: Abstellraum\n";
         assertEquals(raum.toString(), raumAlsString);
     }
 
     @Test
     public void testEquals() throws Exception {
-        Raum raum2 = new Raum( raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder);
+        Raum raum2 = new Raum( raumNr, ausstellungsflaeche, ausstellungsthema, bilder, beschreibung);
         assert raum.equals(raum2);
     }
 }

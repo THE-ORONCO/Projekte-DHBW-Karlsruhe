@@ -30,14 +30,10 @@ public class MitarbeiterTest extends PersonTest {
 
     @Before
     public void setUp() throws Exception {
-        ArrayList<Kontaktdaten> kontakt = new ArrayList<Kontaktdaten>();
-
-
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>();
         anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt));
-        Kontaktdaten heim = new Kontaktdaten(emailadresse, teleNr, anschriften);
-        kontakt.add(heim);
-        mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, null);
+        Kontaktdaten kontaktdaten = new Kontaktdaten(emailadresse, teleNr, anschriften);
+        mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten, null);
 
     }
 
@@ -66,12 +62,11 @@ public class MitarbeiterTest extends PersonTest {
 
     @Test
     public void testEquals() throws ParseException {
-        ArrayList<Kontaktdaten> neuerKontakt = new ArrayList<>();
         ArrayList<Anschrift> neueAnschriften = new ArrayList<>();
         neueAnschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt));
-        neuerKontakt.add(new Kontaktdaten(emailadresse, teleNr, neueAnschriften));
+        Kontaktdaten neueKontaktdaten = new Kontaktdaten(emailadresse, teleNr, neueAnschriften);
         Bild neuesBild = null;
-        Mitarbeiter neuerMitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, neuerKontakt, neuesBild);
+        Mitarbeiter neuerMitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, neueKontaktdaten, neuesBild);
 
         assertEquals(mitarbeiter, neuerMitarbeiter);
     }

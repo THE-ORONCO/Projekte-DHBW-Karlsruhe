@@ -3,7 +3,6 @@ package Museum.Exponat;
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.CSVSeparationLevel;
-import Museum.Person.Foerderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,27 +20,27 @@ public class Exponat extends MuseumsElement {
     private String herkunftsort;
     private Exponatwert exponatwert;
     private Historie geschichtilcheH;
-    private Historie bearbeitungsH;
+    private Historie bearbeitungsH; // TODO tracken der Änderungen in der Bearbeitungshistorie
     private Historie besitzH;
     private Bild bild;
 
     /**
      * Dieses Objekt repräsentiert ein Exponat im Museum
      *
-     * @param inventarNummer
-     * @param name
-     * @param entstehungsDatum
-     * @param urheber
-     * @param benoetigteAusstellungsfaeche
-     * @param kategorien
-     * @param epoche
-     * @param herkunftsort
-     * @param exponatwert
-     * @param geschichtilcheH
-     * @param bearbeitungsH
-     * @param besitzH
-     * @param bild
-     * @param beschreibung
+     * @param inventarNummer               Inventarnummer des Exponats
+     * @param name                         Name des Exponats
+     * @param entstehungsDatum             Entstehungsdatum des Exponats im Fromat von yyyy.MM.dd
+     * @param urheber                      Urheber des Exponats
+     * @param benoetigteAusstellungsfaeche benötigte Fläche um das Exponat auszustellen
+     * @param kategorien                   Kategorien in die das Exponat einzuordenen ist (Bild etc.)
+     * @param epoche                       Epoche aus der das Exponat kommt
+     * @param herkunftsort                 Herkunftsort des Exponats
+     * @param exponatwert                  Kombination aus Einkaufs-, aktuellem Schätz- und dem Leihwert des Exponats
+     * @param geschichtilcheH              geschichtliche des Exponats
+     * @param bearbeitungsH                Bearbeitungshistorie des Exponats im internen System
+     * @param besitzH                      Besitzhistorie des Exponats
+     * @param bild                         Bild des Exponats
+     * @param beschreibung                 eine kurze Beschreibung des Exponats
      */
     public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber,
                    double benoetigteAusstellungsfaeche, ArrayList<String> kategorien, Epoche epoche,
@@ -64,7 +63,7 @@ public class Exponat extends MuseumsElement {
         this.bild = bild;
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort,  Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild, String beschreibung) {
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild, String beschreibung) {
         this(inventarNummer, name, entstehungsDatum, new ArrayList<String>(Collections.singleton("Unbekannt")), benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, beschreibung);
     }
 
@@ -72,7 +71,7 @@ public class Exponat extends MuseumsElement {
         this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort,  Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
+    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
         this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, new Bild("0", "default Exponat", "default.jpg", "default Bild"), "Exponat");
         // TODO default path of default picture
     }

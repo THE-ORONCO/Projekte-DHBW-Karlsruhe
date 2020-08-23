@@ -3,15 +3,14 @@ package Museum;
 import Museum.Bild.Bild;
 import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
+import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.Person.Admin;
 import Museum.Person.Foerderer;
 import Museum.Person.HR;
 import Museum.Person.User;
 import Museum.Raum.Raum;
 
-import java.util.Locale;
 import java.util.Random;
-import java.util.UUID;
 
 public class StringProcessor {
 
@@ -34,13 +33,13 @@ public class StringProcessor {
         String alphaNumChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
 
-        StringBuilder sb = new StringBuilder( laenge );
-        for( int i = 0; i < laenge; i++ )
-            sb.append( alphaNumChars.charAt( random.nextInt(alphaNumChars.length()) ) );
+        StringBuilder sb = new StringBuilder(laenge);
+        for (int i = 0; i < laenge; i++)
+            sb.append(alphaNumChars.charAt(random.nextInt(alphaNumChars.length())));
         return sb.toString();
     }
 
-    public static String generiereRandomAlphaNumString(){
+    public static String generiereRandomAlphaNumString() {
         Random random = new Random();
         int high = 23;
         int low = 1;
@@ -49,7 +48,7 @@ public class StringProcessor {
         return generiereRandomAlphaNumString(len);
     }
 
-    public static char waehleKeyStartCharakter(Class<?>c){
+    public static char waehleKeyStartCharakter(Class<?> c) {
         char startingCharacter;
         if (c == Admin.class) {
             startingCharacter = 'a';
@@ -69,5 +68,28 @@ public class StringProcessor {
             startingCharacter = 'b';
         } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
         return startingCharacter;
+    }
+
+    /**
+     * Diese Methode validiert einen String der als einzelnes Element abgeleg werden soll (also keine Liste oder
+     * Aufzählung im CSV-Format darstellt).
+     *
+     * @param csvData der zu validierende String
+     * @return ob der String problemlos in einer CSV-Datei abgelegt werden kann ohne dass er beim Einlesenmissverstanden werden kann
+     */
+    public static boolean validiereCSVDataString(String csvData) {
+        String[] illegalCharacters = new String[]{
+                CSVSeparationLevel.LEVEL1.toString(),
+                CSVSeparationLevel.LEVEL2.toString(),
+                CSVSeparationLevel.LEVEL3.toString(),
+                CSVSeparationLevel.LEVEL4.toString(),
+                CSVSeparationLevel.LEVEL5.toString(),
+                "#"};
+        for (String c : illegalCharacters) {
+            if (csvData.contains(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

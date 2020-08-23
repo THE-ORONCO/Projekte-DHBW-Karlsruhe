@@ -31,7 +31,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      * @param bilder               bilder des Raumes
      * @param ausgestellteExponate die in dem Raum ausgestellten Exponate
      */
-    public Raum(String raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder, ArrayList<Exponat> ausgestellteExponate) throws Exception {
+    public Raum(String raumNr, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder, ArrayList<Exponat> ausgestellteExponate, String beschreibung) throws Exception {
         super(raumNr, beschreibung);
         this.ausstellungsflaeche = ausstellungsflaeche;
         this.ausstellungsthema = ausstellungsthema;
@@ -42,8 +42,8 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         }
     }
 
-    public Raum(String raumNr, String beschreibung, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder) throws Exception {
-        this(raumNr, beschreibung, ausstellungsflaeche, ausstellungsthema, bilder, new ArrayList<Exponat>());
+    public Raum(String raumNr, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder, String beschreibung) throws Exception {
+        this(raumNr, ausstellungsflaeche, ausstellungsthema, bilder, new ArrayList<Exponat>(), beschreibung);
     }
 
     public double getAusstellungsflaeche() {
@@ -97,7 +97,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
                 }
 
                 this.ausgestellteExponate.add(exponat);
-            }else throw new ValueException("Aehnliches Exponat bereits im Raum");
+            } else throw new ValueException("Aehnliches Exponat bereits im Raum");
         } else throw new KeyException("Ausstellungsflaeche zu klein ");
     }
 
@@ -107,10 +107,12 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         raum += String.format("RaumNr: %s%n" +
                 "Ausstellungsfläche : %f%n" +
                 "Ausstellungsthema: %s%n" +
-                "Beschreibung: %s%n" +
-                "Ausgestellte Exponate:%n", this.getPrimaryKey(), this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
-        for (Exponat exponat : this.ausgestellteExponate) {
-            raum += String.format("%s%n", exponat.toString());
+                "Beschreibung: %s%n", this.getPrimaryKey(), this.ausstellungsflaeche, this.ausstellungsthema, this.getBeschreibung());
+        if (ausgestellteExponate.size() >= 1) {
+            raum += "Ausgestellte Exponate:%n";
+            for (Exponat exponat : this.ausgestellteExponate) {
+                raum += String.format("%s%n", exponat.toString());
+            }
         }
         return raum;
     }

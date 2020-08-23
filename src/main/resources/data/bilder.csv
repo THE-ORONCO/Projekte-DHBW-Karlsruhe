@@ -1,8 +1,8 @@
 bildNr; altText; dateiName; beschreibung
-b0; default Bild; bilder/default.png; default Bild
 b1; Bild einer Banane; bilder/banana.png; ein Bündel Bananen in der Natur
 b2; Mona Lisa; bilder/mona.png; Ein Bild von Mona Lisa
 b3; Der Schrai; bilder/schrai.png; Ein Bild von dem Schrai auf der Brücke
 b10; RaumBild; bilder/abstellRaum.png; Bild des Abstellraums
-b11; RaumBild; bilder/bananenRaum.png; Bild des Abstellraums
+b11; RaumBild; bilder/bananenRaum.png; Bild des Bananenraum
 b12; RaumBild; bilder/bildRaum.png; Bild des Bilderraums
+b23;Bild von Théo Roncoletta;bilder/roncolettaTheo.png;Bild von Théo Roncoletta
