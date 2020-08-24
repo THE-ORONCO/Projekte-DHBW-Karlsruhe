@@ -59,15 +59,4 @@ public class Ereignis {
         return csvData;
     }
 
-    public static void main(String[] args) {
-        String pattern = "yyyy.MM.dd";
-
-        Date d = new Date();
-        System.out.println(CSVSeparationLevel.LEVEL3);
-        System.out.println(new SimpleDateFormat(pattern).format(d));
-    }
-    /*
-    2020.08.01 | Erschaffung der Mona Lisa , 2020.08.02|Mona Lisa wurde von unserem Museum aufgekauft
-     */
-
 }

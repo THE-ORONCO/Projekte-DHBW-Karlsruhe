@@ -4,6 +4,7 @@ import Museum.Bild.Bild;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.CSVSeparationLevel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
 public class Exponat extends MuseumsElement {
 
     private String name;
-    private final Date erstellungsDatum;
+    // private final Date erstellungsDatum; // DIFF kein erstellungsdatum
     private Date entstehungsDatum;
     private ArrayList<String> urheber; //könnte auch eine Liste aus Personen sein
     private double benoetigteAusstellungsflaeche;
@@ -47,9 +48,9 @@ public class Exponat extends MuseumsElement {
                    String herkunftsort, Exponatwert exponatwert,
                    Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH,
                    Bild bild, String beschreibung) {
-        super("e" + inventarNummer, beschreibung);
+        super(inventarNummer, beschreibung);
         this.name = name;
-        this.erstellungsDatum = new Date(); // aktuelles Datum
+        // this.erstellungsDatum = new Date(); // aktuelles Datum
         this.entstehungsDatum = entstehungsDatum;
         this.urheber = urheber;
         this.benoetigteAusstellungsflaeche = benoetigteAusstellungsfaeche;
@@ -82,10 +83,6 @@ public class Exponat extends MuseumsElement {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getErstellungsDatum() {
-        return erstellungsDatum;
     }
 
     public Date getEntstehungsDatum() {
@@ -187,19 +184,21 @@ public class Exponat extends MuseumsElement {
         String[] csvData = new String[]{
                 this.getPrimaryKey(),
                 this.getName(),
-                this.getEntstehungsDatum().toString(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getUrheber()),// Urheber sind eine Liste
+                new SimpleDateFormat("yyyy.MM.dd").format(getEntstehungsDatum()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getUrheber()),// Urheber sind eine Liste
                 String.valueOf(this.getBenoetigteAusstellungsflaeche()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getKategorien()), //Kategorien ist eine Liste
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getEpoche().parsToCSV()),// Epochen haben mehere Attribute
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getKategorien()), //Kategorien ist eine Liste
+                this.getEpoche().getPrimaryKey(), //die Epoche wird hier indirekt refferneziert
                 this.getHerkunftsort(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getExponatwert().parsToCSV()), // Exponatwerte haben mehere Attribute
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getGeschichtilcheH().parseToCSV()), // Historien sind listen
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBearbeitungsH().parseToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBesitzH().parseToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV()),// Bilder haben mehere Attribute
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getExponatwert().parsToCSV()), // Exponatwerte haben mehere Attribute
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getGeschichtilcheH().parseToCSV()), // Historien sind listen
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBearbeitungsH().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBesitzH().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBild().getPrimaryKey()), //das Bild wird hier indirekt refferneziert
                 this.getBeschreibung()
         };
         return csvData;
     }
+
+
 }

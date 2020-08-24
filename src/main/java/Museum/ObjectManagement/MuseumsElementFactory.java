@@ -11,7 +11,6 @@ import Museum.Person.*;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
 import de.dhbwka.swe.utils.util.CSVReader;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.io.IOException;
 import java.security.KeyException;
@@ -20,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 // TODO StringProcessor.validierePrimaryKey() für alle klassen
+// TODO override boolean in createElement etc. Methoden um ein erstelltes Objekt mit gleicher pk zu überschreiben
 
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
 
@@ -64,12 +64,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
     public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws Exception {
-        if (linie == 0) {
-            throw new ValueException("die 0e Reihe beinhaltet keine Objektdaten.");
-        }
         CSVReader reader = new CSVReader(dateiPfad);
-        List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVSeparationLevel.LEVEL1.toChar(), '#');
-        System.out.println(Arrays.toString(csvData.get(linie)));
+        List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVReader.DEFAULT_DELIMITER, CSVReader.DEFAULT_COMMENT);
         return createElement(c, csvData.get(linie));
     }
 
@@ -85,7 +81,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      */
     public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad, boolean dropHeader) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
-        List<String[]> csvData = reader.readData();
+        List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVReader.DEFAULT_DELIMITER, CSVReader.DEFAULT_COMMENT);
 
         ArrayList<MuseumsElement> geladeneElemente = new ArrayList<>();
 
@@ -94,8 +90,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
 
         for (String[] csvLine : csvData) {
+            geladeneElemente.add(createElement(c, csvLine));
             try {
-                geladeneElemente.add(createElement(c, csvLine));
+
             } catch (Exception e) {
                 //TODO ist das hadling hier ok?
                 if (ParseException.class.isInstance(e)) {
@@ -103,7 +100,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 } else if (IllegalArgumentException.class.isInstance(e)) {
                     System.out.println(e.getStackTrace());
                 }
-                System.out.println(Arrays.toString(csvLine) + " wurde ignoriert");
+                System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
 
@@ -132,9 +129,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         String name = csvData[1];
         Date entstehungsDatum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[2]);
-        ArrayList<String> urheber = (ArrayList<String>) Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString()));
+        ArrayList<String> urheber =  new ArrayList<>(Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString())));
         double benoetigteAusstellungsflaeche = Double.parseDouble(csvData[4]);
-        ArrayList<String> kategorien = (ArrayList<String>) Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()));
+        ArrayList<String> kategorien = new ArrayList<>(Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.toString())));
         Epoche epoche;
         if (MuseumsManager.contains(Epoche.class, csvData[6])) {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
@@ -143,9 +140,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
         String herkunftsort = csvData[7];
         Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.toString()));
-        Historie geschichtlicheH = createHistorie(csvData[9].split(CSVSeparationLevel.LEVEL2.toString()));
-        Historie bearbeitungsH = createHistorie(csvData[10].split(CSVSeparationLevel.LEVEL2.toString()));
-        Historie besitzH = createHistorie(csvData[11].split(CSVSeparationLevel.LEVEL2.toString()));
+        Historie geschichtlicheH = createHistorie(new String[]{csvData[9]});
+        Historie bearbeitungsH = createHistorie(new String[]{csvData[10]});
+        Historie besitzH = createHistorie(new String[]{csvData[11]});
         Bild bild;
         if (MuseumsManager.contains(Bild.class, csvData[12])) {
             bild = (Bild) MuseumsManager.find(Bild.class, csvData[12]);
@@ -182,9 +179,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         HashMap<Date, Ereignis> ereignisse = new HashMap<>();
         for (String ereignisCSV : StringProcessor.trimCSVData(
-                csvData[0].split(CSVSeparationLevel.LEVEL3.toString()))) {
+                csvData[0].split(CSVSeparationLevel.LEVEL2.toString()))) {
             try {
-                Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.toString()));
+                Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.rSeparator()));
                 ereignisse.put(ereignis.getDatum(), ereignis);
             } catch (Exception e) {
                 System.out.println(Arrays.toString(csvData) + " wurde ignoriert");
@@ -492,4 +489,5 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             throw new KeyException(c.getSimpleName() + " mit gleichem PrimaryKey exisitert bereits");
         }
     }
+
 }

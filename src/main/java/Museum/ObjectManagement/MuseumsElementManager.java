@@ -109,6 +109,13 @@ public class MuseumsElementManager{
         return this.museumsElemente;
     }
 
+    /**
+     * Diese Methode löscht alle Einträge im MuseumsElementManager
+     */
+    public void clear(){
+        this.museumsElemente = new HashMap<>();
+    }
+
     public ArrayList<String[]> parseToCSV(){
         ArrayList<String[]> csvStrings = new ArrayList<>();
         for(MuseumsElement element: this.museumsElemente.values()){

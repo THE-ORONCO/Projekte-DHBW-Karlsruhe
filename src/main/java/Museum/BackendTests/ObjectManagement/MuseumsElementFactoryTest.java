@@ -10,18 +10,17 @@ import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.MuseumsElementFactory;
 import Museum.ObjectManagement.MuseumsManager;
-import Museum.Person.Admin;
-import Museum.Person.Foerderer;
-import Museum.Person.HR;
-import Museum.Person.User;
+import Museum.Person.*;
 import Museum.Raum.Raum;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,8 +43,7 @@ public class MuseumsElementFactoryTest {
 
     @After
     public void tearDown() throws Exception {
-        MuseumsManager.remove(Epoche.class, epoche.getPrimaryKey());
-        MuseumsManager.remove(Bild.class, bild.getPrimaryKey());
+        MuseumsManager.clearAlles();
 
     }
 
@@ -84,6 +82,40 @@ public class MuseumsElementFactoryTest {
         for (int i = 0; i < bilder.size(); i++) {
             assertEquals(bilder.get(i), zuErstellendeBilder.get(i)); // Bild wurde entsprechend der template erstellt
             assert MuseumsManager.contains(Bild.class, bilder.get(i)); // Bild wurde im MuseumsManager abgelegt
+        }
+
+        ArrayList<? extends MuseumsElement> epochen = new ArrayList<>();
+
+        try {
+            epochen = MuseumsElementFactory.createElement(Epoche.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/resources/data/epochen.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        ArrayList<? extends MuseumsElement> exponate = new ArrayList<>();
+
+        try{
+            exponate = MuseumsElementFactory.createElement(Exponat.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/resources/data/exponate.csv");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Test ob die Exponate als CSV geparst die gleichen Exponate erstellen wie die Daten der  gelesenen CSV-Datei
+        for(MuseumsElement e : exponate){
+            MuseumsManager.remove(Exponat.class, e.getPrimaryKey());
+        }
+        ArrayList<Exponat> neueExponate = new ArrayList<>();
+        for (MuseumsElement e : exponate){
+            try {
+                neueExponate.add(MuseumsElementFactory.createExponat(e.parsToCSV()));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        for(int i = 0; i < exponate.size(); i++){
+            assertEquals(exponate.get(i), neueExponate.get(i));
         }
 
     }

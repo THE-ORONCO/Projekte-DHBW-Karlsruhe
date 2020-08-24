@@ -8,7 +8,7 @@ import Museum.Bild.Bild;
 import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
-import Museum.Person.*;
+import Museum.Person.Person;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
 import de.dhbwka.swe.utils.util.CSVWriter;
@@ -106,7 +106,7 @@ public class MuseumsManager {
     }
 
     private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {
-        if (Person.class.isAssignableFrom(c) ) {
+        if (Person.class.isAssignableFrom(c)) {
             return personenM;
         } else if (c == Raum.class) {
             return raumM;
@@ -132,7 +132,18 @@ public class MuseumsManager {
         return key;
     }
 
-    public static void ladeDefaultElemente(String path){
+    public static void ladeDefaultElemente(String path) {
         // TODO lade die DefaultElemente aus "src/main/resources"
+    }
+
+    /**
+     * Diese methode löscht alle Einträge im Museumsmanager. !!!Achtung!!! dies ist eher um das System zu testen
+     */
+    public static void clearAlles() {
+        personenM.clear();
+        raumM.clear();
+        exponatM.clear();
+        epochenM.clear();
+        bildM.clear();
     }
 }

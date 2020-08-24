@@ -1,3 +1,6 @@
+# @author Théo Roncoletta
+# diese Datei enthält Beispieldaten um Bilder zu generieren die von anderen Objekten benötigt werden
+#
 bildNr; altText; dateiName; beschreibung
 b1; Bild einer Banane; bilder/banana.png; ein Bündel Bananen in der Natur
 b2; Mona Lisa; bilder/mona.png; Ein Bild von Mona Lisa
