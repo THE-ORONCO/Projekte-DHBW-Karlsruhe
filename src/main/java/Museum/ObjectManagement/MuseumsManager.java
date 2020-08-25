@@ -33,7 +33,7 @@ public class MuseumsManager {
                 }});
                 put(Foerderer.class, new ArrayList<String[]>() {{
                     add(new String[]{"foerdererNr", "name", "gebDatum", "beschreibung", "kontakt", "gefoerdererteExponate", "bild"});
-                    add(new String[]{"f0", "Das Museum", "2020.01.01", "Museum default Foerderer", "swe.museum@baum.uff | muse@um.swe, 010101010101 | 081532020, SWE-Museum_ Museum_ Museumsstrasse_ 1_ 76149_ Karlsruhe_ Deutschland | 42069_ 76149_ Karlsruhe_ Deutschland", "e3", "b0"});
+                    add(new String[]{"f0", "Das Museum", "2020.01.01", "Museum default Foerderer", "swe.museum@baum.uff | muse@um.swe, 010101010101 | 081532020, SWE-Museum_ Museum_ Museumsstrasse_ 1_ 76149_ Karlsruhe_ Deutschland | 42069_ 76149_ Karlsruhe_ Deutschland", "", "b0"});
                 }});
                 put(Raum.class, new ArrayList<String[]>() {{
                     add(new String[]{"raumNr", "ausstellungsflaeche", "ausstellungsthema", "bilder", "ausgestellteExponate", "beschreibung"});

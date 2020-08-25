@@ -31,7 +31,7 @@ public class Kontaktdaten {
             if (emailPattern.matcher(emailAdresse).matches()) {
                 this.emailAdressen.add(emailAdresse);
             } else {
-                throw new ValueException("E-Mail-Adresse hat falsches Format");
+                throw new ValueException("E-Mail-Adresse \""+ emailAdresse +"\" hat falsches Format");
             }
         }
 

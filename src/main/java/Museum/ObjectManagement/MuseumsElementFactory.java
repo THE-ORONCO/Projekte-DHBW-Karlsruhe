@@ -269,7 +269,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     public static Foerderer createFoerderer(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
-        checkCSVarghLength(csvData, 5);
+        checkCSVarghLength(csvData, getNumberOfAttributes(Foerderer.class));
 
         String foerdererNr = csvData[0];
 
@@ -380,21 +380,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         // E-Mail-Adressen
         ArrayList<String> emailAdressen = new ArrayList<>(
                 Arrays.asList(StringProcessor.trimCSVData(
-                        csvData[0].split(String.valueOf(CSVSeparationLevel.LEVEL2)))));
+                        csvData[0].split(CSVSeparationLevel.LEVEL3.rSeparator()))));
         // Telefonnummern
         ArrayList<String> teleNr = new ArrayList<>(
                 Arrays.asList(StringProcessor.trimCSVData(
-                        csvData[1].split(String.valueOf(CSVSeparationLevel.LEVEL2)))));
+                        csvData[1].split(CSVSeparationLevel.LEVEL3.rSeparator()))));
         // Anschriften
         ArrayList<Anschrift> anschriften = new ArrayList<>();
         // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
         for (String anschrift : StringProcessor
-                .trimCSVData(csvData[2].split(String.valueOf(CSVSeparationLevel.LEVEL3)))) {
-            String[] anschriftAttribute = anschrift.split(String.valueOf(CSVSeparationLevel.LEVEL4));
+                .trimCSVData(csvData[2].split(CSVSeparationLevel.LEVEL3.rSeparator()))) {
+            String[] anschriftAttribute = StringProcessor.trimCSVData(anschrift.split(CSVSeparationLevel.LEVEL4.rSeparator()));
             //Postfachadresse
             if (anschriftAttribute.length == 4) {
-                int postfachnummer = Integer.getInteger(anschriftAttribute[0]);
-                int plz = Integer.getInteger(anschriftAttribute[1]);
+                int postfachnummer = Integer.parseInt(anschriftAttribute[0]);
+                int plz = Integer.parseInt(anschriftAttribute[1]);
                 String stadt = anschriftAttribute[2];
                 String land = anschriftAttribute[3];
                 anschriften.add(new Postfachadresse(postfachnummer, plz, stadt, land));
@@ -402,8 +402,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             } else if (anschriftAttribute.length == 6) {
                 String name = anschriftAttribute[0];
                 String strasse = anschriftAttribute[1];
-                int hausnummer = Integer.getInteger(anschriftAttribute[2]);
-                int plz = Integer.getInteger(anschriftAttribute[3]);
+                int hausnummer = Integer.parseInt(anschriftAttribute[2]);
+                int plz = Integer.parseInt(anschriftAttribute[3]);
                 String stadt = anschriftAttribute[4];
                 String land = anschriftAttribute[5];
                 anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt, land));
@@ -412,8 +412,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 String fimra = anschriftAttribute[0];
                 String name = anschriftAttribute[1];
                 String strasse = anschriftAttribute[2];
-                int hausnummer = Integer.getInteger(anschriftAttribute[3]);
-                int plz = Integer.getInteger(anschriftAttribute[4]);
+                int hausnummer = Integer.parseInt(anschriftAttribute[3]);
+                int plz = Integer.parseInt(anschriftAttribute[4]);
                 String stadt = anschriftAttribute[5];
                 String land = anschriftAttribute[6];
                 anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
