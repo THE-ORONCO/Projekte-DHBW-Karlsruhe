@@ -139,8 +139,13 @@ public class Kontaktdaten {
                 anschriften.equals(that.anschriften);
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     public String[] parseToCSV() {
         return null;
-    }
+    }//TODO parseToCSV für Kontaktdaten
 }
 

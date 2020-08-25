@@ -12,7 +12,7 @@ import java.text.ParseException;
 public class Mitarbeiter extends Person {
 
     /**
-     * Mitarbeiter an dem Museum
+     * Mitarbeiter im Museum
      *
      * @param mitarbeiterNr Mitarbeiternummer die den Mitarbeiter eindeutig identifiziert
      * @param name          Name der Person
@@ -45,7 +45,7 @@ public class Mitarbeiter extends Person {
     }
 
     /**
-     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
      *
      * @return Objekt im CSV-Format
      */
@@ -56,8 +56,8 @@ public class Mitarbeiter extends Person {
                 this.getName(),
                 this.getGebDatum().toString(),
                 this.getBeschreibung(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getKontakt().parseToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getKontakt().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBild().parsToCSV()),
         };
         return csvData;
     }

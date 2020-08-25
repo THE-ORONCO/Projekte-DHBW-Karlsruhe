@@ -11,6 +11,7 @@ import Museum.Person.*;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
 import de.dhbwka.swe.utils.util.CSVReader;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.io.IOException;
 import java.security.KeyException;
@@ -124,18 +125,18 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         StringProcessor.trimCSVData(csvData);
 
         String inventarNr = csvData[0];
-
+        StringProcessor.validierePrimaryKey(Exponat.class, inventarNr);
         ueberpruefeExistenz(Exponat.class, inventarNr);
 
         String name = csvData[1];
         Date entstehungsDatum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[2]);
-        ArrayList<String> urheber =  new ArrayList<>(Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString())));
+        ArrayList<String> urheber = new ArrayList<>(Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString())));
         double benoetigteAusstellungsflaeche = Double.parseDouble(csvData[4]);
         ArrayList<String> kategorien = new ArrayList<>(Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.toString())));
         Epoche epoche;
         if (MuseumsManager.contains(Epoche.class, csvData[6])) {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
-        }else{
+        } else {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Epoche.class));
         }
         String herkunftsort = csvData[7];
@@ -212,7 +213,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         checkCSVarghLength(csvData, getNumberOfAttributes(Bild.class));
 
         String bildNr = csvData[0];
-
+        StringProcessor.validierePrimaryKey(Bild.class, bildNr);
         ueberpruefeExistenz(Bild.class, bildNr);
 
         String altText = csvData[1];
@@ -225,13 +226,20 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return bild;
     }
 
+    /**
+     * Diese Methode generiert ein Raum Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static Raum createRaum(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
         checkCSVarghLength(csvData, getNumberOfAttributes(Raum.class));
 
         String raumNr = csvData[0];
-
+        StringProcessor.validierePrimaryKey(Raum.class, raumNr);
         ueberpruefeExistenz(Raum.class, raumNr);
 
 
@@ -266,13 +274,21 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return raum;
     }
 
+    /**
+     * Diese Methode generiert ein Foerderer Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     * @throws ValueException wenn die Telefonnummern oder Emailadressen falsch fomatiert sind
+     */
     public static Foerderer createFoerderer(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
         checkCSVarghLength(csvData, getNumberOfAttributes(Foerderer.class));
 
         String foerdererNr = csvData[0];
-
+        StringProcessor.validierePrimaryKey(Foerderer.class, foerdererNr);
         ueberpruefeExistenz(Foerderer.class, foerdererNr);
 
         String name = csvData[1];
@@ -307,6 +323,14 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return foerderer;
     }
 
+    /**
+     * Diese Methode generiert ein Mitarbeiter Objekt aus csvDaten welches als temporärer Datenspeicher verwendet wird,
+     * um daraus spezifischere Mitarbeiter zu generieren
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     private static Mitarbeiter createMitarbeiterTemplate(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
@@ -319,7 +343,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String beschreibung = csvData[3];
 
         //Kontakte laden
-        Kontaktdaten kontaktdaten = createKontaktdaten( csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
+        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
 
         Bild bild;
         if (MuseumsManager.contains(Bild.class, csvData[5])) {
@@ -337,6 +361,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         StringProcessor.trimCSVData(csvData);
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
+        StringProcessor.validierePrimaryKey(Admin.class, mT.getPrimaryKey());
         Admin admin = new Admin(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(Admin.class, admin.getPrimaryKey());
@@ -350,6 +375,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         StringProcessor.trimCSVData(csvData);
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
+        StringProcessor.validierePrimaryKey(User.class, mT.getPrimaryKey());
         User user = new User(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(User.class, user.getPrimaryKey());
@@ -363,6 +389,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         StringProcessor.trimCSVData(csvData);
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
+        StringProcessor.validierePrimaryKey(HR.class, mT.getPrimaryKey());
         HR hr = new HR(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(HR.class, hr.getPrimaryKey());
@@ -431,6 +458,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         checkCSVarghLength(csvData, getNumberOfAttributes(Epoche.class));
 
         String epochnenID = csvData[0];
+        StringProcessor.validierePrimaryKey(Epoche.class, epochnenID);
+        ueberpruefeExistenz(Epoche.class, epochnenID);
 
         // Existiert eine Epoche mit der RaumNR bereits im Museum?
         if (MuseumsManager.contains(Raum.class, epochnenID)) {

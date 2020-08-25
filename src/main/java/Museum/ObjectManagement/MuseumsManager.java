@@ -42,7 +42,7 @@ public class MuseumsManager {
             }};
     // Default Werte für die Default-PrimaryKeys der Default-Elemente
     public static final HashMap<Class<? extends MuseumsElement>, String> DEFAULT_PIMARYKEYS =
-            new HashMap<Class<? extends MuseumsElement>, String>(){{
+            new HashMap<Class<? extends MuseumsElement>, String>() {{
                 put(Bild.class, DEFAULT_CSV_DATEN.get(Bild.class).get(1)[0]);
                 put(Epoche.class, DEFAULT_CSV_DATEN.get(Epoche.class).get(1)[0]);
                 put(Foerderer.class, DEFAULT_CSV_DATEN.get(Foerderer.class).get(1)[0]);
@@ -50,6 +50,7 @@ public class MuseumsManager {
             }};
 
 
+    // MuseumsElementManager die die verschiedenen Objekte des Museums speichern
     private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
     private final static MuseumsElementManager raumM = new MuseumsElementManager();
     private final static MuseumsElementManager exponatM = new MuseumsElementManager(); // TODO vielleicht eine Methode zum tracken der Änderungen am Objekt einbauen
@@ -100,21 +101,48 @@ public class MuseumsManager {
         return contains(c, element.getPrimaryKey());
     }
 
+    /**
+     * Diese Methode speichert ein Objekt in den jeweils zuständigen Manager
+     *
+     * @param c       Klasse des zu speichernden Objekts
+     * @param element das zu speichernde Objekt
+     * @throws Exception wenn das Objekt oder ein Objekt mit gleichem PrimaryKey bereits vorhanden ist
+     */
     public static void persist(Class<?> c, MuseumsElement element) throws Exception {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         relevanterManager.persist(element);
     }
 
+    /**
+     * finde ein Objekt anhand seines PrimaryKeys
+     *
+     * @param c          Klasse des gesuchten Objekts
+     * @param primaryKey PrimaryKey des gesuchten Objekts
+     * @return das gesuchte Objekt
+     */
     public static MuseumsElement find(Class<?> c, String primaryKey) {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         return relevanterManager.find(c, primaryKey);
     }
 
+    /**
+     * Entferne das Objekt mit dem gegebenen PrimaryKey aus dem MuseumsManager
+     *
+     * @param c          Klasse des Objekts
+     * @param primaryKey PrimaryKey des zu entfernenden Objekts
+     * @return true wenn das Objekt vorhanden war und entfernt wurde; false wenn es nicht vorhanden war
+     */
     public static boolean remove(Class<?> c, String primaryKey) {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         return relevanterManager.remove(primaryKey);
     }
 
+    /**
+     * Entferne das Objekt mit dem gegebenen PrimaryKey aus dem MuseumsManager
+     *
+     * @param element das zu entfernende Objekt
+     * @return true wenn das Objekt vorhanden war und entfernt wurde; false wenn es nicht vorhanden war
+     */
     public static boolean remove(MuseumsElement element) {
         Class<? extends MuseumsElement> c = element.getClass();
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
@@ -130,6 +158,7 @@ public class MuseumsManager {
 
     // Standartmethode exportiert im CSV-Format
     public static void exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
+        //TODO ueberschreiben einbauen
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
 
         ArrayList<String[]> csvData = relevanterManager.parseToCSV();
@@ -138,6 +167,12 @@ public class MuseumsManager {
         writer.writeDataToFile(csvData, relevanterManager.getCSVHeader());
     }
 
+    /**
+     * Diese Methode wählt den MuseumsElementManager der für die gegebene Objektklasse zuständig ist.
+     *
+     * @param c Klasse die verwaltet werden soll
+     * @return den für diese Klasse vorgesehenen Manager
+     */
     private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {
         if (Person.class.isAssignableFrom(c)) {
             return personenM;
@@ -152,6 +187,12 @@ public class MuseumsManager {
         } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
     }
 
+    /**
+     * Diese Methode generiert einen neuen noch unbenutzen PrimaryKey für die gegebene Klasse.
+     *
+     * @param c Klasse für die ein neuer PrimaryKey generiert werden soll
+     * @return einen unbenutzen PrimaryKey
+     */
     public static String generiereUnbenutzenSchluessel(Class<?> c) {
         char startingCharacter = StringProcessor.waehleKeyStartCharakter(c);
 
@@ -176,12 +217,27 @@ public class MuseumsManager {
         bildM.clear();
     }
 
+    /**
+     * Diese Methode läd die default Elemente für Bild, Epoche, Foerderer, Raum
+     *
+     * @param path        Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
+     * @param generateNew wenn die Dateien nicht vorhanden sind werden sie bei true neu generiert
+     * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
+     */
     public static void ladeDefaultElemente(String path, boolean generateNew) throws Exception {
         Class<? extends MuseumsElement>[] defaultElementKlassen = new Class[]{Bild.class, Epoche.class, Foerderer.class, Raum.class};
         ladeDefaultElemente(path, defaultElementKlassen, generateNew);
 
     }
 
+    /**
+     * Diese Methode läd die default Elemente für eine gegebene Liste an Klassen
+     *
+     * @param path                  Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
+     * @param defaultElementKlassen Klassen für die die Default-Elemente geladen werden sollen
+     * @param generateNew           wenn die Dateien nicht vorhanden sind werden sie bei true neu generiert
+     * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
+     */
     public static void ladeDefaultElemente(String path, Class<? extends MuseumsElement>[] defaultElementKlassen, boolean generateNew) throws Exception {
         HashMap<Class<? extends MuseumsElement>, CSVReader> defaultDateien = new HashMap<>();
         for (Class<? extends MuseumsElement> typ : defaultElementKlassen) {
@@ -208,6 +264,12 @@ public class MuseumsManager {
         }
     }
 
+    /**
+     * Diese Methode gibt das default Element für die gegebene Klasse zurück.
+     *
+     * @param c Klasse für das das default Element gesucht wird
+     * @return Default-MuseumsElement für die gegebene Klasse
+     */
     public static MuseumsElement getDefault(Class<? extends MuseumsElement> c) {
         return find(c, DEFAULT_PIMARYKEYS.get(c));
     }

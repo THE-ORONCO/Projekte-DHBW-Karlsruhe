@@ -9,6 +9,7 @@ import Museum.Person.Foerderer;
 import Museum.Person.HR;
 import Museum.Person.User;
 import Museum.Raum.Raum;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.util.Random;
 
@@ -21,12 +22,13 @@ public class StringProcessor {
         return csvData;
     }
 
-    public static boolean validierePrimaryKey(Class<?> c, String primaryKey) {
+    public static void validierePrimaryKey(Class<?> c, String primaryKey) {
         char startCharacter = waehleKeyStartCharakter(c);
         if (primaryKey.matches("[a-zA-Z0-9]*") && primaryKey.startsWith(String.valueOf(startCharacter))) {
-            return true;
+        }else {
+            throw new ValueException("PrimaryKey \"" + primaryKey + "\" passt nicht zur Klasse " + c.getName());
         }
-        return false;
+
     }
 
     public static String generiereRandomAlphaNumString(int laenge) {
@@ -79,11 +81,11 @@ public class StringProcessor {
      */
     public static boolean validiereCSVDataString(String csvData) {
         String[] illegalCharacters = new String[]{
-                CSVSeparationLevel.LEVEL1.toString(),
-                CSVSeparationLevel.LEVEL2.toString(),
-                CSVSeparationLevel.LEVEL3.toString(),
-                CSVSeparationLevel.LEVEL4.toString(),
-                CSVSeparationLevel.LEVEL5.toString(),
+                CSVSeparationLevel.LEVEL1.wSeparator(),
+                CSVSeparationLevel.LEVEL2.wSeparator(),
+                CSVSeparationLevel.LEVEL3.wSeparator(),
+                CSVSeparationLevel.LEVEL4.wSeparator(),
+                CSVSeparationLevel.LEVEL5.wSeparator(),
                 "#"};
         for (String c : illegalCharacters) {
             if (csvData.contains(c)) {

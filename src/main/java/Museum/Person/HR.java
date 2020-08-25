@@ -17,11 +17,15 @@ public class HR extends Mitarbeiter{
     private MuseumsElementManager personenM;
 
     /**
-     * @param name
-     * @param gebDatum
-     * @param beschreibung
-     * @param kontakt
-     * @throws ParseException
+     * HR im Museum
+     *
+     * @param mitarbeiterNr Mitarbeiternummer die den Mitarbeiter eindeutig identifiziert
+     * @param name          Name der Person
+     * @param gebDatum      Geburtsdatum der Person
+     * @param beschreibung  eine kurze Beschreibung der Person wenn gewünscht
+     * @param kontakt       Kontaktdaten unter der die Person zu erreichen is
+     * @param bild          Bild des Mitarbeiters
+     * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
     public HR(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);

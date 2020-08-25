@@ -176,7 +176,7 @@ public class MuseumsElementFactoryTest {
         try {
             MuseumsElementFactory.createEpoche(CSVdata);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Museumselement existiert bereits in diesem MuseumsElementManager!");
+            assertEquals(e.getMessage(), "Epoche mit gleichem PrimaryKey exisitert bereits");
         }
     }
 }

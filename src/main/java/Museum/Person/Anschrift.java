@@ -63,4 +63,8 @@ public class Anschrift {
                 stadt.equals(anschrift.stadt) &&
                 land.equals(anschrift.land);
     }
+
+    public String[] parseToCSV(){
+        return new String[]{};//TODO parseToCSV für die Anschriften
+    }
 }

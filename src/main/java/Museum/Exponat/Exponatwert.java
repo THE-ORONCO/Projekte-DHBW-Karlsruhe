@@ -49,6 +49,11 @@ public class Exponatwert {
                 Float.compare(that.getLeihwert(), getLeihwert()) == 0;
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     public String[] parsToCSV() {
         String[] csvData = new String[]{
                 String.valueOf(this.getEinkaufsWert()),

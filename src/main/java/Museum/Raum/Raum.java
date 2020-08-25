@@ -129,7 +129,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
     }
 
     /**
-     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
      *
      * @return Objekt im CSV-Format
      */

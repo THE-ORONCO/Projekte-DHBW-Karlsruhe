@@ -85,7 +85,7 @@ public class Foerderer extends Person {
     }
 
     /**
-     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
      *
      * @return Objekt im CSV-Format
      */
@@ -103,6 +103,11 @@ public class Foerderer extends Person {
         return csvData;
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     private String[] parsExponateToCSV(){
         ArrayList<String > exponatCSVData = new ArrayList<>();
         for(Exponat exponat: this.gefoerderteExponate){

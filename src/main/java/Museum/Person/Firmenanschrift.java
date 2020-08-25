@@ -86,4 +86,9 @@ public class Firmenanschrift extends Anschrift {
                 name.equals(that.name) &&
                 strasse.equals(that.strasse);
     }
+
+    @Override
+    public String[] parseToCSV() {
+        return new String[0];
+    }
 }

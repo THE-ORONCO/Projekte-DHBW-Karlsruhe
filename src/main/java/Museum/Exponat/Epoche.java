@@ -53,7 +53,7 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
     }
 
     /**
-     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbare CSV-Format
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
      *
      * @return Objekt im CSV-Format
      */
