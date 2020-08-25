@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 
 public class MuseumsManagerTest {
 
+    //TODO MuseumsManagerTests schreiben
+
     @Before
     public void setUp() throws Exception {
     }
@@ -50,5 +52,21 @@ public class MuseumsManagerTest {
 
     @Test
     public void exportieren() {
+    }
+
+    @Test
+    public void generiereUnbenutzenSchluessel() {
+    }
+
+    @Test
+    public void clearAlles() {
+    }
+
+    @Test
+    public void ladeDefaultElemente() {
+    }
+
+    @Test
+    public void getDefault() {
     }
 }

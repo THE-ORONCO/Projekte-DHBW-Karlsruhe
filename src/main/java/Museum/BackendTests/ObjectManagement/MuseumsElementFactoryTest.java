@@ -126,6 +126,7 @@ public class MuseumsElementFactoryTest {
 
     @Test
     public void createExponat() {
+
     }
 
     @Test

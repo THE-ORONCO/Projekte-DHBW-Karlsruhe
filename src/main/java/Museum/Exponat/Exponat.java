@@ -200,5 +200,23 @@ public class Exponat extends MuseumsElement {
         return csvData;
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Exponat)) return false;
+        if (!super.equals(o)) return false;
+        Exponat exponat = (Exponat) o;
+        return Double.compare(exponat.getBenoetigteAusstellungsflaeche(), getBenoetigteAusstellungsflaeche()) == 0 &&
+                getName().equals(exponat.getName()) &&
+                getEntstehungsDatum().equals(exponat.getEntstehungsDatum()) &&
+                getUrheber().equals(exponat.getUrheber()) &&
+                getKategorien().equals(exponat.getKategorien()) &&
+                getEpoche().equals(exponat.getEpoche()) &&
+                getHerkunftsort().equals(exponat.getHerkunftsort()) &&
+                getExponatwert().equals(exponat.getExponatwert()) &&
+                getGeschichtilcheH().equals(exponat.getGeschichtilcheH()) &&
+                getBearbeitungsH().equals(exponat.getBearbeitungsH()) &&
+                getBesitzH().equals(exponat.getBesitzH()) &&
+                getBild().equals(exponat.getBild());
+    }
 }

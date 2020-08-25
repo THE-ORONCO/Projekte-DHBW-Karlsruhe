@@ -136,7 +136,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (MuseumsManager.contains(Epoche.class, csvData[6])) {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
         }else{
-            epoche = (Epoche) MuseumsManager.find(Epoche.class, "e0"); //TODO get default epoche
+            epoche = (Epoche) MuseumsManager.find(Epoche.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Epoche.class));
         }
         String herkunftsort = csvData[7];
         Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.toString()));
@@ -146,7 +146,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         Bild bild;
         if (MuseumsManager.contains(Bild.class, csvData[12])) {
             bild = (Bild) MuseumsManager.find(Bild.class, csvData[12]);
-        } else bild = (Bild) MuseumsManager.find(Bild.class, "b0");//TODO get default bild
+        } else bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
 
         String beschreibung = csvData[13];
 
@@ -325,7 +325,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (MuseumsManager.contains(Bild.class, csvData[5])) {
             bild = (Bild) MuseumsManager.find(Bild.class, csvData[5]);
         } else {
-            bild = (Bild) MuseumsManager.find(Bild.class, "b0"); //TODO get default bild
+            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
         }
 
         Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten, bild);
