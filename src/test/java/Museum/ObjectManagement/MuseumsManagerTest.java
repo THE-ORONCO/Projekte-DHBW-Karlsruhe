@@ -2,7 +2,7 @@
  * @author Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package Museum.BackendTests.ObjectManagement;
+package Museum.ObjectManagement;
 
 import org.junit.After;
 import org.junit.Before;

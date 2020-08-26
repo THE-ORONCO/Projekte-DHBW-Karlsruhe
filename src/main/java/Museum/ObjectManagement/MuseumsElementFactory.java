@@ -10,6 +10,7 @@ import Museum.MuseumsElement;
 import Museum.Person.*;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
+import de.dhbwka.swe.utils.util.AppLogger;
 import de.dhbwka.swe.utils.util.CSVReader;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
@@ -70,6 +71,19 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     /**
+     * Funktioniert wie die createElement-Methode mit längerer Signatur, nur das der Header einer CSV-Datei immer ignoriert wird
+     *
+     * @param c         Klasse der Elemente in einer CSV-Datei
+     * @param dateiPfad Pfad zu der CSV-Datei
+     * @return eine Liste der importierten Elemente
+     * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
+     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
+     */
+    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
+        return createElement(c, dateiPfad, true);
+    }
+
+    /**
      * diese Methode ermöglicht das laden einer kompletten CSV-Datei
      *
      * @param c          Klasse der Elemente in einer CSV-Datei
@@ -90,34 +104,16 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         }
 
         for (String[] csvLine : csvData) {
-            geladeneElemente.add(createElement(c, csvLine));
             try {
-
+                geladeneElemente.add(createElement(c, csvLine));
             } catch (Exception e) {
                 //TODO ist das hadling hier ok?
-                if (ParseException.class.isInstance(e)) {
-                    System.out.println(e.getStackTrace());
-                } else if (IllegalArgumentException.class.isInstance(e)) {
-                    System.out.println(e.getStackTrace());
-                }
-                System.out.println(Arrays.toString(e.getStackTrace()));
+                AppLogger.getInstance().warning("MuseumsElement nicht erstellt aus den Daten: " + Arrays.toString(csvLine) +
+                        " Es wurde eine Exception geworfen ->" + e.getMessage());
             }
         }
 
         return geladeneElemente;
-    }
-
-    /**
-     * Funktioniert wie die createElement-Methode mit längerer Signatur, nur das der Header einer CSV-Datei immer ignoriert wird
-     *
-     * @param c         Klasse der Elemente in einer CSV-Datei
-     * @param dateiPfad Pfad zu der CSV-Datei
-     * @return eine Liste der importierten Elemente
-     * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
-     * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
-     */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
-        return createElement(c, dateiPfad, true);
     }
 
     /**
@@ -136,24 +132,28 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         String name = csvData[1];
         Date entstehungsDatum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[2]);
-        ArrayList<String> urheber = new ArrayList<>(Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.toString())));
+        ArrayList<String> urheber = new ArrayList<>(Arrays.asList(csvData[3].split(CSVSeparationLevel.LEVEL2.rSeparator())));
         double benoetigteAusstellungsflaeche = Double.parseDouble(csvData[4]);
-        ArrayList<String> kategorien = new ArrayList<>(Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.toString())));
+        ArrayList<String> kategorien = new ArrayList<>(Arrays.asList(csvData[5].split(CSVSeparationLevel.LEVEL2.rSeparator())));
         Epoche epoche;
         if (MuseumsManager.contains(Epoche.class, csvData[6])) {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
         } else {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Epoche.class));
+            AppLogger.getInstance().info("Epoche mit der Epochennummer " + csvData[6] + "ignoriert -> Default Epoche geladen.");
         }
         String herkunftsort = csvData[7];
-        Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.toString()));
+        Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.rSeparator()));
         Historie geschichtlicheH = createHistorie(new String[]{csvData[9]});
         Historie bearbeitungsH = createHistorie(new String[]{csvData[10]});
         Historie besitzH = createHistorie(new String[]{csvData[11]});
         Bild bild;
         if (MuseumsManager.contains(Bild.class, csvData[12])) {
             bild = (Bild) MuseumsManager.find(Bild.class, csvData[12]);
-        } else bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+        } else {
+            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+            AppLogger.getInstance().info("Bild mit der Bildnummer " + csvData[12] + "ignoriert -> Default Bild geladen.");
+        }
 
         String beschreibung = csvData[13];
 
@@ -206,6 +206,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 ereignisse.put(ereignis.getDatum(), ereignis);
             } catch (Exception e) {
                 System.out.println(Arrays.toString(csvData) + " wurde ignoriert");
+                AppLogger logger = AppLogger.getInstance();
+                logger.info("Datensatz: " + Arrays.toString(csvData) + " konnte nicht in ein Ereignis umgewandelt werden -> ignoriert");
                 // TODO vielleicht logging oder so um den User zu informieren das etwas schief gegangen ist
             }
         }
@@ -227,7 +229,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         checkCSVarghLength(csvData, getNumberOfAttributes(Ereignis.class));
 
-        Date datum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[0]);
+        Date datum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[0]); //TODO vlt variables Date-Time-Fromat reinbringen
         String beschreibung = csvData[1];
 
         Ereignis ereignis = new Ereignis(datum, beschreibung);
@@ -288,6 +290,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 bilder.add((Bild) MuseumsManager.find(Bild.class, bildNr));
             } else {
                 System.out.println("Bild " + bildNr + " unbekannt -> ignoriert");
+                AppLogger.getInstance().info("Bild " + bildNr + " unbekannt -> ignoriert");
             }
         }
         // Exponate finden
@@ -295,9 +298,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         for (String exponatNr : StringProcessor
                 .trimCSVData(csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2)))) {
             if (MuseumsManager.contains(Exponat.class, exponatNr)) {
-                bilder.add((Bild) MuseumsManager.find(Bild.class, exponatNr));
+                exponate.add((Exponat) MuseumsManager.find(Exponat.class, exponatNr));
             } else {
                 System.out.println("Exponat " + exponatNr + " unbekannt -> ignoriert");
+                AppLogger.getInstance().info("Exponat  " + exponatNr + " unbekannt -> ignoriert");
             }
         }
         String beschreibung = csvData[5];
@@ -314,7 +318,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      *
      * @param csvData die csvDaten aus denen das Objekt generiert werden soll
      * @return das generierte Objekt
-     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     * @throws Exception      wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
      * @throws ValueException wenn die Telefonnummern oder Emailadressen falsch fomatiert sind
      */
     public static Foerderer createFoerderer(String[] csvData) throws Exception {
@@ -330,27 +334,34 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String gebDatum = csvData[2];
         String beschreibung = csvData[3];
         // Kontaktdaten
-        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
+        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.rSeparator()));
+
+        // Bild
+        String bildNr = csvData[6];
+        Bild bild;
+        if(MuseumsManager.contains(Bild.class, bildNr)){
+            bild = (Bild) MuseumsManager.find(Bild.class, bildNr);
+        }else {
+            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+            AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
+        }
 
         // geförderte Exponate
-        Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontaktdaten);
+        Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontaktdaten, bild);
         for (String exponatNr : StringProcessor
-                .trimCSVData(csvData[5].split(CSVSeparationLevel.LEVEL2.toString()))) {
+                .trimCSVData(csvData[5].split(CSVSeparationLevel.LEVEL2.rSeparator()))) {
             // suche das Exponat mit der gegebenen Exponatnummer im MuseumsManager und übergebe es dem erstellten Förderer
-            try {
+            if (!exponatNr.isEmpty()) {
                 Exponat exponat = (Exponat) MuseumsManager.find(Exponat.class, exponatNr);
                 if (exponat == null) {
-                    throw new Exception("Ein Exponat muss angelegt werden bevor es von einem Foerderer gesponsert werden kann.");
+                    AppLogger.getInstance().info("Kein Exponat mit der Exponatnummer " + exponatNr + " gefunden -> ignoriert");
+                } else {
+                    foerderer.foerdereWeiteresExponat(exponat);
                 }
-                foerderer.foerdereWeiteresExponat(exponat);
-            } catch (Exception e) {
-                System.out.println(Arrays.toString(e.getStackTrace()));
             }
         }
 
-        if (!csvData[6].equals("")) {
-            foerderer.setBild((Bild) MuseumsManager.find(Bild.class, csvData[6]));
-        }
+
 
         // Förderer im Museum ablegen
         MuseumsManager.persist(Person.class, foerderer);
@@ -380,11 +391,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         //Kontakte laden
         Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
 
+        String bildNr = csvData[5];
         Bild bild;
-        if (MuseumsManager.contains(Bild.class, csvData[5])) {
-            bild = (Bild) MuseumsManager.find(Bild.class, csvData[5]);
+        if (MuseumsManager.contains(Bild.class, bildNr)) {
+            bild = (Bild) MuseumsManager.find(Bild.class, bildNr);
         } else {
             bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+            AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
         }
 
         Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterNr, name, gebDatum, beschreibung, kontaktdaten, bild);
@@ -501,7 +514,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 String land = anschriftAttribute[6];
                 anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
             } else {
-                throw new IllegalArgumentException("keine der Anschrifttypen matched die gegebenen Daten");
+                AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(anschriftAttribute) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert" );
+                // TODO hier keine Exception ? throw new IllegalArgumentException("keine der Anschrifttypen matched die gegebenen Daten");
             }
         }
         Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);
@@ -517,8 +531,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         StringProcessor.validierePrimaryKey(Epoche.class, epochnenID);
         ueberpruefeExistenz(Epoche.class, epochnenID);
 
-        // Existiert eine Epoche mit der RaumNR bereits im Museum?
-        if (MuseumsManager.contains(Raum.class, epochnenID)) {
+        // Existiert eine Epoche mit der EpochenNr bereits im Museum?
+        if (MuseumsManager.contains(Epoche.class, epochnenID)) {
             throw new Exception("Raum mit gleicher RaumNr exisitert bereits");
         }
 

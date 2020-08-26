@@ -32,10 +32,6 @@ public abstract class Person extends MuseumsElement {
         this.bild = bild;
     }
 
-    public Person(String personenNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt) throws ParseException {
-        this(personenNr, name, gebDatum, beschreibung, kontakt, (Bild) MuseumsManager.find(Bild.class, "b0"));// TODO Default bild in den Museumsmanager ablegen
-    }
-
     public String getName() {
         return name;
     }

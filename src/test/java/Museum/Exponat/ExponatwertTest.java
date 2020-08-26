@@ -1,6 +1,9 @@
-package Museum.BackendTests.Exponat;
+/**
+ * @author Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
+package Museum.Exponat;
 
-import Museum.Exponat.Exponat;
 import Museum.Exponat.Exponatwert;
 import org.junit.Before;
 import org.junit.Test;

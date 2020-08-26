@@ -11,11 +11,19 @@ import Museum.Person.User;
 import Museum.Raum.Raum;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class StringProcessor {
 
     public static String[] trimCSVData(String[] csvData) {
+        if (csvData.length == 1) {
+            if (csvData[0].trim().isEmpty()) {
+                return new String[0]; // leere Arrays werden ignoriert
+            }
+        }
+
         for (int i = 0; i < csvData.length; i++) {
             csvData[i] = csvData[i].trim();
         }
@@ -25,7 +33,7 @@ public class StringProcessor {
     public static void validierePrimaryKey(Class<?> c, String primaryKey) {
         char startCharacter = waehleKeyStartCharakter(c);
         if (primaryKey.matches("[a-zA-Z0-9]*") && primaryKey.startsWith(String.valueOf(startCharacter))) {
-        }else {
+        } else {
             throw new ValueException("PrimaryKey \"" + primaryKey + "\" passt nicht zur Klasse " + c.getName());
         }
 
@@ -88,7 +96,7 @@ public class StringProcessor {
                 CSVSeparationLevel.LEVEL5.wSeparator(),
                 "#"};
         for (String c : illegalCharacters) {
-            if (csvData.contains(c)) {
+            if (csvData.contains(c) || csvData.isEmpty()) {
                 return false;
             }
         }

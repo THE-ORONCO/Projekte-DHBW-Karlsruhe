@@ -2,7 +2,7 @@
  * @author Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package Museum.BackendTests.Exponat;
+package Museum.Exponat;
 
 import Museum.Exponat.Ereignis;
 import Museum.Exponat.Historie;

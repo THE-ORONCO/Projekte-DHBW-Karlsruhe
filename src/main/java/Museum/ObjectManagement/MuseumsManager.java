@@ -12,15 +12,18 @@ import Museum.Person.Foerderer;
 import Museum.Person.Person;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
-import de.dhbwka.swe.utils.util.CSVReader;
+import de.dhbwka.swe.utils.util.AppLogger;
 import de.dhbwka.swe.utils.util.CSVWriter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MuseumsManager {
 
+
     // Default Werte für CSV-Dateien wenn diese nicht vorhanden sind
+    // TODO dynamisches Laden der default werte vmtl mit PropertyManager
     private static final HashMap<Class<? extends MuseumsElement>, ArrayList<String[]>> DEFAULT_CSV_DATEN =
             new HashMap<Class<? extends MuseumsElement>, ArrayList<String[]>>() {{
                 put(Bild.class, new ArrayList<String[]>() {{
@@ -37,7 +40,7 @@ public class MuseumsManager {
                 }});
                 put(Raum.class, new ArrayList<String[]>() {{
                     add(new String[]{"raumNr", "ausstellungsflaeche", "ausstellungsthema", "bilder", "ausgestellteExponate", "beschreibung"});
-                    add(new String[]{"r0", "209.3", "alles", "b10", "x2, x4, x5", "Raum in dem alles abgestellt wir was aktuell nicht ausgestellt ist"});
+                    add(new String[]{"r0", "209.3", "alles", "b0", "", "Raum in dem alles abgestellt wir was aktuell nicht ausgestellt ist"});
                 }});
             }};
     // Default Werte für die Default-PrimaryKeys der Default-Elemente
@@ -231,7 +234,10 @@ public class MuseumsManager {
     }
 
     /**
-     * Diese Methode läd die default Elemente für eine gegebene Liste an Klassen
+     * Diese Methode läd die default Elemente für eine gegebene Liste an Klassen aus Dateien beziehungsweise erstell
+     * die Dateien wenn diese nicht gegeben sind und der User das möchte. Diese Datei wird mit hard gecodeden Daten
+     * gefüllt. Es wird also empfohlen immer eigene Default-Daten bereitzulegen oder das Programm diese generierern zu
+     * lassen.
      *
      * @param path                  Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
      * @param defaultElementKlassen Klassen für die die Default-Elemente geladen werden sollen
@@ -239,28 +245,34 @@ public class MuseumsManager {
      * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
      */
     public static void ladeDefaultElemente(String path, Class<? extends MuseumsElement>[] defaultElementKlassen, boolean generateNew) throws Exception {
-        HashMap<Class<? extends MuseumsElement>, CSVReader> defaultDateien = new HashMap<>();
+
         for (Class<? extends MuseumsElement> typ : defaultElementKlassen) {
             // generiere einen neuen CSV-Reader für jede gelesene Datei
             String name = typ.getSimpleName();
             String dateiPfad = path.endsWith("/") ? path + name + ".csv" : path + "/" + name + ".csv";
-            try {
-                defaultDateien.put(typ, new CSVReader(dateiPfad));
-            } catch (IllegalArgumentException e) {
-                // schaue ob eine neue Datei generiert werden soll
-                if (e.getMessage().equals("File does not exist") && generateNew) {
-                    CSVWriter writer = new CSVWriter(dateiPfad, true);
-                    String[] header = DEFAULT_CSV_DATEN.get(typ).get(0);
-                    ArrayList<String[]> csvData = new ArrayList<String[]>() {{
-                        add(DEFAULT_CSV_DATEN.get(typ).get(1));
-                    }};
+            File defaultDatei = new File(dateiPfad);
+            if (defaultDatei.exists()) {
+                MuseumsElementFactory.createElement(typ, dateiPfad);
 
-                    writer.writeDataToFile(csvData, header);
-                } else {
-                    throw e;
-                }
+
+                // schaue ob eine neue Datei generiert werden soll
+            } else if (generateNew) {
+                CSVWriter writer = new CSVWriter(dateiPfad, true);
+                String[] header = DEFAULT_CSV_DATEN.get(typ).get(0);
+                ArrayList<String[]> csvData = new ArrayList<String[]>() {{
+                    add(DEFAULT_CSV_DATEN.get(typ).get(1));
+                }};
+                //generiere die neue datei
+                writer.writeDataToFile(csvData, header);
+                AppLogger.getInstance().warning("Neue Default-Dateien unter " + dateiPfad + " generiert.");
+                MuseumsElementFactory.createElement(typ, dateiPfad);
+            } else {
+                // hard gecodede Default-Daten laden --> nicht empfohlen!!!
+                MuseumsElementFactory.createElement(typ, DEFAULT_CSV_DATEN.get(typ).get(1));
+                AppLogger.getInstance().warning("Default-Daten für " + typ.getSimpleName() + " ohne Datei geladen");
             }
-            MuseumsElementFactory.createElement(typ, dateiPfad);
+
+
         }
     }
 

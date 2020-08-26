@@ -1,4 +1,8 @@
-package Museum.BackendTests.Person;
+/**
+ * @author Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
+package Museum.Person;
 
 import Museum.Bild.Bild;
 import Museum.Person.Anschrift;

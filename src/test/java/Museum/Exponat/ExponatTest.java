@@ -1,14 +1,15 @@
-package Museum.BackendTests.Exponat;
+/**
+ * @author Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
+package Museum.Exponat;
 
-import Museum.Exponat.Exponat;
 import Museum.ObjectManagement.MuseumsElementFactory;
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.CSVReader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +20,7 @@ public class ExponatTest {
 
     @Before
     public void setUp() throws Exception {
-        MuseumsManager.ladeDefaultElemente("/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/resources/default", false);
+        MuseumsManager.ladeDefaultElemente("/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/", false);
         exponat = MuseumsElementFactory.createExponat(csvData);
     }
 

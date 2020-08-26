@@ -2,14 +2,12 @@
  * @author Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package Museum.BackendTests.ObjectManagement;
+package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
 import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
-import Museum.ObjectManagement.MuseumsElementFactory;
-import Museum.ObjectManagement.MuseumsManager;
 import Museum.Person.*;
 import Museum.Raum.Raum;
 import org.junit.After;
@@ -21,6 +19,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class MuseumsElementFactoryTest {
     private static Epoche epoche;
@@ -31,6 +30,7 @@ public class MuseumsElementFactoryTest {
     private static HR hr;
     private static Foerderer foerderer;
     private static Exponat exponat;
+
 
     @Before
     public void setUp() throws Exception {
@@ -84,18 +84,19 @@ public class MuseumsElementFactoryTest {
         ArrayList<? extends MuseumsElement> epochen = new ArrayList<>();
 
         try {
-            epochen = MuseumsElementFactory.createElement(Epoche.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/resources/data/epochen.csv");
+            epochen = MuseumsElementFactory.createElement(Epoche.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/data/epochen.csv");
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
-
 
         ArrayList<? extends MuseumsElement> exponate = new ArrayList<>();
 
         try{
-            exponate = MuseumsElementFactory.createElement(Exponat.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/resources/data/exponate.csv");
+            exponate = MuseumsElementFactory.createElement(Exponat.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/data/exponate.csv");
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
 
         // Test ob die Exponate als CSV geparst die gleichen Exponate erstellen wie die Daten der  gelesenen CSV-Datei

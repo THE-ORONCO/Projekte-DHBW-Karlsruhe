@@ -1,4 +1,8 @@
-package Museum.BackendTests.ObjectManagement;
+/**
+ * @author Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
+package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;

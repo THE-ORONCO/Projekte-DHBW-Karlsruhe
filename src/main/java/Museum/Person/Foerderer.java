@@ -34,18 +34,8 @@ public class Foerderer extends Person {
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate) throws ParseException {
-        super(foerderNr, name, gebDatum, beschreibung, kontakt);
-        this.gefoerderteExponate = gefoerderteExponate;
-    }
-
     public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.gefoerderteExponate = new ArrayList<>();
-    }
-
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt) throws ParseException {
-        super(foerderNr, name, gebDatum, beschreibung, kontakt);
         this.gefoerderteExponate = new ArrayList<>();
     }
 

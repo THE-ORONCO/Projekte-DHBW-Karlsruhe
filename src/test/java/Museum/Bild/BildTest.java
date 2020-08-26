@@ -1,4 +1,8 @@
-package Museum.BackendTests.Bild;
+/**
+ * @author Théo Roncoletta - TINF18B1
+ * @version 1.0
+ */
+package Museum.Bild;
 
 import Museum.Bild.Bild;
 import org.junit.Before;
