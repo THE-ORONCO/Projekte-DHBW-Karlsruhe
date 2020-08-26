@@ -17,10 +17,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,7 +42,6 @@ public class MuseumsElementFactoryTest {
     @After
     public void tearDown() throws Exception {
         MuseumsManager.clearAlles();
-
     }
 
     @Test

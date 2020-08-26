@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-// TODO StringProcessor.validierePrimaryKey() für alle klassen
 // TODO override boolean in createElement etc. Methoden um ein erstelltes Objekt mit gleicher pk zu überschreiben
 
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
@@ -121,6 +120,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return createElement(c, dateiPfad, true);
     }
 
+    /**
+     * Diese Methode generiert ein Exponat Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static Exponat createExponat(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
@@ -160,6 +166,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return exponat;
     }
 
+    /**
+     * Diese Methode generiert ein ExponatWert Objekt aus csvDaten.
+     * Diese Metoode wird nur für die Erstellung eines Exponat-Objekts verwendet.
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     */
     private static Exponatwert createExponatwert(String[] csvData) {
         StringProcessor.trimCSVData(csvData);
 
@@ -173,6 +186,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return exponatwert;
     }
 
+    /**
+     * Diese Methode generiert ein Historien Objekt aus csvDaten.
+     * Diese Metoode wird nur für die Erstellung eines Exponat-Objekts verwendet.
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     */
     private static Historie createHistorie(String[] csvData) {
         StringProcessor.trimCSVData(csvData);
 
@@ -194,6 +214,14 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return historie;
     }
 
+    /**
+     * Diese Methode generiert ein Ereignis Objekt aus csvDaten.
+     * Diese Metoode wird nur für die Erstellung eines Historie-Objekts verwendet.
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws ParseException wenn das Datum in den csvDaten im falschen Format vorliegt
+     */
     private static Ereignis createEreignis(String[] csvData) throws ParseException {
         StringProcessor.trimCSVData(csvData);
 
@@ -207,6 +235,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return ereignis;
     }
 
+    /**
+     * Diese Methode generiert ein Bild Objekt aus csvDaten.
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static Bild createBild(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
@@ -357,6 +392,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return mitarbeiter;
     }
 
+    /**
+     * Diese Methode generiert ein Admin Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static Admin createAdmin(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
@@ -371,6 +413,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return admin;
     }
 
+    /**
+     * Diese Methode generiert ein User Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static User createUser(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
@@ -385,6 +434,13 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return user;
     }
 
+    /**
+     * Diese Methode generiert ein HR Objekt aus csvDaten
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception wenn ein Objekt mit gleichem PrimaryKey bereits im MuseumsManager vorhanden ist
+     */
     public static HR createHR(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 

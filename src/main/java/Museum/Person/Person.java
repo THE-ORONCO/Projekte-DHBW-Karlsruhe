@@ -1,14 +1,11 @@
 package Museum.Person;
 
-import Museum.BackendTests.Person.KontaktdatenTest;
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
-import Museum.ObjectManagement.CSVSeparationLevel;
 import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Person extends MuseumsElement {
