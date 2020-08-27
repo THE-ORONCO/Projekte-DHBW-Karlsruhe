@@ -139,8 +139,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (MuseumsManager.contains(Epoche.class, csvData[6])) {
             epoche = (Epoche) MuseumsManager.find(Epoche.class, csvData[6]);
         } else {
-            epoche = (Epoche) MuseumsManager.find(Epoche.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Epoche.class));
-            AppLogger.getInstance().info("Epoche mit der Epochennummer " + csvData[6] + "ignoriert -> Default Epoche geladen.");
+            epoche = (Epoche) MuseumsManager.getDefault(Epoche.class);
+            AppLogger.getInstance().info("Epoche mit der Epochennummer " + csvData[6] + " ignoriert -> Default Epoche geladen.");
         }
         String herkunftsort = csvData[7];
         Exponatwert exponatwert = createExponatwert(csvData[8].split(CSVSeparationLevel.LEVEL2.rSeparator()));
@@ -151,8 +151,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (MuseumsManager.contains(Bild.class, csvData[12])) {
             bild = (Bild) MuseumsManager.find(Bild.class, csvData[12]);
         } else {
-            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
-            AppLogger.getInstance().info("Bild mit der Bildnummer " + csvData[12] + "ignoriert -> Default Bild geladen.");
+            bild = (Bild) MuseumsManager.getDefault(Bild.class);
+            AppLogger.getInstance().info("Bild mit der Bildnummer " + csvData[12] + " ignoriert -> Default Bild geladen.");
         }
 
         String beschreibung = csvData[13];
@@ -342,7 +342,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if(MuseumsManager.contains(Bild.class, bildNr)){
             bild = (Bild) MuseumsManager.find(Bild.class, bildNr);
         }else {
-            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+            bild = (Bild) MuseumsManager.getDefault(Bild.class);
             AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
         }
 
@@ -396,7 +396,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         if (MuseumsManager.contains(Bild.class, bildNr)) {
             bild = (Bild) MuseumsManager.find(Bild.class, bildNr);
         } else {
-            bild = (Bild) MuseumsManager.find(Bild.class, MuseumsManager.DEFAULT_PIMARYKEYS.get(Bild.class));
+            bild = (Bild) MuseumsManager.getDefault(Bild.class);
             AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
         }
 

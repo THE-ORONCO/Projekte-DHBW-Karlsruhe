@@ -21,37 +21,7 @@ import java.util.HashMap;
 
 public class MuseumsManager {
 
-
-    // Default Werte für CSV-Dateien wenn diese nicht vorhanden sind
-    // TODO dynamisches Laden der default werte vmtl mit PropertyManager
-    private static final HashMap<Class<? extends MuseumsElement>, ArrayList<String[]>> DEFAULT_CSV_DATEN =
-            new HashMap<Class<? extends MuseumsElement>, ArrayList<String[]>>() {{
-                put(Bild.class, new ArrayList<String[]>() {{
-                    add(new String[]{"bildNr", "altText", "dateiName", "beschreibung"});
-                    add(new String[]{"b0", "default Bild", "bilder/default.png", "default Bild"});
-                }});
-                put(Epoche.class, new ArrayList<String[]>() {{
-                    add(new String[]{"epochenID", "Epoche", "Stil", "Zeitalter", "Beschreibung"});
-                    add(new String[]{"e0", "unbekannte Epoche", "kein bekannter Stil", "unbekanntes Zeitalter", "Beschreibung"});
-                }});
-                put(Foerderer.class, new ArrayList<String[]>() {{
-                    add(new String[]{"foerdererNr", "name", "gebDatum", "beschreibung", "kontakt", "gefoerdererteExponate", "bild"});
-                    add(new String[]{"f0", "Das Museum", "2020.01.01", "Museum default Foerderer", "swe.museum@baum.uff | muse@um.swe, 010101010101 | 081532020, SWE-Museum_ Museum_ Museumsstrasse_ 1_ 76149_ Karlsruhe_ Deutschland | 42069_ 76149_ Karlsruhe_ Deutschland", "", "b0"});
-                }});
-                put(Raum.class, new ArrayList<String[]>() {{
-                    add(new String[]{"raumNr", "ausstellungsflaeche", "ausstellungsthema", "bilder", "ausgestellteExponate", "beschreibung"});
-                    add(new String[]{"r0", "209.3", "alles", "b0", "", "Raum in dem alles abgestellt wir was aktuell nicht ausgestellt ist"});
-                }});
-            }};
-    // Default Werte für die Default-PrimaryKeys der Default-Elemente
-    public static final HashMap<Class<? extends MuseumsElement>, String> DEFAULT_PIMARYKEYS =
-            new HashMap<Class<? extends MuseumsElement>, String>() {{
-                put(Bild.class, DEFAULT_CSV_DATEN.get(Bild.class).get(1)[0]);
-                put(Epoche.class, DEFAULT_CSV_DATEN.get(Epoche.class).get(1)[0]);
-                put(Foerderer.class, DEFAULT_CSV_DATEN.get(Foerderer.class).get(1)[0]);
-                put(Raum.class, DEFAULT_CSV_DATEN.get(Raum.class).get(1)[0]);
-            }};
-
+    private static final HashMap<Class<? extends MuseumsElement>, ArrayList<MuseumsElement>> DEFAULT_ELEMENTE = new HashMap<>();
 
     // MuseumsElementManager die die verschiedenen Objekte des Museums speichern
     private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier könnte man aufteilen, warum haben wir das nicht?
@@ -224,27 +194,25 @@ public class MuseumsManager {
      * Diese Methode läd die default Elemente für Bild, Epoche, Foerderer, Raum
      *
      * @param path        Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
-     * @param generateNew wenn die Dateien nicht vorhanden sind werden sie bei true neu generiert
      * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
      */
-    public static void ladeDefaultElemente(String path, boolean generateNew) throws Exception {
+    public static void ladeDefaultElemente(String path) throws Exception {
         Class<? extends MuseumsElement>[] defaultElementKlassen = new Class[]{Bild.class, Epoche.class, Foerderer.class, Raum.class};
-        ladeDefaultElemente(path, defaultElementKlassen, generateNew);
-
+        ladeDefaultElemente(path, defaultElementKlassen);
     }
 
     /**
-     * Diese Methode läd die default Elemente für eine gegebene Liste an Klassen aus Dateien beziehungsweise erstell
-     * die Dateien wenn diese nicht gegeben sind und der User das möchte. Diese Datei wird mit hard gecodeden Daten
-     * gefüllt. Es wird also empfohlen immer eigene Default-Daten bereitzulegen oder das Programm diese generierern zu
-     * lassen.
+     * Diese Methode läd die default Elemente für eine gegebene Liste an Klassen aus Dateien beziehungsweise läd
+     * Default-Werte aus gegebenen Dateien.
+     * Die geladenen Werte werden in der HashMap DEFAULT_ELELMENTE mit den Klassen als Key abgelegt.
+     *
      *
      * @param path                  Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
      * @param defaultElementKlassen Klassen für die die Default-Elemente geladen werden sollen
-     * @param generateNew           wenn die Dateien nicht vorhanden sind werden sie bei true neu generiert
      * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
      */
-    public static void ladeDefaultElemente(String path, Class<? extends MuseumsElement>[] defaultElementKlassen, boolean generateNew) throws Exception {
+    public static void ladeDefaultElemente(String path, Class<? extends MuseumsElement>[] defaultElementKlassen) throws Exception {
+        ArrayList<MuseumsElement> defaultElemente = new ArrayList<>();
 
         for (Class<? extends MuseumsElement> typ : defaultElementKlassen) {
             // generiere einen neuen CSV-Reader für jede gelesene Datei
@@ -252,27 +220,16 @@ public class MuseumsManager {
             String dateiPfad = path.endsWith("/") ? path + name + ".csv" : path + "/" + name + ".csv";
             File defaultDatei = new File(dateiPfad);
             if (defaultDatei.exists()) {
-                MuseumsElementFactory.createElement(typ, dateiPfad);
+                defaultElemente = MuseumsElementFactory.createElement(typ, dateiPfad);
 
-
-                // schaue ob eine neue Datei generiert werden soll
-            } else if (generateNew) {
-                CSVWriter writer = new CSVWriter(dateiPfad, true);
-                String[] header = DEFAULT_CSV_DATEN.get(typ).get(0);
-                ArrayList<String[]> csvData = new ArrayList<String[]>() {{
-                    add(DEFAULT_CSV_DATEN.get(typ).get(1));
-                }};
-                //generiere die neue datei
-                writer.writeDataToFile(csvData, header);
-                AppLogger.getInstance().warning("Neue Default-Dateien unter " + dateiPfad + " generiert.");
-                MuseumsElementFactory.createElement(typ, dateiPfad);
             } else {
                 // hard gecodede Default-Daten laden --> nicht empfohlen!!!
-                MuseumsElementFactory.createElement(typ, DEFAULT_CSV_DATEN.get(typ).get(1));
-                AppLogger.getInstance().warning("Default-Daten für " + typ.getSimpleName() + " ohne Datei geladen");
+                String fallbackDateiPfad = "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/fallback-resources/default/" + name + ".csv";//TODO relativen Pfad rausfinden
+                defaultElemente = MuseumsElementFactory.createElement(typ, fallbackDateiPfad);
+                AppLogger.getInstance().warning("Default-Daten für " + name + " ohne Datei geladen");
             }
 
-
+            MuseumsManager.DEFAULT_ELEMENTE.put(typ, defaultElemente);
         }
     }
 
@@ -283,6 +240,6 @@ public class MuseumsManager {
      * @return Default-MuseumsElement für die gegebene Klasse
      */
     public static MuseumsElement getDefault(Class<? extends MuseumsElement> c) {
-        return find(c, DEFAULT_PIMARYKEYS.get(c));
+        return DEFAULT_ELEMENTE.get(c).get(0);
     }
 }

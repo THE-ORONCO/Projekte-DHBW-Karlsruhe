@@ -20,7 +20,7 @@ public class ExponatTest {
 
     @Before
     public void setUp() throws Exception {
-        MuseumsManager.ladeDefaultElemente("/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/", false);
+        MuseumsManager.ladeDefaultElemente("/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/default");
         exponat = MuseumsElementFactory.createExponat(csvData);
     }
 
