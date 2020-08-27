@@ -515,7 +515,6 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
             } else {
                 AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(anschriftAttribute) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert" );
-                // TODO hier keine Exception ? throw new IllegalArgumentException("keine der Anschrifttypen matched die gegebenen Daten");
             }
         }
         Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);

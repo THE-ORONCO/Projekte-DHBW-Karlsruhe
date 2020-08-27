@@ -64,7 +64,17 @@ public class Anschrift {
                 land.equals(anschrift.land);
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     public String[] parseToCSV(){
-        return new String[]{};//TODO parseToCSV für die Anschriften
-    }
+        String[] csvDaten = new String[]{
+                String.valueOf(getPlz()),
+                getStadt(),
+                getLand()
+        };
+        return csvDaten;
+    };
 }

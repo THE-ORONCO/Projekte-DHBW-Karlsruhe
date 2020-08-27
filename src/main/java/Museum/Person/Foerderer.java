@@ -86,9 +86,9 @@ public class Foerderer extends Person {
                 this.getName(),
                 this.getGebDatum().toString(),
                 this.getBeschreibung(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getKontakt().parseToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.parsExponateToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), this.getBild().parsToCSV())
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getKontakt().parseToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.parsExponateToCSV()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBild().parsToCSV())
         };
         return csvData;
     }
@@ -103,7 +103,7 @@ public class Foerderer extends Person {
         for(Exponat exponat: this.gefoerderteExponate){
             exponatCSVData.add(exponat.getPrimaryKey());
         }
-        return exponatCSVData.toArray(new String[exponatCSVData.size()]);
+        return exponatCSVData.toArray(new String[0]);
     }
 
 }

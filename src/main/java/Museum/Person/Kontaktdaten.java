@@ -4,6 +4,7 @@
  */
 package Museum.Person;
 
+import Museum.ObjectManagement.CSVSeparationLevel;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class Kontaktdaten {
      * erstellt ein Kontaktdaten-Objekt welches Daten über alle Kontaktmöglichkeiten über eine Person enthält
      *
      * @param emailAdressen Liste alle E-Mail-Adressen unter der eine Person erreichbar ist
-     * @param teleNr Alle Telefonnummern unter der eine Person erreichbar ist
-     * @param anschriften Alle Anschriften unter der eine Person erreichbar ist
+     * @param teleNr        Alle Telefonnummern unter der eine Person erreichbar ist
+     * @param anschriften   Alle Anschriften unter der eine Person erreichbar ist
      * @throws ValueException wenn die E-Mail-Adresse oder die Telefonnummer nicht dem entsprechenden Regex entspricht
      */
     public Kontaktdaten(ArrayList<String> emailAdressen, ArrayList<String> teleNr, ArrayList<Anschrift> anschriften) throws ValueException { //DIFF teleNr ist String, da int oft zu klein und List, da jede Person auch mehrere Telefonnummern haben kann
@@ -31,7 +32,7 @@ public class Kontaktdaten {
             if (emailPattern.matcher(emailAdresse).matches()) {
                 this.emailAdressen.add(emailAdresse);
             } else {
-                throw new ValueException("E-Mail-Adresse \""+ emailAdresse +"\" hat falsches Format");
+                throw new ValueException("E-Mail-Adresse \"" + emailAdresse + "\" hat falsches Format");
             }
         }
 
@@ -145,7 +146,21 @@ public class Kontaktdaten {
      * @return Objekt im CSV-Format
      */
     public String[] parseToCSV() {
-        return null;
-    }//TODO parseToCSV für Kontaktdaten
+        String[] csvDaten = new String[]{
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), getEmailAdressen()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), getTeleNr()),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), parseAnschriftenToCSV())
+        };
+        return csvDaten;
+    }
+
+    private String[] parseAnschriftenToCSV() {
+        ArrayList<String> exponatCSVData = new ArrayList<>();
+        for (Anschrift anschrift : getAnschriften()) {
+            String anschriftAsString = String.join(CSVSeparationLevel.LEVEL2.wSeparator(), anschrift.parseToCSV());
+            exponatCSVData.add(anschriftAsString);
+        }
+        return exponatCSVData.toArray(new String[0]);
+    }
 }
 

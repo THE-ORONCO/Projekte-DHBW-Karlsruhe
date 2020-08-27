@@ -132,6 +132,7 @@ public class MuseumsManager {
     // Standartmethode exportiert im CSV-Format
     public static void exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
         //TODO ueberschreiben einbauen
+        //TODO exportieren ausgiebig testen!
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
 
         ArrayList<String[]> csvData = relevanterManager.parseToCSV();

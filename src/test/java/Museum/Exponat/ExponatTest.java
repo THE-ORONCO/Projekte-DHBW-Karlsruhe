@@ -29,7 +29,6 @@ public class ExponatTest {
         MuseumsManager.clearAlles();
     }
 
-    //TODO default Elemente implementieren bevor das hier getestet werden kann
     @Test
     public void testEquals() throws Exception {
         MuseumsManager.remove(exponat);

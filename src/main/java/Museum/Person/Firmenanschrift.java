@@ -87,8 +87,22 @@ public class Firmenanschrift extends Anschrift {
                 strasse.equals(that.strasse);
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     @Override
     public String[] parseToCSV() {
-        return new String[0];
+        String[] csvData = new String[]{
+                getFirma(),
+                getName(),
+                getStrasse(),
+                String.valueOf(getHausnummer()),
+                String.valueOf(getPlz()),
+                getStadt(),
+                getLand()
+        };
+        return csvData;
     }
 }

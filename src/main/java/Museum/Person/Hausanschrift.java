@@ -75,4 +75,22 @@ public class Hausanschrift extends Anschrift {
                 name.equals(that.name) &&
                 strasse.equals(that.strasse);
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String[] parseToCSV() {
+        String[] csvData = new String[]{
+                getName(),
+                getStrasse(),
+                String.valueOf(getHausnummer()),
+                String.valueOf(getPlz()),
+                getStadt(),
+                getLand()
+        };
+        return csvData;
+    }
 }

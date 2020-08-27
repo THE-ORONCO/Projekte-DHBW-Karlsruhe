@@ -49,4 +49,20 @@ public class Postfachadresse extends Anschrift {
         Postfachadresse that = (Postfachadresse) o;
         return postfachnummer == that.postfachnummer;
     }
+
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
+    @Override
+    public String[] parseToCSV() {
+        String[] csvDaten = new String[]{
+                String.valueOf(getPostfachnummer()),
+                String.valueOf(getPlz()),
+                getStadt(),
+                getLand()
+        };
+        return csvDaten;
+    }
 }
