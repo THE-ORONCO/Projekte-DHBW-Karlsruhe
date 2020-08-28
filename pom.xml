@@ -6,7 +6,7 @@
 
     <groupId>swe.museumsverwaltung</groupId>
     <artifactId>SWE-Museumsverwaltung</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>69.420</version>
     <build>
         <plugins>
             <plugin>
@@ -25,9 +25,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-
                             <mainClass>SWEMuseumsVerwaltung</mainClass>
-
                         </manifest>
                     </archive>
                 </configuration>
