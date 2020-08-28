@@ -14,7 +14,7 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import java.security.KeyException;
 import java.util.ArrayList;
 
-public class Raum extends MuseumsElement { //DIFF neue Überklasse
+public class Raum extends MuseumsElement { //DIFF neue ueberklasse
 
     private double ausstellungsflaeche;
     private String ausstellungsthema;
@@ -25,8 +25,8 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
      * repräsentiert einen Raum im Museum
      *
      * @param raumNr               Nummer mit der der Raum im System eindeutig identifiziert werden kann
-     * @param beschreibung         eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Türen)
-     * @param ausstellungsflaeche  benutzbare Ausstellungsfläche die in diesem Raum zur Verfügung steht in Quadratmetern
+     * @param beschreibung         eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Tueren)
+     * @param ausstellungsflaeche  benutzbare Ausstellungsfläche die in diesem Raum zur Verfuegung steht in Quadratmetern
      * @param ausstellungsthema    Thema der Ausstellung im aktuellen Raum
      * @param bilder               bilder des Raumes
      * @param ausgestellteExponate die in dem Raum ausgestellten Exponate
@@ -79,7 +79,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
     }
 
     /**
-     * Fügt ein bekanntes Exponat einem Raum hinzu
+     * Fuegt ein bekanntes Exponat einem Raum hinzu
      *
      * @param exponat
      * @throws Exception
@@ -91,7 +91,7 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
         }
         if (verbrauchteAusstellungsflaeche + exponat.getBenoetigteAusstellungsflaeche() <= this.ausstellungsflaeche) {
             if (!this.ausgestellteExponate.contains(exponat)) {
-                // wenn das Exponat noch nicht existiert wird es dem MuseumsManager hinzugefügt
+                // wenn das Exponat noch nicht existiert wird es dem MuseumsManager hinzugefuegt
                 if (!MuseumsManager.contains(Exponat.class, exponat)) {
                     MuseumsManager.persist(Exponat.class, exponat);
                 }
@@ -149,8 +149,8 @@ public class Raum extends MuseumsElement { //DIFF neue Überklasse
                 this.getPrimaryKey(),
                 String.valueOf(this.getAusstellungsflaeche()),
                 this.getAusstellungsthema(),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), bildNrn),
-                String.join(CSVSeparationLevel.LEVEL2.toString(), exponatNrn),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), bildNrn),
+                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), exponatNrn),
         };
         return csvData;
     }

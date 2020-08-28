@@ -20,15 +20,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-// TODO override boolean in createElement etc. Methoden um ein erstelltes Objekt mit gleicher pk zu überschreiben
+// TODO override boolean in createElement etc. Methoden um ein erstelltes Objekt mit gleicher pk zu ueberschreiben
 
 public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory anstatt verschiedene
 
     /**
-     * diese Methode ermöglicht das erzeugen eines Objekt welches von MuseumsElement erbt und ein Blatt im Vererbungsbaum ist
+     * diese Methode ermoeglicht das erzeugen eines Objekt welches von MuseumsElement erbt und ein Blatt im Vererbungsbaum ist
      *
      * @param c       Klasse des erzeugten Objekts
-     * @param csvData String[] welches die Daten beschreibt die zur erzeugung des Objekts benötigt werden
+     * @param csvData String[] welches die Daten beschreibt die zur erzeugung des Objekts benoetigt werden
      * @return das erzeugte Objekt
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
@@ -55,7 +55,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     /**
-     * dise Methode ermöglicht das laden einer spezifischen Zeile einer CSV-Datei
+     * dise Methode ermoeglicht das laden einer spezifischen Zeile einer CSV-Datei
      *
      * @param c         Klasse der Elemente in einer CSV-Datei
      * @param dateiPfad Pfad zu der CSV-Datei
@@ -84,7 +84,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     /**
-     * diese Methode ermöglicht das laden einer kompletten CSV-Datei
+     * diese Methode ermoeglicht das laden einer kompletten CSV-Datei
      *
      * @param c          Klasse der Elemente in einer CSV-Datei
      * @param dateiPfad  Pfad zu der CSV-Datei
@@ -168,7 +168,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     /**
      * Diese Methode generiert ein ExponatWert Objekt aus csvDaten.
-     * Diese Metoode wird nur für die Erstellung eines Exponat-Objekts verwendet.
+     * Diese Metoode wird nur fuer die Erstellung eines Exponat-Objekts verwendet.
      *
      * @param csvData die csvDaten aus denen das Objekt generiert werden soll
      * @return das generierte Objekt
@@ -188,7 +188,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     /**
      * Diese Methode generiert ein Historien Objekt aus csvDaten.
-     * Diese Metoode wird nur für die Erstellung eines Exponat-Objekts verwendet.
+     * Diese Metoode wird nur fuer die Erstellung eines Exponat-Objekts verwendet.
      *
      * @param csvData die csvDaten aus denen das Objekt generiert werden soll
      * @return das generierte Objekt
@@ -200,7 +200,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         HashMap<Date, Ereignis> ereignisse = new HashMap<>();
         for (String ereignisCSV : StringProcessor.trimCSVData(
-                csvData[0].split(CSVSeparationLevel.LEVEL2.toString()))) {
+                csvData[0].split(CSVSeparationLevel.LEVEL2.rSeparator()))) {
             try {
                 Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.rSeparator()));
                 ereignisse.put(ereignis.getDatum(), ereignis);
@@ -218,7 +218,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     /**
      * Diese Methode generiert ein Ereignis Objekt aus csvDaten.
-     * Diese Metoode wird nur für die Erstellung eines Historie-Objekts verwendet.
+     * Diese Metoode wird nur fuer die Erstellung eines Historie-Objekts verwendet.
      *
      * @param csvData die csvDaten aus denen das Objekt generiert werden soll
      * @return das generierte Objekt
@@ -346,11 +346,11 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
         }
 
-        // geförderte Exponate
+        // gefoerderte Exponate
         Foerderer foerderer = new Foerderer(foerdererNr, name, gebDatum, beschreibung, kontaktdaten, bild);
         for (String exponatNr : StringProcessor
                 .trimCSVData(csvData[5].split(CSVSeparationLevel.LEVEL2.rSeparator()))) {
-            // suche das Exponat mit der gegebenen Exponatnummer im MuseumsManager und übergebe es dem erstellten Förderer
+            // suche das Exponat mit der gegebenen Exponatnummer im MuseumsManager und uebergebe es dem erstellten Foerderer
             if (!exponatNr.isEmpty()) {
                 Exponat exponat = (Exponat) MuseumsManager.find(Exponat.class, exponatNr);
                 if (exponat == null) {
@@ -363,7 +363,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
 
 
-        // Förderer im Museum ablegen
+        // Foerderer im Museum ablegen
         MuseumsManager.persist(Person.class, foerderer);
 
         return foerderer;
@@ -389,7 +389,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String beschreibung = csvData[3];
 
         //Kontakte laden
-        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.toString()));
+        Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.rSeparator()));
 
         String bildNr = csvData[5];
         Bild bild;
@@ -542,16 +542,16 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         Epoche epoche = new Epoche(epochnenID, epochenName, stilrichtung, zeitalter, beschreibung);
 
-        // Epoche dem Museum hinzufügen
+        // Epoche dem Museum hinzufuegen
         MuseumsManager.persist(Epoche.class, epoche);
         return epoche;
     }
 
     /**
-     * Diese methode überprüft ob die Länge der gegebenen CSV-Daten der gegebenen Länge entspricht
+     * Diese methode ueberprueft ob die Länge der gegebenen CSV-Daten der gegebenen Länge entspricht
      *
-     * @param csvData        überprüfte CSV-Daten
-     * @param expectedLength gewünschte Länge
+     * @param csvData        ueberpruefte CSV-Daten
+     * @param expectedLength gewuenschte Länge
      */
     private static void checkCSVarghLength(String[] csvData, int expectedLength) {
         if (csvData.length != expectedLength) {
@@ -561,7 +561,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     /**
-     * diese Methode gibt die Anzahl der Attribute die gegebene Klasse c zusammen mit ihren Überkalssen besitzt
+     * diese Methode gibt die Anzahl der Attribute die gegebene Klasse c zusammen mit ihren ueberkalssen besitzt
      *
      * @param c untersuchte Klasse
      * @return Anzahl der Attribute der Klasse
@@ -577,7 +577,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
     }
 
     /**
-     * Dies Metode überprüft ob ein Objekt mit gegebenem primaryKey bereits im Museum existiert.
+     * Dies Metode ueberprueft ob ein Objekt mit gegebenem primaryKey bereits im Museum existiert.
      *
      * @param c          Klasse des Objekts
      * @param primaryKey gesuchter Primary key

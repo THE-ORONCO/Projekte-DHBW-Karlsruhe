@@ -18,12 +18,6 @@ public enum CSVSeparationLevel {
         this.writeSeparator = writeSeparator;
     }
 
-    @Deprecated
-    @Override
-    public String toString() {
-        return String.valueOf(this.writeSeparator);
-    }
-
     /**
      * Diese Methode ist dazu da um den Seperator zum lesen einer CSV-Datei zu bekommen wenn sie mit String.split() gespalten werden soll
      *
@@ -34,7 +28,7 @@ public enum CSVSeparationLevel {
     }
 
     /**
-     * Diese Methode ist dazu da um den Seperator zum schreiben von CSV-Daten zu bekommen wenn sie mit String.join() zusammengefügt werden sollen
+     * Diese Methode ist dazu da um den Seperator zum schreiben von CSV-Daten zu bekommen wenn sie mit String.join() zusammengefuegt werden sollen
      *
      * @return den Separator der gebraucht wird um eine CSV-Datei zu schreiben
      */

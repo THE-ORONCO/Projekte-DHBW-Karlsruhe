@@ -17,7 +17,7 @@ public class Kontaktdaten {
     private ArrayList<Anschrift> anschriften;
 
     /**
-     * erstellt ein Kontaktdaten-Objekt welches Daten über alle Kontaktmöglichkeiten über eine Person enthält
+     * erstellt ein Kontaktdaten-Objekt welches Daten ueber alle Kontaktmoeglichkeiten ueber eine Person enthält
      *
      * @param emailAdressen Liste alle E-Mail-Adressen unter der eine Person erreichbar ist
      * @param teleNr        Alle Telefonnummern unter der eine Person erreichbar ist
@@ -26,7 +26,7 @@ public class Kontaktdaten {
      */
     public Kontaktdaten(ArrayList<String> emailAdressen, ArrayList<String> teleNr, ArrayList<Anschrift> anschriften) throws ValueException { //DIFF teleNr ist String, da int oft zu klein und List, da jede Person auch mehrere Telefonnummern haben kann
         this.emailAdressen = new ArrayList<String>();
-        // überprüfe die E-Mail-Adressen auf ihre Richtigkeit
+        // ueberpruefe die E-Mail-Adressen auf ihre Richtigkeit
         Pattern emailPattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
         for (String emailAdresse : emailAdressen) {
             if (emailPattern.matcher(emailAdresse).matches()) {
@@ -37,7 +37,7 @@ public class Kontaktdaten {
         }
 
         this.teleNr = new ArrayList<String>();
-        // überprüfe die Telefonnummern auf ihre Richtigkeit
+        // ueberpruefe die Telefonnummern auf ihre Richtigkeit
         Pattern teleNrPattern = Pattern.compile("^[\\+]?[(]?[0-9]{2,3}[)]?[-\\s\\.]?[0-9]{3,4}[-\\s\\.]?[0-9]{4,7}$");
         for (String tNr : teleNr) {
             if (teleNrPattern.matcher(tNr).matches()) {

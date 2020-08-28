@@ -16,8 +16,8 @@ public class Firmenanschrift extends Anschrift {
      *
      * @param firma Firma an der die Person mit dieser Anschrift arbeitet
      * @param name Name der Person mit dieser Anschrift
-     * @param strasse Straße der Anschrift
-     * @param hausnummer Hausnummer in der Straße
+     * @param strasse Strasse der Anschrift
+     * @param hausnummer Hausnummer in der Strasse
      * @param plz Postleitzahl der Stadt
      * @param stadt Stadt die mit der Anschrift refferenziert wird
      * @param land Land der Anschrift (kann auch weggelassen werden)

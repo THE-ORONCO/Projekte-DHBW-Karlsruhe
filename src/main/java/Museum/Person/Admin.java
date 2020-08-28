@@ -18,7 +18,7 @@ public class Admin extends Mitarbeiter {
      * @param mitarbeiterNr Mitarbeiternummer die den Mitarbeiter eindeutig identifiziert
      * @param name          Name der Person
      * @param gebDatum      Geburtsdatum der Person
-     * @param beschreibung  eine kurze Beschreibung der Person wenn gewünscht
+     * @param beschreibung  eine kurze Beschreibung der Person wenn gewuenscht
      * @param kontakt       Kontaktdaten unter der die Person zu erreichen is
      * @param bild          Bild des Mitarbeiters
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen

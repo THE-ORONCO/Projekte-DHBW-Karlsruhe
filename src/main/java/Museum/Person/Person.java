@@ -19,7 +19,7 @@ public abstract class Person extends MuseumsElement {
      *
      * @param name         Name der Person
      * @param gebDatum     Geburtsdatum der Person
-     * @param beschreibung eine kurze Beschreibung der Person wenn gewünscht
+     * @param beschreibung eine kurze Beschreibung der Person wenn gewuenscht
      * @param kontakt      Kontaktdaten unter der die Person zu erreichen ist
      * @param bild       Bilder von dieser Person
      */
@@ -67,7 +67,7 @@ public abstract class Person extends MuseumsElement {
     @Override
     public String toString() {
         /**
-         * @return schön formatierter String mit allen Attributen
+         * @return schoen formatierter String mit allen Attributen
          */
         String person = "";
         person += String.format("Name: %s%n", this.name);

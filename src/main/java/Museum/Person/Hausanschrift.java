@@ -15,8 +15,8 @@ public class Hausanschrift extends Anschrift {
      * @see Anschrift
      *
      * @param name Name der Person die unter dieser Anschrift gemeldet ist
-     * @param strasse Straße der Anschrift
-     * @param hausnummer Hausnummer in der Straße
+     * @param strasse Strasse der Anschrift
+     * @param hausnummer Hausnummer in der Strasse
      * @param plz Postleitzahl der Stadt in der die Adresse ansässig ist
      * @param stadt Stadt passend zur Postleitzahl
      * @param land Land in der die Adresse liegt (kann weggelassen werden)

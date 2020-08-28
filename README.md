@@ -1,3 +1,3 @@
 # Museums-Manager
-###Projekt für SWE-DHBW-Karlsruhe
+###Projekt fuer SWE-DHBW-Karlsruhe
 Autoren: Théo Roncoletta, Kai Haubrich - TINF18B1

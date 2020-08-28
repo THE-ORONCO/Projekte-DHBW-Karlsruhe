@@ -2,7 +2,7 @@
  * @author Théo Roncoletta - TINF18B1
  * @version 1.0
  */
-package java.Museum.Raum;
+package Museum.Raum;
 
 import Museum.Bild.Bild;
 import Museum.Raum.Raum;

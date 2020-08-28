@@ -36,7 +36,7 @@ public class MuseumsElementManagerTest {
 
     @Test
     public void persist() {
-        Bild anderesBild = new Bild("b34", "anderes tolles Bild ohne Farbe", "anderesbild.png", "Schwarz auf Weiß");
+        Bild anderesBild = new Bild("b34", "anderes tolles Bild ohne Farbe", "anderesbild.png", "Schwarz auf Weiss");
 
         try {
             meManager.persist(anderesBild);

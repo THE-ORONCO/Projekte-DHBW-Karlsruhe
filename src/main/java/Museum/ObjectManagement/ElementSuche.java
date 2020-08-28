@@ -9,9 +9,9 @@ import Museum.Raum.Raum;
 public class ElementSuche {
 
     /**
-     * Diese Methode soll das suchen nach einer Person ermöglichen.
+     * Diese Methode soll das suchen nach einer Person ermoeglichen.
      * Aktuell kann man aber nur abfragen ob eine Person mit entsprechendem PrimaryKey vorhanaden ist.
-     * Die Implementierung wir in der Durchführung der SWE-Projektarbeit nicht stattfinden.
+     * Die Implementierung wir in der Durchfuehrung der SWE-Projektarbeit nicht stattfinden.
      *
      * @param primaryKey gesuchter primaryKey
      * @return das gesuchte Objekt
@@ -21,9 +21,9 @@ public class ElementSuche {
     }
 
     /**
-     * Diese Methode soll das suchen nach einer Exponaten ermöglichen.
+     * Diese Methode soll das suchen nach einer Exponaten ermoeglichen.
      * Aktuell kann man aber nur abfragen ob eine Person mit entsprechendem PrimaryKey vorhanaden ist.
-     * Die Implementierung wir in der Durchführung der SWE-Projektarbeit nicht stattfinden.
+     * Die Implementierung wir in der Durchfuehrung der SWE-Projektarbeit nicht stattfinden.
      *
      * @param primaryKey gesuchter primaryKey
      * @return das gesuchte Objekt
@@ -33,9 +33,9 @@ public class ElementSuche {
     }
 
     /**
-     * Diese Methode soll das suchen nach einer Räumen ermöglichen.
+     * Diese Methode soll das suchen nach einer Räumen ermoeglichen.
      * Aktuell kann man aber nur abfragen ob eine Person mit entsprechendem PrimaryKey vorhanaden ist.
-     * Die Implementierung wir in der Durchführung der SWE-Projektarbeit nicht stattfinden.
+     * Die Implementierung wir in der Durchfuehrung der SWE-Projektarbeit nicht stattfinden.
      *
      * @param primaryKey gesuchter primaryKey
      * @return das gesuchte Objekt
@@ -45,9 +45,9 @@ public class ElementSuche {
     }
 
     /**
-     * Diese Methode soll das suchen nach einer Epochen ermöglichen.
+     * Diese Methode soll das suchen nach einer Epochen ermoeglichen.
      * Aktuell kann man aber nur abfragen ob eine Person mit entsprechendem PrimaryKey vorhanaden ist.
-     * Die Implementierung wir in der Durchführung der SWE-Projektarbeit nicht stattfinden.
+     * Die Implementierung wir in der Durchfuehrung der SWE-Projektarbeit nicht stattfinden.
      *
      * @param primaryKey gesuchter primaryKey
      * @return das gesuchte Objekt
@@ -57,9 +57,9 @@ public class ElementSuche {
     }
 
     /**
-     * Diese Methode soll das suchen nach einer Bild ermöglichen.
+     * Diese Methode soll das suchen nach einer Bild ermoeglichen.
      * Aktuell kann man aber nur abfragen ob eine Person mit entsprechendem PrimaryKey vorhanaden ist.
-     * Die Implementierung wir in der Durchführung der SWE-Projektarbeit nicht stattfinden.
+     * Die Implementierung wir in der Durchfuehrung der SWE-Projektarbeit nicht stattfinden.
      *
      * @param primaryKey gesuchter primaryKey
      * @return das gesuchte Objekt

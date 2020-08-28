@@ -15,7 +15,7 @@ public class Exponat extends MuseumsElement {
     private String name;
     // private final Date erstellungsDatum; // DIFF kein erstellungsdatum
     private Date entstehungsDatum;
-    private ArrayList<String> urheber; //könnte auch eine Liste aus Personen sein
+    private ArrayList<String> urheber; //koennte auch eine Liste aus Personen sein
     private double benoetigteAusstellungsflaeche;
     private ArrayList<String> kategorien;
     private Epoche epoche;
@@ -33,7 +33,7 @@ public class Exponat extends MuseumsElement {
      * @param name                         Name des Exponats
      * @param entstehungsDatum             Entstehungsdatum des Exponats im Fromat von yyyy.MM.dd
      * @param urheber                      Urheber des Exponats
-     * @param benoetigteAusstellungsfaeche benötigte Fläche um das Exponat auszustellen
+     * @param benoetigteAusstellungsfaeche benoetigte Fläche um das Exponat auszustellen
      * @param kategorien                   Kategorien in die das Exponat einzuordenen ist (Bild etc.)
      * @param epoche                       Epoche aus der das Exponat kommt
      * @param herkunftsort                 Herkunftsort des Exponats

@@ -6,8 +6,8 @@ package Museum.Bild;
 
 import Museum.MuseumsElement;
 
-public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
-    // TODO vielleicht ermöglichen eine fertige Bild-File oder ein Bild-Element für die GUI auszugeben
+public class Bild extends MuseumsElement { //DIFF Bild hat neues ueberobjekt
+    // TODO vielleicht ermoeglichen eine fertige Bild-File oder ein Bild-Element fuer die GUI auszugeben
 
     private String altText;
     private String dateiName;
@@ -16,7 +16,7 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues Überobjekt
      * Repräsentiert ein Bild eines Exponats, einer Person oder eines Raumes
      *
      * @param bildNr       eindeutige Bildnummer eines Bildes
-     * @param altText      Alternativ-Text der um die Barrierefreiheit zu erhöhen angegeben werden kann
+     * @param altText      Alternativ-Text der um die Barrierefreiheit zu erhoehen angegeben werden kann
      * @param dateiName    dateiname der Bild-Datei
      * @param beschreibung eine kurze Beschreibung des Bildes
      */

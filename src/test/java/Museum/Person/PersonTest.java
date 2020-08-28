@@ -103,7 +103,7 @@ public class PersonTest {
         kontakt.add(heim);
 
         ArrayList<Anschrift> alteAnschriften = new ArrayList<Anschrift>();
-        alteAnschriften.add(new Hausanschrift("Théo Roncoletta", "Blaubeuererstraße", 55, 89601, "Schelklingen"));
+        alteAnschriften.add(new Hausanschrift("Théo Roncoletta", "Blaubeuererstrasse", 55, 89601, "Schelklingen"));
         Kontaktdaten altesHeim = new Kontaktdaten("theo.roncoletta@posteo.net", "07394919186", alteAnschriften);
         ArrayList<Kontaktdaten> alteKontaktdaten = new ArrayList<Kontaktdaten>();
         alteKontaktdaten.add(altesHeim);

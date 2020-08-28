@@ -24,10 +24,6 @@ public class Historie {
         this.ereignisse = ereignisse;
     }
 
-    public Historie() {
-        this(new HashMap<>());
-    }
-
     public void addEreignis(Ereignis ereignis) {
         this.ereignisse.put(ereignis.getDatum(), ereignis);
     }
@@ -41,7 +37,7 @@ public class Historie {
      *
      * @param datum
      * @param beschreibung
-     * @return es wird ein boolean zurückgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war und es bearbeitet wurde.
+     * @return es wird ein boolean zurueckgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war und es bearbeitet wurde.
      */
     public boolean modifyEreignis(Date datum, String beschreibung) {
         if (this.ereignisse.containsKey(datum)) {
@@ -91,7 +87,7 @@ public class Historie {
     public String[] parseToCSV() {
         ArrayList<String> csvData = new ArrayList<>();
         for (Ereignis ereignis : this.ereignisse.values()) {
-            csvData.add(String.join(CSVSeparationLevel.LEVEL3.toString(), ereignis.parsToCSV()));
+            csvData.add(String.join(CSVSeparationLevel.LEVEL3.wSeparator(), ereignis.parsToCSV()));
         }
         return csvData.toArray(new String[csvData.size()]);
     }

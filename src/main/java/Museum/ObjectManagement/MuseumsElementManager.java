@@ -27,7 +27,7 @@ public class MuseumsElementManager{
     }
 
     /**
-     * gibt zurück ob ein Element in diesem MuseumsElementManager enthalten ist
+     * gibt zurueck ob ein Element in diesem MuseumsElementManager enthalten ist
      *
      * @param element das gesuchte Objekt
      * @return ob das Objekt enthalten ist als boolean
@@ -37,7 +37,7 @@ public class MuseumsElementManager{
     }
 
     /**
-     * gibt zurück ob ein Element mit diesem Primarykey in diesem MuseumsElementManager enthalten ist
+     * gibt zurueck ob ein Element mit diesem Primarykey in diesem MuseumsElementManager enthalten ist
      *
      * @param primaryKey der Primarykey des gesuchte Objekts
      * @return ob das Objekt mit gesuchtem Primarykey enthalten ist als boolean
@@ -47,7 +47,7 @@ public class MuseumsElementManager{
     }
 
     /**
-     * Überebe ein Objekt dem MuseumsElementManager zur Speicherung
+     * ueberebe ein Objekt dem MuseumsElementManager zur Speicherung
      *
      * @param element zu speicherndes Element
      * @throws Exception wenn das Objekt oder ein Objekt mit gleichem Primarykey bereits vorhanden ist
@@ -110,7 +110,7 @@ public class MuseumsElementManager{
     }
 
     /**
-     * Diese Methode löscht alle Einträge im MuseumsElementManager
+     * Diese Methode loescht alle Einträge im MuseumsElementManager
      */
     public void clear(){
         this.museumsElemente = new HashMap<>();

@@ -65,7 +65,7 @@ public class KontaktdatenTest {
     public void setAnschriften() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstraße", 55, 889601, "Schelklingen")));
+                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
         kontakt.setAnschriften(neueAnschrift);
         assert kontakt.getAnschriften().equals(neueAnschrift);
     }
@@ -74,7 +74,7 @@ public class KontaktdatenTest {
     public void addAnschrift() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstraße", 55, 889601, "Schelklingen")));
+                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
         Anschrift extraAnschrift = new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe");
         kontakt.setAnschriften(neueAnschrift);
         kontakt.addAnschrift(extraAnschrift);
@@ -87,7 +87,7 @@ public class KontaktdatenTest {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
                 Arrays.asList(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
-        Anschrift extraAnschrift = new Hausanschrift("Théo Roncoletta", "Blaubeurerstraße", 55, 889601, "Schelklingen");
+        Anschrift extraAnschrift = new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen");
 
         kontakt.addAnschrift(extraAnschrift);
         neueAnschrift.remove(extraAnschrift);

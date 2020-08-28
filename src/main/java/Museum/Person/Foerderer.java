@@ -18,15 +18,15 @@ public class Foerderer extends Person {
     //TODO beschreibung ans ende der Signatur
 
     /**
-     * Ein Förderer unterstützt das Museum mit verschiedenen Exponaten die er sponsort
+     * Ein Foerderer unterstuetzt das Museum mit verschiedenen Exponaten die er sponsort
      *
-     * @param foerderNr           eindeutige Identifikationsnummer eines Förderers
-     * @param name                Name des Förderers
-     * @param gebDatum            Geburtsdatum des Förderers
-     * @param beschreibung        zusätzliche Informationen die interessant sein könnten
-     * @param kontakt             Liste von verschiedensten Kontaktdaten die über den Förderer bekannt sind
-     * @param gefoerderteExponate Exponate die von diesem Förderer gesponsert sind
-     * @param bild                Bild des förderers
+     * @param foerderNr           eindeutige Identifikationsnummer eines Foerderers
+     * @param name                Name des Foerderers
+     * @param gebDatum            Geburtsdatum des Foerderers
+     * @param beschreibung        zusätzliche Informationen die interessant sein koennten
+     * @param kontakt             Liste von verschiedensten Kontaktdaten die ueber den Foerderer bekannt sind
+     * @param gefoerderteExponate Exponate die von diesem Foerderer gesponsert sind
+     * @param bild                Bild des foerderers
      * @throws ParseException wenn Telefonnummer oder E-Mail-Adresse falsch formatiert ist
      */
     public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {

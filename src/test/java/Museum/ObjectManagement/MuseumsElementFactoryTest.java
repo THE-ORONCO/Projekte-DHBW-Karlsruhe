@@ -49,7 +49,7 @@ public class MuseumsElementFactoryTest {
         Epoche epocheAusCSV = null;
 
         try {
-            epocheAusCSV = (Epoche) MuseumsElementFactory.createElement(Epoche.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/target/classes/data/epochen.csv", 15);
+            epocheAusCSV = (Epoche) MuseumsElementFactory.createElement(Epoche.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/data/epochen.csv", 15);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -61,9 +61,9 @@ public class MuseumsElementFactoryTest {
     public void testCreateElement() {
         ArrayList<MuseumsElement> bilder = new ArrayList<>();
         ArrayList<Bild> zuErstellendeBilder = new ArrayList<>();
-        zuErstellendeBilder.add(new Bild("b1", "Bild einer Banane", "bilder/banana.png", "ein Bündel Bananen in der Natur"));
+        zuErstellendeBilder.add(new Bild("b1", "Bild einer Banane", "bilder/banana.png", "ein Buendel Bananen in der Natur"));
         zuErstellendeBilder.add(new Bild("b2", "Mona Lisa", "bilder/mona.png", "Ein Bild von Mona Lisa"));
-        zuErstellendeBilder.add(new Bild("b3", "Der Schrai", "bilder/schrai.png", "Ein Bild von dem Schrai auf der Brücke"));
+        zuErstellendeBilder.add(new Bild("b3", "Der Schrai", "bilder/schrai.png", "Ein Bild von dem Schrai auf der Bruecke"));
         zuErstellendeBilder.add(new Bild("b10", "RaumBild", "bilder/abstellRaum.png", "Bild des Abstellraums"));
         zuErstellendeBilder.add(new Bild("b11", "RaumBild", "bilder/bananenRaum.png", "Bild des Bananenraum"));
         zuErstellendeBilder.add(new Bild("b12", "RaumBild", "bilder/bildRaum.png", "Bild des Bilderraums"));
@@ -71,7 +71,7 @@ public class MuseumsElementFactoryTest {
 
 
         try {
-            bilder = MuseumsElementFactory.createElement(Bild.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/target/classes/data/bilder.csv");
+            bilder = MuseumsElementFactory.createElement(Bild.class, "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/resources/data/bilder.csv");
         } catch (Exception e) {
             e.printStackTrace();
         }
