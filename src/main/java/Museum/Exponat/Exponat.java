@@ -72,11 +72,6 @@ public class Exponat extends MuseumsElement {
         this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
 
-    /*
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, (Bild) MuseumsManager.getDefault(Bild.class), "Exponat");
-    }*/
-
     public String getName() {
         return name;
     }

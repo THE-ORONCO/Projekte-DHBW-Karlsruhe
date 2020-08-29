@@ -65,9 +65,6 @@ public abstract class Person extends MuseumsElement {
 
     @Override
     public String toString() {
-        /**
-         * @return schoen formatierter String mit allen Attributen
-         */
         String person = "";
         person += String.format("Name: %s%n", this.name);
         person += String.format("Geburtsdatum: %s%n", this.gebDatum);

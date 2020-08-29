@@ -35,8 +35,8 @@ public class Historie {
     /**
      * Diese Methode modifiziert ein Ereignis in der jeweiligen Historie
      *
-     * @param datum
-     * @param beschreibung
+     * @param datum        das Datum des zu modifizierten Ereignisses
+     * @param beschreibung Beschreibung des Ereignisses
      * @return es wird ein boolean zurueckgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war und es bearbeitet wurde.
      */
     public boolean modifyEreignis(Date datum, String beschreibung) {
@@ -47,6 +47,12 @@ public class Historie {
         return false;
     }
 
+    /**
+     * Diese Methode modifiziert ein Ereignis in der jeweiligen Historie
+     *
+     * @param ereignis Ereignis welches ein anderes Ersetzen soll
+     * @return es wird ein boolean zurueckgegeben der anzeigt ob ein Ereignis mit gegebenem Datum vorhanden war und es bearbeitet wurde.
+     */
     public boolean modifyEreignis(Ereignis ereignis) {
         if (this.ereignisse.containsKey(ereignis.getDatum())) {
             this.ereignisse.put(ereignis.getDatum(), ereignis);
@@ -55,10 +61,22 @@ public class Historie {
         return false;
     }
 
+    /**
+     * Entferne das Ereignis welches das gegebene Datum hat
+     *
+     * @param datum datum des zu entfernenden Ereignisses
+     * @return boolean
+     */
     public Ereignis removeEreignis(Date datum) {
         return this.ereignisse.remove(datum);
     }
 
+    /**
+     * Entferne das Ereignis aus der Historie
+     *
+     * @param ereignis das zu entfernende Ereigniss
+     * @return boolean
+     */
     public Ereignis removeEreignis(Ereignis ereignis) {
         return this.ereignisse.remove(ereignis.getDatum());
     }
@@ -84,6 +102,11 @@ public class Historie {
         return getEreignisse().equals(historie.getEreignisse());
     }
 
+    /**
+     * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
+     *
+     * @return Objekt im CSV-Format
+     */
     public String[] parseToCSV() {
         ArrayList<String> csvData = new ArrayList<>();
         for (Ereignis ereignis : this.ereignisse.values()) {

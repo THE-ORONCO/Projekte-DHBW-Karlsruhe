@@ -8,6 +8,12 @@ public abstract class MuseumsElement { //DIFF neue ueberklasse fuer alle Element
     private String primaryKey; //DIFF identifikation aller Elemente findet nun ueber die MuseumsElement-Klasse statt
     private String beschreibung;
 
+    /**
+     * Dies bildet ein generelles Element innerhalb des Museums ab
+     *
+     * @param primaryKey   eindeutiger Identifikator des Elements
+     * @param beschreibung Beschreibung des Elements
+     */
     public MuseumsElement(String primaryKey, String beschreibung) {
         this.primaryKey = primaryKey.trim();
         this.beschreibung = beschreibung;
@@ -29,7 +35,7 @@ public abstract class MuseumsElement { //DIFF neue ueberklasse fuer alle Element
         return getBeschreibung().equals(that.getBeschreibung());
     }
 
-    public String getPrimaryKey(){
+    public String getPrimaryKey() {
         return primaryKey;
     }
 

@@ -8,11 +8,18 @@ public enum CSVSeparationLevel {
     LEVEL1(";", ";"),
     LEVEL2(",", ","),
     LEVEL3("\\|", "|"),
-    LEVEL4("_","_"),
+    LEVEL4("_", "_"),
     LEVEL5("~", "~");
 
     private final String writeSeparator;
     private final String readSeparator;
+
+    /**
+     * Das CSVSeparationLevel dient dazu um einen Standart für die CSV-Separation innerhalb der CSV-Dateien zu definieren.
+     *
+     * @param readSeparator  CSV-Separator der beim lesen der Datei verwendet wird
+     * @param writeSeparator CSV-Separator der beim schreiben der Datei verwendet wird
+     */
     CSVSeparationLevel(String readSeparator, String writeSeparator) {
         this.readSeparator = readSeparator;
         this.writeSeparator = writeSeparator;
@@ -23,7 +30,7 @@ public enum CSVSeparationLevel {
      *
      * @return den Separator der gebraucht wird um eine CSV-Datei einzulesen
      */
-    public String rSeparator(){
+    public String rSeparator() {
         return this.readSeparator;
     }
 
@@ -32,7 +39,7 @@ public enum CSVSeparationLevel {
      *
      * @return den Separator der gebraucht wird um eine CSV-Datei zu schreiben
      */
-    public String wSeparator(){
+    public String wSeparator() {
         return this.writeSeparator;
     }
 }

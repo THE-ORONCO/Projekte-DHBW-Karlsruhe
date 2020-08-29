@@ -58,6 +58,12 @@ public class Foerderer extends Person {
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
+    /**
+     * Diese Methode lässt einen Förderer ein weiteres Exponat fördern
+     *
+     * @param exponat das zu fördernde Exponat
+     * @return ob das Exponat zu der FörderListe des Förderers hinzugefügt wurde (true) oder nicht (false)
+     */
     public boolean foerdereWeiteresExponat(Exponat exponat) {
         if (!this.gefoerderteExponate.contains(exponat)) {
             this.gefoerderteExponate.add(exponat);
