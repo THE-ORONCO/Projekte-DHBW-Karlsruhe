@@ -580,7 +580,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @param c          Klasse des Objekts
      * @param primaryKey gesuchter Primary key
      */
-    private static void ueberpruefeExistenz(Class<?> c, String primaryKey) throws KeyException {
+    private static void ueberpruefeExistenz(Class<? extends MuseumsElement> c, String primaryKey) throws KeyException {
         if (MuseumsManager.contains(c, primaryKey)) {
             throw new KeyException(c.getSimpleName() + " mit gleichem PrimaryKey exisitert bereits");
         }
