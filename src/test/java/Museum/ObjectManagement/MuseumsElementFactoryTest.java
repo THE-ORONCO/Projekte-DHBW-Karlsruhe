@@ -10,10 +10,12 @@ import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.Person.*;
 import Museum.Raum.Raum;
+import de.dhbwka.swe.utils.util.CSVReader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -42,6 +44,13 @@ public class MuseumsElementFactoryTest {
     @After
     public void tearDown() throws Exception {
         MuseumsManager.clearAlles();
+    }
+
+    // TODO remove!!!!
+    @Test
+    public void uff() throws IOException {
+        String path = new File("").getAbsolutePath();
+        System.out.println(path);
     }
 
     @Test

@@ -468,9 +468,10 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     /**
      * Diese Methode generiert ein Kontaktdaten Objekt aus csvDaten
+     * Diese Methode wird nur von Foerderer-, und Mitarbeiter-Objekten verwendet
      *
-     * @param csvData
-     * @return
+     * @param csvData CSV-Daten aus denen ein Kontakt-Objekt generiert werden soll
+     * @return das generierte Kontakt-Objekt
      */
     private static Kontaktdaten createKontaktdaten(String[] csvData) {
         StringProcessor.trimCSVData(csvData);
@@ -525,6 +526,12 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return kontakt;
     }
 
+    /**
+     * Diese Methode generiert ein Epochen Objekt aus csvDaten
+     *
+     * @param csvData CSV-Daten aus denen ein Kontakt-Objekt generiert werden soll
+     * @return das generierte Kontakt-Objekt
+     */
     public static Epoche createEpoche(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 

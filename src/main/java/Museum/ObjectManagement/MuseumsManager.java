@@ -12,11 +12,18 @@ import Museum.Person.Foerderer;
 import Museum.Person.Person;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
+import app.SWEMuseumsVerwaltung;
 import de.dhbwka.swe.utils.util.AppLogger;
+import de.dhbwka.swe.utils.util.CSVReader;
 import de.dhbwka.swe.utils.util.CSVWriter;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class MuseumsManager {
@@ -124,9 +131,7 @@ public class MuseumsManager {
 
     @Deprecated
     public static void importieren(Class<? extends MuseumsElement> c, String dateiPfad) throws Exception {
-        for (MuseumsElement element : MuseumsElementFactory.createElement(c, dateiPfad)) {
-            persist(c, element);
-        }
+        MuseumsElementFactory.createElement(c, dateiPfad);
     }
 
     // Standartmethode exportiert im CSV-Format
@@ -217,15 +222,29 @@ public class MuseumsManager {
         for (Class<? extends MuseumsElement> typ : defaultElementKlassen) {
             // generiere einen neuen CSV-Reader fuer jede gelesene Datei
             String name = typ.getSimpleName();
-            String dateiPfad = path.endsWith("/") ? path + name + ".csv" : path + "/" + name + ".csv";
+            String dateiName = name + ".csv";
+            String dateiPfad = path.endsWith("/") ? path + dateiName : path + "/" + dateiName;
             File defaultDatei = new File(dateiPfad);
             if (defaultDatei.exists()) {
                 defaultElemente = MuseumsElementFactory.createElement(typ, dateiPfad);
 
             } else {
-                // hard gecodede Default-Daten laden --> nicht empfohlen!!!
-                String fallbackDateiPfad = "/mnt/data/the_oronco/Desktop/Projekte-DHBW-Karlsruhe/src/main/fallback-resources/default/" + name + ".csv";//TODO relativen Pfad rausfinden
-                defaultElemente = MuseumsElementFactory.createElement(typ, fallbackDateiPfad);
+                // wenn der Dateipfad nicht valide ist, dann werden die Default-Daten aus Jar-internen Dateien geladen
+                // Interne Jar-Files müssen mit BufferedReader und co gelesen werden
+                InputStream in = SWEMuseumsVerwaltung.class.getResourceAsStream("/default/" + dateiName);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                ArrayList<String[]> defaulDaten = new ArrayList<>();
+                while (reader.ready()) {
+                    String line = reader.readLine();
+                    String[] csvData = line.split(String.valueOf(CSVReader.DEFAULT_DELIMITER));
+                    defaulDaten.add(csvData);
+                }
+
+                for(String[] defaultElementDaten: defaulDaten){
+                    defaultElemente.add(MuseumsElementFactory.createElement(typ, defaultElementDaten));
+                }
+
                 AppLogger.getInstance().warning("Default-Daten fuer " + name + " ohne Datei geladen");
             }
 

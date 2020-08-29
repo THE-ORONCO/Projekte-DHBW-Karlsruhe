@@ -1,15 +1,21 @@
+package app;
+
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.AppLogger;
 import org.apache.commons.cli.*;
 
-import java.util.Arrays;
+import java.io.*;
 
 /**
  * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 public class SWEMuseumsVerwaltung {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+
+        String path = new File("").getAbsolutePath();
+        System.out.println(path);
 
         // setup aller Comandline-Optionen (aktuell nur eine)
         Options optionen = new Options();
@@ -21,24 +27,25 @@ public class SWEMuseumsVerwaltung {
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
-        
-        try{
+
+        try {
             cmd = parser.parse(optionen, args);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
             formatter.printHelp("SWE-MuseumsVerwaltung", optionen);
-            
+
             System.exit(1);
         }
 
 
-        String resourcePath = cmd.getOptionValue("p");
+        String resourcePath = cmd.getOptionValue("p") == null ? "" : cmd.getOptionValue("p");
 
         // setup
         String defaultPath = resourcePath + (resourcePath.endsWith("/") ? "default" : "/default");
         System.out.println(defaultPath);
         try {
             MuseumsManager.ladeDefaultElemente(defaultPath);
+            System.out.println("default Elemente geladen");
         } catch (Exception e) {
             e.printStackTrace();
             AppLogger.getInstance().error("default Elemente konnten nicht geladen werden");
