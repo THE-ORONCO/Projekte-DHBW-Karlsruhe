@@ -8,6 +8,7 @@ import Museum.Bild.Bild;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Admin extends Mitarbeiter {
 
@@ -23,7 +24,7 @@ public class Admin extends Mitarbeiter {
      * @param bild          Bild des Mitarbeiters
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
-    public Admin(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public Admin(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
     }
 

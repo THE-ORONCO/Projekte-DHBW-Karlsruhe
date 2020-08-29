@@ -8,6 +8,8 @@ import Museum.Bild.Bild;
 import Museum.ObjectManagement.CSVSeparationLevel;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Mitarbeiter extends Person {
 
@@ -22,7 +24,7 @@ public class Mitarbeiter extends Person {
      * @param bild          Bild des Mitarbeiters
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
-    public Mitarbeiter(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public Mitarbeiter(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
     }
 
@@ -54,10 +56,10 @@ public class Mitarbeiter extends Person {
         String[] csvData = new String[]{
                 this.getPrimaryKey(),
                 this.getName(),
-                this.getGebDatum().toString(),
+                new SimpleDateFormat("yyyy.MM.dd").format(this.getGebDatum()),
                 this.getBeschreibung(),
                 String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getKontakt().parseToCSV()),
-                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getBild().parsToCSV()),
+                getBild().getPrimaryKey(),
         };
         return csvData;
     }

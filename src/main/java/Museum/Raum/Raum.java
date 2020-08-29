@@ -25,11 +25,11 @@ public class Raum extends MuseumsElement { //DIFF neue ueberklasse
      * repräsentiert einen Raum im Museum
      *
      * @param raumNr               Nummer mit der der Raum im System eindeutig identifiziert werden kann
-     * @param beschreibung         eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Tueren)
      * @param ausstellungsflaeche  benutzbare Ausstellungsfläche die in diesem Raum zur Verfuegung steht in Quadratmetern
      * @param ausstellungsthema    Thema der Ausstellung im aktuellen Raum
      * @param bilder               bilder des Raumes
      * @param ausgestellteExponate die in dem Raum ausgestellten Exponate
+     * @param beschreibung         eine Kurze Beschreibung des raumes (z.B.: zwei Fenster, eine Säule, 3 Tueren)
      */
     public Raum(String raumNr, double ausstellungsflaeche, String ausstellungsthema, ArrayList<Bild> bilder, ArrayList<Exponat> ausgestellteExponate, String beschreibung) throws Exception {
         super(raumNr, beschreibung);
@@ -151,6 +151,7 @@ public class Raum extends MuseumsElement { //DIFF neue ueberklasse
                 this.getAusstellungsthema(),
                 String.join(CSVSeparationLevel.LEVEL2.wSeparator(), bildNrn),
                 String.join(CSVSeparationLevel.LEVEL2.wSeparator(), exponatNrn),
+                this.getBeschreibung()
         };
         return csvData;
     }

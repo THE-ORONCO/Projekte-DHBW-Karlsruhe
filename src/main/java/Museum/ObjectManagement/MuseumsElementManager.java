@@ -123,14 +123,4 @@ public class MuseumsElementManager{
         }
         return csvStrings;
     }
-
-    public String[] getCSVHeader() throws Exception {
-        if(this.museumsElemente.size() <= 0){
-            throw new Exception("ElementManger hat noch keine Elemente. Die beschaffenheit der Elemente kann nicht bestimmt werden");
-        }
-
-        // methode mit Reflection-API abfragen
-        Class<?> relevanteKlasse = this.museumsElemente.get(0).getClass();
-        return (String[]) relevanteKlasse.getMethod("getCSVHeader").invoke(null);
-    }
 }

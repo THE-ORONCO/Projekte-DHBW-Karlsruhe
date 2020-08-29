@@ -12,6 +12,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 public class KontaktdatenTest {
 
     private Kontaktdaten initialize() {
@@ -100,14 +102,15 @@ public class KontaktdatenTest {
     @Test
     public void testToString() {
         Kontaktdaten kontakt = initialize();
+        System.out.println(kontakt.toString());
         String kontaktAlsString = "Anschrift:\n" +
+                "Hausanschrift:\n" +
                 "Theo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Telefon: +(49)1578 2770476\n" +
                 "E-Mail: theo.roncoletta@posteo.net";
-        System.out.println(kontakt.toString());
-        assert kontakt.toString().equals(kontaktAlsString);
+        assertEquals(kontakt.toString(), kontaktAlsString);
     }
 
     @Test

@@ -3,7 +3,6 @@ package Museum.Exponat;
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.CSVSeparationLevel;
-import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -172,6 +171,30 @@ public class Exponat extends MuseumsElement {
 
     public void setBild(Bild bild) {
         this.bild = bild;
+    }
+
+    @Override
+    public String toString() {
+        String exponatString = "";
+        exponatString += String.format("Inventarnummer: %s%n", getPrimaryKey());
+        exponatString += String.format("Name: %s%n", getName());
+        exponatString += String.format("Entstehungsdatum: %s%n", new SimpleDateFormat("yyyy.MM.dd").format(getEntstehungsDatum()));
+        for (String einzelnerUrheber : getUrheber()) {
+            exponatString += String.format("Urheber: %s%n", einzelnerUrheber);
+        }
+        exponatString += String.format("Benoetigte Ausstellungsflaeche: %f%n", getBenoetigteAusstellungsflaeche());
+        for (String kategorie : getKategorien()) {
+            exponatString += String.format("Kategorie: %s%n", kategorie);
+        }
+        exponatString += String.format("Epoche: %s%n", getEpoche().toString());
+        exponatString += String.format("Herkunftsort: %s%n", getHerkunftsort());
+        exponatString += String.format("Exponatwert: %s%n", getExponatwert().toString());
+        exponatString += String.format("geschichtliche Historie:%n%s%n", getGeschichtilcheH().toString());
+        exponatString += String.format("Bearbeitungshistorie:%n%s%n", getBearbeitungsH().toString());
+        exponatString += String.format("Besitzhistorie:%n%s%n", getBesitzH().toString());
+        exponatString += String.format("Bild: %s%n", getBild().toString());
+        exponatString += String.format("Beschreibung: %s", getBeschreibung());
+        return exponatString;
     }
 
     /**

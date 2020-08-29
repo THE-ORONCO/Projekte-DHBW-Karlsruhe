@@ -4,7 +4,7 @@ import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.AppLogger;
 import org.apache.commons.cli.*;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * @author Theo Roncoletta - TINF18B1
@@ -13,16 +13,19 @@ import java.io.*;
 public class SWEMuseumsVerwaltung {
     public static void main(String[] args) throws IOException {
 
-
-        String path = new File("").getAbsolutePath();
-        System.out.println(path);
-
         // setup aller Comandline-Optionen (aktuell nur eine)
         Options optionen = new Options();
 
-        // pfad
+        // Pfad
+        //SPCL mehr command line options
         Option pfad = new Option("p", "Pfad", true, "Pfad zum Ressourcen Ordner");
         optionen.addOption(pfad);
+        //default-Ressourcen-Pfad
+        Option defaultPfad = new Option("d", "Default Pfad", true, "Pfad zu Default dateien");
+        optionen.addOption(defaultPfad);
+        //logging
+        Option fileLogging = new Option("l", "Logging zu Datei", true, "Pfad zu einer Logdatei");
+        optionen.addOption(fileLogging);
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -37,18 +40,47 @@ public class SWEMuseumsVerwaltung {
             System.exit(1);
         }
 
+        if (cmd.hasOption("l")) {
+            AppLogger.getInstance().log2File(cmd.getOptionValue("l"), true);
+        }
 
-        String resourcePath = cmd.getOptionValue("p") == null ? "" : cmd.getOptionValue("p");
+        String ressourcenPfad = "";
+        if (cmd.hasOption("p")) {
+            ressourcenPfad = cmd.getOptionValue("p");
+            AppLogger.getInstance().info("Ressourcen unter " + ressourcenPfad + " verwendet");
+        } else {
+            AppLogger.getInstance().warning("Kein Ressourcenpfad gegeben. SWE-MuseumsVerwaltung wird ohne Daten iniziiert!");
+        }
 
-        // setup
-        String defaultPath = resourcePath + (resourcePath.endsWith("/") ? "default" : "/default");
-        System.out.println(defaultPath);
+        // ueberpruefe ob ein default Pfad uebergeben wurde
+        // wenn nein waehle  "RessourcenPfad + /default" als default Pfad
+        String defaultPfadName = "";
+        if (cmd.hasOption("d")) {
+            defaultPfadName = cmd.getOptionValue("d");
+        } else {
+            defaultPfadName = ressourcenPfad + (ressourcenPfad.endsWith("/") ? "default" : "/default");
+        }
+        AppLogger.getInstance().info("Default Ressourcen unter " + defaultPfadName + " verwendet");
+
+
+        // lade die default Elemente
         try {
-            MuseumsManager.ladeDefaultElemente(defaultPath);
-            System.out.println("default Elemente geladen");
+            MuseumsManager.ladeDefaultElemente(defaultPfadName);
+            AppLogger.getInstance().info("default Elemente geladen");
         } catch (Exception e) {
             e.printStackTrace();
             AppLogger.getInstance().error("default Elemente konnten nicht geladen werden");
         }
+
+
+        // test code
+        /*
+        TODO kann man das hinbekommen, dass der PropertyManager uns alle benötigten Strings läd und das uns die Übersetzung einfach machen könnte?
+        try {
+            PropertyManager proppy = new PropertyManager(null, SWEMuseumsVerwaltung.class, "/ger.property");
+            System.out.println(proppy.getProperty("ayyyy"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 }

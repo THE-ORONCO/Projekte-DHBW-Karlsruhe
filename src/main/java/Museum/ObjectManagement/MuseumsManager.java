@@ -143,7 +143,7 @@ public class MuseumsManager {
         ArrayList<String[]> csvData = relevanterManager.parseToCSV();
 
         CSVWriter writer = new CSVWriter(path, true);
-        writer.writeDataToFile(csvData, relevanterManager.getCSVHeader());
+        //writer.writeDataToFile(csvData, relevanterManager, new String[0]);
     }
 
     /**
@@ -228,6 +228,7 @@ public class MuseumsManager {
             if (defaultDatei.exists()) {
                 defaultElemente = MuseumsElementFactory.createElement(typ, dateiPfad);
 
+
             } else {
                 // wenn der Dateipfad nicht valide ist, dann werden die Default-Daten aus Jar-internen Dateien geladen
                 // Interne Jar-Files müssen mit BufferedReader und co gelesen werden
@@ -242,10 +243,13 @@ public class MuseumsManager {
                 }
 
                 for(String[] defaultElementDaten: defaulDaten){
-                    defaultElemente.add(MuseumsElementFactory.createElement(typ, defaultElementDaten));
+                    if (defaultElementDaten[0].startsWith("#")){
+                        defaultElemente.add(MuseumsElementFactory.createElement(typ, defaultElementDaten));
+                    }
                 }
 
-                AppLogger.getInstance().warning("Default-Daten fuer " + name + " ohne Datei geladen");
+                AppLogger.getInstance().warning("Keine Default Datei unter "+ dateiPfad +" gefunden." +
+                        "Default-Daten fuer " + name + " aus interner default Datei geladen.");
             }
 
             MuseumsManager.DEFAULT_ELEMENTE.put(typ, defaultElemente);

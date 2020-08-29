@@ -23,11 +23,10 @@ public abstract class Person extends MuseumsElement {
      * @param kontakt      Kontaktdaten unter der die Person zu erreichen ist
      * @param bild       Bilder von dieser Person
      */
-    public Person(String personenNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public Person(String personenNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(personenNr, beschreibung);
         this.name = name;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        this.gebDatum = sdf.parse(gebDatum);
+        this.gebDatum = gebDatum;
         this.kontakt = kontakt;
         this.bild = bild;
     }
