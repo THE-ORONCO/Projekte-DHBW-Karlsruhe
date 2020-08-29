@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Person;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class MitarbeiterTest extends PersonTest {
 
     private Mitarbeiter mitarbeiter;
-    private static final String name = "Théo Roncoletta";
+    private static final String name = "Theo Roncoletta";
     private static final String strasse = "Tenesseeallee";
     private static final int hausnummer = 28;
     private static final int plz = 76149;
@@ -51,12 +51,12 @@ public class MitarbeiterTest extends PersonTest {
     public void testToString() {
         String mitarbeiterAlsString = "MitarbeiterNr: m420\n" +
                 "Rolle: Museum.Person.Mitarbeiter\n" +
-                "Name: Théo Roncoletta\n" +
+                "Name: Theo Roncoletta\n" +
                 "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999\n" +
                 "Beschreibung: so ein Typ\n" +
                 "Kontakt:\n" +
                 "Anschrift:\n" +
-                "Théo Roncoletta\n" +
+                "Theo Roncoletta\n" +
                 "Tenesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Telefon: +(49)1578 2770476\n" +

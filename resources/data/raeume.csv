@@ -1,4 +1,4 @@
-# @author Théo Roncoletta
+# @author Theo Roncoletta
 # diese Datei enthält Beispieldaten um die Räume zu generieren aus denen sich das Museum zusammensetzt
 #
 raumNr; ausstellungsflaeche; ausstellungsthema; bilder; ausgestellteExponate; beschreibung

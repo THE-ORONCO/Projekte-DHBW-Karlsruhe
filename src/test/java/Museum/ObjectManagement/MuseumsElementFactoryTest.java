@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.ObjectManagement;
@@ -67,7 +67,7 @@ public class MuseumsElementFactoryTest {
         zuErstellendeBilder.add(new Bild("b10", "RaumBild", "bilder/abstellRaum.png", "Bild des Abstellraums"));
         zuErstellendeBilder.add(new Bild("b11", "RaumBild", "bilder/bananenRaum.png", "Bild des Bananenraum"));
         zuErstellendeBilder.add(new Bild("b12", "RaumBild", "bilder/bildRaum.png", "Bild des Bilderraums"));
-        zuErstellendeBilder.add(new Bild("b23", "Bild von Théo Roncoletta", "bilder/roncolettaTheo.png", "Bild von Théo Roncoletta"));
+        zuErstellendeBilder.add(new Bild("b23", "Bild von Theo Roncoletta", "bilder/roncolettaTheo.png", "Bild von Theo Roncoletta"));
 
 
         try {

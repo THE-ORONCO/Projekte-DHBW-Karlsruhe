@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Person;
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class HausanschriftTest extends AnschriftTest {
 
     private Hausanschrift hausanschrift;
-    private static final String name= "Théo Roncoletta";
+    private static final String name= "Theo Roncoletta";
     private static final String strasse= "Tennesseeallee";
     private static final int hausnummer= 28;
     private static final int plz= 76149;
@@ -63,7 +63,7 @@ public class HausanschriftTest extends AnschriftTest {
 
     @Test
     public void testToString() {
-        String hausanschriftAlsString = "Théo Roncoletta\n" +
+        String hausanschriftAlsString = "Theo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Deutschland";

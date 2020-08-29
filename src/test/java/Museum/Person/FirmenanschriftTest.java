@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Person;
@@ -14,7 +14,7 @@ public class FirmenanschriftTest extends AnschriftTest {
 
     private Firmenanschrift firmenanschrift;
     private static final String firma = "KIT-Campus-Nord";
-    private static final String name = "Théo Roncoletta";
+    private static final String name = "Theo Roncoletta";
     private static final String strasse = "Tennesseeallee";
     private static final int hausnummer = 28;
     private static final int plz = 76149;
@@ -78,7 +78,7 @@ public class FirmenanschriftTest extends AnschriftTest {
     @Test
     public void testToString() {
         String firmenanschriftAlsString = "KIT-Campus-Nord\n" +
-                "Théo Roncoletta\n" +
+                "Theo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Deutschland";

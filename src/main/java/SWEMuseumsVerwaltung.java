@@ -5,7 +5,7 @@ import org.apache.commons.cli.*;
 import java.util.Arrays;
 
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 public class SWEMuseumsVerwaltung {

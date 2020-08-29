@@ -1,4 +1,4 @@
-# @author Théo Roncoletta
+# @author Theo Roncoletta
 # diese Datei enthält Beispieldaten um Exponate zu generieren die in diesem Museum ausgestellt werden
 #
 exponatNr;name;erstellungsDatum;urheber;benoetigteAusstellungsflaeche;kategorien;epoche;herkunftsort;exponatwert;geschichtlicheH;bearbeitungsH;besitzH;bild;beschreibung

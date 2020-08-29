@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Person;
@@ -24,11 +24,11 @@ public class PersonTest {
 
 
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>();
-        anschriften.add(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
+        anschriften.add(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
         try {
-            person = new Person("p2312","Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
+            person = new Person("p2312","Theo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class PersonTest {
     @Test
     public void getName() throws Exception {
         Person person = initialize();
-        assert person.getName().equals("Théo Roncoletta");
+        assert person.getName().equals("Theo Roncoletta");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class PersonTest {
         Person person = initialize();
         ArrayList<Kontaktdaten> kontakt = new ArrayList<Kontaktdaten>();
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>();
-        anschriften.add(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
+        anschriften.add(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
 
@@ -98,12 +98,12 @@ public class PersonTest {
         Person person = initialize();
         ArrayList<Kontaktdaten> kontakt = new ArrayList<Kontaktdaten>();
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>();
-        anschriften.add(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
+        anschriften.add(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
 
         ArrayList<Anschrift> alteAnschriften = new ArrayList<Anschrift>();
-        alteAnschriften.add(new Hausanschrift("Théo Roncoletta", "Blaubeuererstrasse", 55, 89601, "Schelklingen"));
+        alteAnschriften.add(new Hausanschrift("Theo Roncoletta", "Blaubeuererstrasse", 55, 89601, "Schelklingen"));
         Kontaktdaten altesHeim = new Kontaktdaten("theo.roncoletta@posteo.net", "07394919186", alteAnschriften);
         ArrayList<Kontaktdaten> alteKontaktdaten = new ArrayList<Kontaktdaten>();
         alteKontaktdaten.add(altesHeim);
@@ -114,12 +114,12 @@ public class PersonTest {
     @Test
     public void testToString() {
         Person person = initialize();
-        String personAlsString = "Name: Théo Roncoletta\n" +
+        String personAlsString = "Name: Theo Roncoletta\n" +
                 "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999\n" +
                 "Beschreibung: so ein Typ\n" +
                 "Kontakt:\n" +
                 "Anschrift:\n" +
-                "Théo Roncoletta\n" +
+                "Theo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Telefon: +(49)1578 2770476\n" +
@@ -136,11 +136,11 @@ public class PersonTest {
 
 
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>();
-        anschriften.add(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
+        anschriften.add(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe"));
         Kontaktdaten heim = new Kontaktdaten("theo.roncoletta@posteo.net", "+(49)1578 2770476", anschriften);
         kontakt.add(heim);
         try {
-            person2 = new Person("p2312","Théo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
+            person2 = new Person("p2312","Theo Roncoletta", "1999.12.23", "so ein Typ", kontakt);
         } catch (ParseException e) {
             e.printStackTrace();
         }

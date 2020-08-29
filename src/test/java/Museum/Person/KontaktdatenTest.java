@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.Person;
@@ -16,7 +16,7 @@ public class KontaktdatenTest {
 
     private Kontaktdaten initialize() {
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
         ArrayList<String> emails = new ArrayList<String>(Arrays.asList("theo.roncoletta@posteo.net"));
         ArrayList<String> teleNr = new ArrayList<String>(Arrays.asList("+(49)1578 2770476"));
         Kontaktdaten kontakt = new Kontaktdaten(emails, teleNr, anschriften);
@@ -57,7 +57,7 @@ public class KontaktdatenTest {
     public void getAnschriften() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
         assert kontakt.getAnschriften().equals(anschriften);
     }
 
@@ -65,7 +65,7 @@ public class KontaktdatenTest {
     public void setAnschriften() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
         kontakt.setAnschriften(neueAnschrift);
         assert kontakt.getAnschriften().equals(neueAnschrift);
     }
@@ -74,8 +74,8 @@ public class KontaktdatenTest {
     public void addAnschrift() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
-        Anschrift extraAnschrift = new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe");
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen")));
+        Anschrift extraAnschrift = new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe");
         kontakt.setAnschriften(neueAnschrift);
         kontakt.addAnschrift(extraAnschrift);
         neueAnschrift.add(extraAnschrift);
@@ -86,8 +86,8 @@ public class KontaktdatenTest {
     public void remove() {
         Kontaktdaten kontakt = initialize();
         ArrayList<Anschrift> neueAnschrift = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
-        Anschrift extraAnschrift = new Hausanschrift("Théo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen");
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
+        Anschrift extraAnschrift = new Hausanschrift("Theo Roncoletta", "Blaubeurerstrasse", 55, 889601, "Schelklingen");
 
         kontakt.addAnschrift(extraAnschrift);
         neueAnschrift.remove(extraAnschrift);
@@ -101,7 +101,7 @@ public class KontaktdatenTest {
     public void testToString() {
         Kontaktdaten kontakt = initialize();
         String kontaktAlsString = "Anschrift:\n" +
-                "Théo Roncoletta\n" +
+                "Theo Roncoletta\n" +
                 "Tennesseeallee 28\n" +
                 "76149 Karlsruhe\n" +
                 "Telefon: +(49)1578 2770476\n" +
@@ -114,7 +114,7 @@ public class KontaktdatenTest {
     public void testEquals() {
         Kontaktdaten kontakt1 = initialize();
         ArrayList<Anschrift> anschriften = new ArrayList<Anschrift>(
-                Arrays.asList(new Hausanschrift("Théo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
+                Arrays.asList(new Hausanschrift("Theo Roncoletta", "Tennesseeallee", 28, 76149, "Karlsruhe")));
         ArrayList<String> emails = new ArrayList<String>(Arrays.asList("theo.roncoletta@posteo.net"));
         ArrayList<String> teleNr = new ArrayList<String>(Arrays.asList("+(49)1578 2770476"));
         Kontaktdaten kontakt2 = new Kontaktdaten(emails, teleNr, anschriften);

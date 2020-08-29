@@ -1,4 +1,4 @@
-# @author Théo Roncoletta
+# @author Theo Roncoletta
 # diese Datei enthält Beispieldaten um Bilder zu generieren die von anderen Objekten benoetigt werden
 #
 bildNr; altText; dateiName; beschreibung
@@ -8,4 +8,4 @@ b3; Der Schrai; bilder/schrai.png; Ein Bild von dem Schrai auf der Bruecke
 b10; RaumBild; bilder/abstellRaum.png; Bild des Abstellraums
 b11; RaumBild; bilder/bananenRaum.png; Bild des Bananenraum
 b12; RaumBild; bilder/bildRaum.png; Bild des Bilderraums
-b23;Bild von Théo Roncoletta;bilder/roncolettaTheo.png;Bild von Théo Roncoletta
+b23;Bild von Theo Roncoletta;bilder/roncolettaTheo.png;Bild von Theo Roncoletta

@@ -1,5 +1,5 @@
 /**
- * @author Théo Roncoletta - TINF18B1
+ * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 package Museum.ObjectManagement;
@@ -466,6 +466,12 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         return hr;
     }
 
+    /**
+     * Diese Methode generiert ein Kontaktdaten Objekt aus csvDaten
+     *
+     * @param csvData
+     * @return
+     */
     private static Kontaktdaten createKontaktdaten(String[] csvData) {
         StringProcessor.trimCSVData(csvData);
 
