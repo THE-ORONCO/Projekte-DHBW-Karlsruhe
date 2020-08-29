@@ -58,7 +58,7 @@ public class MuseumsManager {
      * @param primaryKey Key des gesuchtes Museumselement
      * @return ob ein Element mit dem Primarykey vorhanden ist
      */
-    public static boolean contains(Class<?> c, String primaryKey) {
+    public static boolean contains(Class<? extends MuseumsElement> c, String primaryKey) {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         return relevanterManager.contains(primaryKey);
     }
@@ -70,7 +70,7 @@ public class MuseumsManager {
      * @param element Key des gesuchtes Museumselement
      * @return ob das Element vorhanden ist
      */
-    public static boolean contains(Class<?> c, MuseumsElement element) {
+    public static boolean contains(Class<? extends MuseumsElement> c, MuseumsElement element) {
         return contains(c, element.getPrimaryKey());
     }
 
@@ -81,7 +81,7 @@ public class MuseumsManager {
      * @param element das zu speichernde Objekt
      * @throws Exception wenn das Objekt oder ein Objekt mit gleichem PrimaryKey bereits vorhanden ist
      */
-    public static void persist(Class<?> c, MuseumsElement element) throws Exception {
+    public static void persist(Class<? extends MuseumsElement> c, MuseumsElement element) throws Exception {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         relevanterManager.persist(element);
     }
@@ -93,7 +93,7 @@ public class MuseumsManager {
      * @param primaryKey PrimaryKey des gesuchten Objekts
      * @return das gesuchte Objekt
      */
-    public static MuseumsElement find(Class<?> c, String primaryKey) {
+    public static MuseumsElement find(Class<? extends MuseumsElement> c, String primaryKey) {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         return relevanterManager.find(c, primaryKey);
     }
@@ -105,7 +105,7 @@ public class MuseumsManager {
      * @param primaryKey PrimaryKey des zu entfernenden Objekts
      * @return true wenn das Objekt vorhanden war und entfernt wurde; false wenn es nicht vorhanden war
      */
-    public static boolean remove(Class<?> c, String primaryKey) {
+    public static boolean remove(Class<? extends MuseumsElement> c, String primaryKey) {
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
         return relevanterManager.remove(primaryKey);
     }
@@ -123,14 +123,14 @@ public class MuseumsManager {
     }
 
     @Deprecated
-    public static void importieren(Class<?> c, String dateiPfad) throws Exception {
+    public static void importieren(Class<? extends MuseumsElement> c, String dateiPfad) throws Exception {
         for (MuseumsElement element : MuseumsElementFactory.createElement(c, dateiPfad)) {
             persist(c, element);
         }
     }
 
     // Standartmethode exportiert im CSV-Format
-    public static void exportieren(Class<?> c, String path, boolean ueberschreiben) throws Exception {
+    public static void exportieren(Class<? extends MuseumsElement> c, String path, boolean ueberschreiben) throws Exception {
         //TODO ueberschreiben einbauen
         //TODO exportieren ausgiebig testen!
         MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
@@ -147,7 +147,7 @@ public class MuseumsManager {
      * @param c Klasse die verwaltet werden soll
      * @return den fuer diese Klasse vorgesehenen Manager
      */
-    private static MuseumsElementManager waehleRelevantenManager(Class<?> c) {
+    private static MuseumsElementManager waehleRelevantenManager(Class<? extends MuseumsElement> c) {
         if (Person.class.isAssignableFrom(c)) {
             return personenM;
         } else if (c == Raum.class) {
@@ -167,7 +167,7 @@ public class MuseumsManager {
      * @param c Klasse fuer die ein neuer PrimaryKey generiert werden soll
      * @return einen unbenutzen PrimaryKey
      */
-    public static String generiereUnbenutzenSchluessel(Class<?> c) {
+    public static String generiereUnbenutzenSchluessel(Class<? extends MuseumsElement> c) {
         char startingCharacter = StringProcessor.waehleKeyStartCharakter(c);
 
         MuseumsElementManager relevantenManager = waehleRelevantenManager(c);
@@ -175,7 +175,7 @@ public class MuseumsManager {
         String key = "";
 
         do {
-            key = startingCharacter + StringProcessor.generiereRandomAlphaNumString();
+            key = StringProcessor.generierePrimaryKey(c);
         } while (relevantenManager.contains(key));
         return key;
     }
@@ -194,7 +194,7 @@ public class MuseumsManager {
     /**
      * Diese Methode läd die default Elemente fuer Bild, Epoche, Foerderer, Raum
      *
-     * @param path        Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
+     * @param path Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
      * @throws Exception wenn beim Lese/Schreib-Prozess schiefgeht
      */
     public static void ladeDefaultElemente(String path) throws Exception {
@@ -206,7 +206,6 @@ public class MuseumsManager {
      * Diese Methode läd die default Elemente fuer eine gegebene Liste an Klassen aus Dateien beziehungsweise läd
      * Default-Werte aus gegebenen Dateien.
      * Die geladenen Werte werden in der HashMap DEFAULT_ELELMENTE mit den Klassen als Key abgelegt.
-     *
      *
      * @param path                  Pfad zum default-Ordner in welchem die Dateien mit Default-Daten liegen oder liegen sollen
      * @param defaultElementKlassen Klassen fuer die die Default-Elemente geladen werden sollen

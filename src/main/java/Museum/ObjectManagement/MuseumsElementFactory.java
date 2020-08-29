@@ -107,8 +107,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             try {
                 geladeneElemente.add(createElement(c, csvLine));
             } catch (Exception e) {
-                //TODO ist das hadling hier ok?
-                AppLogger.getInstance().warning("MuseumsElement nicht erstellt aus den Daten: " + Arrays.toString(csvLine) +
+                AppLogger.getInstance().warning(c.getSimpleName() + " nicht erstellt aus den Daten: " + Arrays.toString(csvLine) +
                         " Es wurde eine Exception geworfen ->" + e.getMessage());
             }
         }
@@ -339,9 +338,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         // Bild
         String bildNr = csvData[6];
         Bild bild;
-        if(MuseumsManager.contains(Bild.class, bildNr)){
+        if (MuseumsManager.contains(Bild.class, bildNr)) {
             bild = (Bild) MuseumsManager.find(Bild.class, bildNr);
-        }else {
+        } else {
             bild = (Bild) MuseumsManager.getDefault(Bild.class);
             AppLogger.getInstance().info("Kein Bild mit der Bildnummer " + bildNr + " gefunden -> default Bild geladen");
         }
@@ -360,7 +359,6 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 }
             }
         }
-
 
 
         // Foerderer im Museum ablegen
@@ -514,7 +512,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 String land = anschriftAttribute[6];
                 anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
             } else {
-                AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(anschriftAttribute) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert" );
+                AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(anschriftAttribute) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert");
             }
         }
         Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);

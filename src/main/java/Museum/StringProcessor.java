@@ -102,4 +102,8 @@ public class StringProcessor {
         }
         return true;
     }
+
+    public static String generierePrimaryKey(Class<? extends MuseumsElement> c) {
+        return waehleKeyStartCharakter(c) + StringProcessor.generiereRandomAlphaNumString();
+    }
 }
