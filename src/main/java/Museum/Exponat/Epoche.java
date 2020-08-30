@@ -68,4 +68,19 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
         };
         return csvData;
     }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "epochenID",
+                "epochenName",
+                "stilrichtung",
+                "zeitalter",
+                "beschreibung"
+        };
+    }
 }

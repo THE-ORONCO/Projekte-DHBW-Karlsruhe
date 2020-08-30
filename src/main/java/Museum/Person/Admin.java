@@ -27,5 +27,4 @@ public class Admin extends Mitarbeiter {
     public Admin(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
     }
-
 }

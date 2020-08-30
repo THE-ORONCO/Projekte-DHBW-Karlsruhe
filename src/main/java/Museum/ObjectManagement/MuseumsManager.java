@@ -9,6 +9,7 @@ import Museum.Exponat.Epoche;
 import Museum.Exponat.Exponat;
 import Museum.MuseumsElement;
 import Museum.Person.Foerderer;
+import Museum.Person.Mitarbeiter;
 import Museum.Person.Person;
 import Museum.Raum.Raum;
 import Museum.StringProcessor;
@@ -17,10 +18,7 @@ import de.dhbwka.swe.utils.util.AppLogger;
 import de.dhbwka.swe.utils.util.CSVReader;
 import de.dhbwka.swe.utils.util.CSVWriter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,30 +27,39 @@ public class MuseumsManager {
     private static final HashMap<Class<? extends MuseumsElement>, ArrayList<MuseumsElement>> DEFAULT_ELEMENTE = new HashMap<>();
 
     // MuseumsElementManager die die verschiedenen Objekte des Museums speichern
-    private final static MuseumsElementManager personenM = new MuseumsElementManager(); //TODO das hier koennte man aufteilen, warum haben wir das nicht?
+    private final static MuseumsElementManager mitarbeiterM = new MuseumsElementManager(); //TODO das hier koennte man aufteilen, warum haben wir das nicht?
+    private final static MuseumsElementManager foerdererM = new MuseumsElementManager(); // DIFF PersonenManger aufgesplittet
     private final static MuseumsElementManager raumM = new MuseumsElementManager();
     private final static MuseumsElementManager exponatM = new MuseumsElementManager(); // TODO vielleicht eine Methode zum tracken der Änderungen am Objekt einbauen
     private final static MuseumsElementManager epochenM = new MuseumsElementManager(); // DIFF EpochenManager
     private final static MuseumsElementManager bildM = new MuseumsElementManager(); // DIFF BildManager
     //TODO vielleicht eine globale Liste fuer alle Kategorien wenn noch Zeit ist
 
-    public static MuseumsElementManager getPersonenManager() {
+    /*public static MuseumsElementManager getPersonenManager() {
         return personenM;
+    }*/
+
+    public static MuseumsElementManager getMitarbeiterM() {
+        return mitarbeiterM;
     }
 
-    public static MuseumsElementManager getRaumManager() {
+    public static MuseumsElementManager getFoerdererM() {
+        return foerdererM;
+    }
+
+    public static MuseumsElementManager getRaumM() {
         return raumM;
     }
 
-    public static MuseumsElementManager getExponatManager() {
+    public static MuseumsElementManager getExponatM() {
         return exponatM;
     }
 
-    public static MuseumsElementManager getEpochenManager() {
+    public static MuseumsElementManager getEpochenM() {
         return epochenM;
     }
 
-    public static MuseumsElementManager getBildManager() {
+    public static MuseumsElementManager getBildM() {
         return bildM;
     }
 
@@ -132,16 +139,78 @@ public class MuseumsManager {
         MuseumsElementFactory.createElement(c, dateiPfad);
     }
 
+
+    public static void exportieren(Class<? extends MuseumsElement> c, String path, boolean ueberSchreiben) throws Exception {
+        exportieren(c, path, c.getSimpleName() + ".csv", ueberSchreiben);
+    }
+
     // Standartmethode exportiert im CSV-Format
-    public static void exportieren(Class<? extends MuseumsElement> c, String path, boolean ueberschreiben) throws Exception {
-        //TODO ueberschreiben einbauen
+    public static void exportieren(Class<? extends MuseumsElement> c, String path, String dateiName, boolean ueberSchreiben) throws Exception {
+        MuseumsElementManager alleElementeDerKlasse = MuseumsManager.waehleRelevantenManager(c);
+        exportieren(c, path, dateiName, ueberSchreiben, alleElementeDerKlasse.getMuseumsElementeAsList());
+    }
+
+    public static void exportieren(Class<? extends MuseumsElement> c, String path, String dateiName, boolean ueberSchreiben, ArrayList<MuseumsElement> exportElemente) throws Exception{
         //TODO exportieren ausgiebig testen!
-        MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+        String dateiPfad = path + File.separator + dateiName;
+        File exportDatei = new File(dateiPfad);
+        // ueberpruefen ob die Datei existiert
+        if (exportDatei.exists()) {
+            // ueberpruefen ob die Datei ueberschrieben werden soll
+            if (ueberSchreiben) {
+                // ueberpruefen ob die Datei geloescht und neu geschrieben werden kann
+                if (exportDatei.delete()) {
+                    AppLogger.getInstance().info("Datei " + exportDatei.getAbsolutePath() + " wurde ueberschrieben.");
+                } else {
+                    String errorNachricht = "Datei " + exportDatei.getAbsolutePath() + " konnte nicht ueberschrieben werden.";
+                    AppLogger.getInstance().error(errorNachricht);
+                    throw new IOException(errorNachricht);
+                }
+            } else {
+                String errorMessage = "Datei existiert bereits.";
+                AppLogger.getInstance().error(errorMessage);
+                throw new IOException(errorMessage);
+            }
+        }
 
-        ArrayList<String[]> csvData = relevanterManager.parseToCSV();
+        // schreibe neue Datei
+        if (exportDatei.createNewFile()) {
+            MuseumsElementManager relevanterManager = waehleRelevantenManager(c);
+            String[] header;
 
-        CSVWriter writer = new CSVWriter(path, true);
-        //writer.writeDataToFile(csvData, relevanterManager, new String[0]);
+            if (Person.class.isAssignableFrom(c)) {
+                header = Mitarbeiter.getCSVHeader();
+            } else if (c == Foerderer.class) {
+                header = Foerderer.getCSVHeader();
+            } else if (c == Raum.class) {
+                header = Raum.getCSVHeader();
+            } else if (c == Exponat.class) {
+                header = Exponat.getCSVHeader();
+            } else if (c == Epoche.class) {
+                header = Epoche.getCSVHeader();
+            } else if (c == Bild.class) {
+                header = Bild.getCSVHeader();
+            } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
+
+            ArrayList<String[]> csvData = new ArrayList<>();
+            for (MuseumsElement element : exportElemente){
+                csvData.add(element.parsToCSV());
+            }
+
+            if(csvData.size() > 0){
+                CSVWriter writer = new CSVWriter(exportDatei.getAbsolutePath(), true);
+                System.out.println(csvData);
+                writer.writeDataToFile(csvData, header);
+            }else {
+                AppLogger.getInstance().info("keine Daten zu exportieren!");
+            }
+
+
+        } else {
+            String errorMessage = "Datei konnte nicht geschrieben werden.";
+            AppLogger.getInstance().error(errorMessage);
+            throw new IOException(errorMessage);
+        }
     }
 
     /**
@@ -151,8 +220,10 @@ public class MuseumsManager {
      * @return den fuer diese Klasse vorgesehenen Manager
      */
     private static MuseumsElementManager waehleRelevantenManager(Class<? extends MuseumsElement> c) {
-        if (Person.class.isAssignableFrom(c)) {
-            return personenM;
+        if (Mitarbeiter.class.isAssignableFrom(c)) {
+            return mitarbeiterM;
+        } else if (c == Foerderer.class) {
+            return foerdererM;
         } else if (c == Raum.class) {
             return raumM;
         } else if (c == Exponat.class) {
@@ -187,7 +258,8 @@ public class MuseumsManager {
      * Diese methode loescht alle Einträge im Museumsmanager. !!!Achtung!!! dies ist eher um das System zu testen
      */
     public static void clearAlles() {
-        personenM.clear();
+        mitarbeiterM.clear();
+        foerdererM.clear();
         raumM.clear();
         exponatM.clear();
         epochenM.clear();
@@ -240,13 +312,13 @@ public class MuseumsManager {
                     defaulDaten.add(csvData);
                 }
 
-                for(String[] defaultElementDaten: defaulDaten){
-                    if (defaultElementDaten[0].startsWith("#")){
+                for (String[] defaultElementDaten : defaulDaten) {
+                    if (defaultElementDaten[0].startsWith("#")) {
                         defaultElemente.add(MuseumsElementFactory.createElement(typ, defaultElementDaten));
                     }
                 }
 
-                AppLogger.getInstance().warning("Keine Default Datei unter "+ dateiPfad +" gefunden." +
+                AppLogger.getInstance().warning("Keine Default Datei unter " + dateiPfad + " gefunden." +
                         "Default-Daten fuer " + name + " aus interner default Datei geladen.");
             }
 

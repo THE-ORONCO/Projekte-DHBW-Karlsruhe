@@ -5,6 +5,7 @@
 package Museum.ObjectManagement;
 
 import Museum.MuseumsElement;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,6 +108,10 @@ public class MuseumsElementManager{
 
     public HashMap<String, MuseumsElement> getMuseumsElemente(){
         return this.museumsElemente;
+    }
+
+    public ArrayList<MuseumsElement> getMuseumsElementeAsList(){
+        return new ArrayList<MuseumsElement>(this.museumsElemente.values());
     }
 
     /**

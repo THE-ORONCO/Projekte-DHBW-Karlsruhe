@@ -46,7 +46,16 @@ public abstract class MuseumsElement { //DIFF neue ueberklasse fuer alle Element
      */
     public abstract String[] parsToCSV();
 
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
     public static String[] getCSVHeader() {
-        return new String[0];
+        return new String[]{
+                "primaryKey",
+                "beschreibung"
+        };
     }
+
 }

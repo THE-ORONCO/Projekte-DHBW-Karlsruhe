@@ -74,4 +74,18 @@ public class Bild extends MuseumsElement { //DIFF Bild hat neues ueberobjekt
         };
         return csvData;
     }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "bildNr",
+                "altText",
+                "dateiName",
+                "beschreibung"
+        };
+    }
 }

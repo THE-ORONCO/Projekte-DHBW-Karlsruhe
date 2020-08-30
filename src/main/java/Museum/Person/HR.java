@@ -15,7 +15,8 @@ import java.util.Date;
 
 public class HR extends Mitarbeiter{
 
-    private MuseumsElementManager personenM;
+    private MuseumsElementManager mitarbeiterM;
+    private MuseumsElementManager foerdererM;
 
     /**
      * HR im Museum
@@ -30,14 +31,15 @@ public class HR extends Mitarbeiter{
      */
     public HR(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.personenM = MuseumsManager.getPersonenManager();
+        this.mitarbeiterM = MuseumsManager.getFoerdererM();
+        this.foerdererM = MuseumsManager.getMitarbeiterM();
     }
 
-    public MuseumsElementManager getPersonenM() {
-        return personenM;
+    public MuseumsElementManager getMitarbeiterM() {
+        return mitarbeiterM;
     }
 
-    public void setPersonenM(MuseumsElementManager personenM) {
-        this.personenM = personenM;
+    public MuseumsElementManager getFoerdererM() {
+        return foerdererM;
     }
 }

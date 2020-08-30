@@ -30,8 +30,8 @@ public class User extends Mitarbeiter{
      */
     public User(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.exponatM = MuseumsManager.getExponatManager();
-        this.raumM = MuseumsManager.getRaumManager();
+        this.exponatM = MuseumsManager.getExponatM();
+        this.raumM = MuseumsManager.getRaumM();
     }
 
     public MuseumsElementManager getExponatM() {
@@ -48,5 +48,21 @@ public class User extends Mitarbeiter{
 
     public void setRaumM(MuseumsElementManager raumM) {
         this.raumM = raumM;
+    }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "personalNr",
+                "name",
+                "gebDatum",
+                "beschreibung",
+                "kontakt",
+                "bild"
+        };
     }
 }

@@ -238,4 +238,28 @@ public class Exponat extends MuseumsElement {
                 getBesitzH().equals(exponat.getBesitzH()) &&
                 getBild().equals(exponat.getBild());
     }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "inventarNr",
+                "name",
+                "entstehungsDatum",
+                "urheber",
+                "benoetigteAusstellungsflaeche",
+                "kategorien",
+                "epoche",
+                "herkunftsort",
+                "exponatwert",
+                "geschichtlicheH",
+                "bearbeitungsH",
+                "besitzH",
+                "bild",
+                "beschreibung"
+        };
+    }
 }

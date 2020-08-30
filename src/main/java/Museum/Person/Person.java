@@ -93,4 +93,19 @@ public abstract class Person extends MuseumsElement {
     @Override
     public abstract String[] parsToCSV();
 
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "personenNr",
+                "name",
+                "gebDatum",
+                "beschreibung",
+                "kontakt",
+                "bild"
+        };
+    }
 }

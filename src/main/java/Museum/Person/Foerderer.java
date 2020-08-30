@@ -22,7 +22,7 @@ public class Foerderer extends Person {
     /**
      * Ein Foerderer unterstuetzt das Museum mit verschiedenen Exponaten die er sponsort
      *
-     * @param foerderNr           eindeutige Identifikationsnummer eines Foerderers
+     * @param foerdererNr           eindeutige Identifikationsnummer eines Foerderers
      * @param name                Name des Foerderers
      * @param gebDatum            Geburtsdatum des Foerderers
      * @param beschreibung        zusätzliche Informationen die interessant sein koennten
@@ -31,8 +31,8 @@ public class Foerderer extends Person {
      * @param bild                Bild des foerderers
      * @throws ParseException wenn Telefonnummer oder E-Mail-Adresse falsch formatiert ist
      */
-    public Foerderer(String foerderNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
-        super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
+    public Foerderer(String foerdererNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
+        super(foerdererNr, name, gebDatum, beschreibung, kontakt, bild);
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
@@ -113,5 +113,4 @@ public class Foerderer extends Person {
         }
         return exponatCSVData.toArray(new String[0]);
     }
-
 }

@@ -155,4 +155,20 @@ public class Raum extends MuseumsElement { //DIFF neue ueberklasse
         };
         return csvData;
     }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "raumNr",
+                "ausstellungsflaeche",
+                "ausstellungsthema",
+                "bilder",
+                "ausgestellteExponate",
+                "beschreibung"
+        };
+    }
 }

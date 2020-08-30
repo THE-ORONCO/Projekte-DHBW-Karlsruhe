@@ -63,4 +63,20 @@ public class Mitarbeiter extends Person {
         };
         return csvData;
     }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "mitarbeiterNr",
+                "name",
+                "gebDatum",
+                "beschreibung",
+                "kontakt",
+                "bild"
+        };
+    }
 }

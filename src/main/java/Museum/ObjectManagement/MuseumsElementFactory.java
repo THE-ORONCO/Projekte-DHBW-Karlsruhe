@@ -362,7 +362,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
 
         // Foerderer im Museum ablegen
-        MuseumsManager.persist(Person.class, foerderer);
+        MuseumsManager.persist(Foerderer.class, foerderer);
 
         return foerderer;
     }
