@@ -43,7 +43,7 @@ public class Mitarbeiter extends Person {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Mitarbeiter that = (Mitarbeiter) o;
-        return getPrimaryKey() == that.getPrimaryKey();
+        return getPrimaryKey().equals(that.getPrimaryKey());
     }
 
     /**

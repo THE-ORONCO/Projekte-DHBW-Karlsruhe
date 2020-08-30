@@ -2,16 +2,16 @@ package app;
 
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.AppLogger;
+import de.dhbwka.swe.utils.util.PropertyManager;
 import org.apache.commons.cli.*;
 
-import java.io.IOException;
 
 /**
  * @author Theo Roncoletta - TINF18B1
  * @version 1.0
  */
 public class SWEMuseumsVerwaltung {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         // setup aller Comandline-Optionen (aktuell nur eine)
         Options optionen = new Options();
@@ -54,7 +54,7 @@ public class SWEMuseumsVerwaltung {
 
         // ueberpruefe ob ein default Pfad uebergeben wurde
         // wenn nein waehle  "RessourcenPfad + /default" als default Pfad
-        String defaultPfadName = "";
+        String defaultPfadName;
         if (cmd.hasOption("d")) {
             defaultPfadName = cmd.getOptionValue("d");
         } else {
@@ -74,13 +74,13 @@ public class SWEMuseumsVerwaltung {
 
 
         // test code
-        /*
-        TODO kann man das hinbekommen, dass der PropertyManager uns alle benötigten Strings läd und das uns die Übersetzung einfach machen könnte?
+
+        // TODO kann man das hinbekommen, dass der PropertyManager uns alle benötigten Strings läd und das uns die Übersetzung einfach machen könnte?
         try {
             PropertyManager proppy = new PropertyManager(null, SWEMuseumsVerwaltung.class, "/ger.property");
             System.out.println(proppy.getProperty("ayyyy"));
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }
