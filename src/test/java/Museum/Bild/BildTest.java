@@ -71,9 +71,9 @@ public class BildTest {
 
     @Test
     public void testToString() {
-        String bildAlsString = "BildNr: b2344\n" +
-                "Alt-Text: tolles Bild\n" +
-                "Dateiname: bild.png\n" +
+        String bildAlsString = "BildNr: b2344" + System.lineSeparator() +
+                "Alt-Text: tolles Bild" +System.lineSeparator() +
+                "Dateiname: bild.png" +System.lineSeparator() +
                 "Beschreibung: voll tolles Bild";
         assertEquals(bild.toString(), bildAlsString);
     }

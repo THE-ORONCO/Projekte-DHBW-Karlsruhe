@@ -63,9 +63,9 @@ public class HausanschriftTest extends AnschriftTest {
 
     @Test
     public void testToString() {
-        String hausanschriftAlsString = "Theo Roncoletta\n" +
-                "Tennesseeallee 28\n" +
-                "76149 Karlsruhe\n" +
+        String hausanschriftAlsString = "Theo Roncoletta" +System.lineSeparator() +
+                "Tennesseeallee 28" +System.lineSeparator() +
+                "76149 Karlsruhe" +System.lineSeparator() +
                 "Deutschland";
         assertEquals(hausanschrift.toString(), hausanschriftAlsString);
     }

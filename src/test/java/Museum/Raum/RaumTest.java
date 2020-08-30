@@ -85,10 +85,10 @@ public class RaumTest {
 
     @Test
     public void testToString() {
-        String raumAlsString = "RaumNr: r42\n" +
-                "Ausstellungsfläche : 420.690000\n" +
-                "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann\n" +
-                "Beschreibung: Abstellraum\n";
+        String raumAlsString = "RaumNr: r42" + System.lineSeparator() +
+                "Ausstellungsfläche : 420.690000" + System.lineSeparator() +
+                "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann" + System.lineSeparator() +
+                "Beschreibung: Abstellraum"+ System.lineSeparator();
         assertEquals(raum.toString(), raumAlsString);
     }
 

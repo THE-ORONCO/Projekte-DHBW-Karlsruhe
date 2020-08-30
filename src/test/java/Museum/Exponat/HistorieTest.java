@@ -74,7 +74,7 @@ public class HistorieTest {
 
     @Test
     public void testToString() {
-        String historieAlsString = datum1 + " : wow, much happen, many ereignisse, wow\n";
+        String historieAlsString = datum1 + " : wow, much happen, many ereignisse, wow" + System.lineSeparator();
         assertEquals(historie.toString(), historieAlsString);
     }
 

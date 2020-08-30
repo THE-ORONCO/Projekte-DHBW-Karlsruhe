@@ -4,7 +4,6 @@
  */
 package Museum.Person;
 
-import Museum.Person.Firmenanschrift;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -77,10 +76,10 @@ public class FirmenanschriftTest extends AnschriftTest {
 
     @Test
     public void testToString() {
-        String firmenanschriftAlsString = "KIT-Campus-Nord\n" +
-                "Theo Roncoletta\n" +
-                "Tennesseeallee 28\n" +
-                "76149 Karlsruhe\n" +
+        String firmenanschriftAlsString = "KIT-Campus-Nord" + System.lineSeparator() +
+                "Theo Roncoletta" + System.lineSeparator() +
+                "Tennesseeallee 28" + System.lineSeparator() +
+                "76149 Karlsruhe" + System.lineSeparator() +
                 "Deutschland";
         assertEquals(firmenanschrift.toString(), firmenanschriftAlsString);
     }

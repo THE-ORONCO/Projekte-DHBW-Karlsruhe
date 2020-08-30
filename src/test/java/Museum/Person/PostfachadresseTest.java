@@ -35,9 +35,9 @@ public class PostfachadresseTest extends AnschriftTest {
     @Test
     public void testToString() {
         initialize();
-        assertEquals(postfachadresse.toString(), "Postfachnummer:69420\n" +
-                "76149 Karlsruhe\n" +
-                "Karlsruhe\n" +
+        assertEquals(postfachadresse.toString(), "Postfachnummer:69420" + System.lineSeparator() +
+                "76149 Karlsruhe" +System.lineSeparator() +
+                "Karlsruhe" +System.lineSeparator() +
                 "Deutschland");
     }
 

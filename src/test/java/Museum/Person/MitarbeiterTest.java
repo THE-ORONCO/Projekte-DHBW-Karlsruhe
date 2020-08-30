@@ -70,18 +70,18 @@ public class MitarbeiterTest extends PersonTest {
     @Test
     public void testToString() {
         System.out.println(mitarbeiter.toString());
-        String mitarbeiterAlsString = "MitarbeiterNr: m420\n" +
-                "Rolle: Museum.Person.Mitarbeiter\n" +
-                "Name: Theo Roncoletta\n" +
-                "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999\n" +
-                "Beschreibung: so ein Typ\n" +
-                "Kontakt:\n" +
-                "Anschrift:\n" +
-                "Hausanschrift:\n" +
-                "Theo Roncoletta\n" +
-                "Tenesseeallee 28\n" +
-                "76149 Karlsruhe\n" +
-                "Telefon: +(49)1578 2770476\n" +
+        String mitarbeiterAlsString = "MitarbeiterNr: m420" + System.lineSeparator() +
+                "Rolle: Museum.Person.Mitarbeiter" +System.lineSeparator() +
+                "Name: Theo Roncoletta" +System.lineSeparator() +
+                "Geburtsdatum: Thu Dec 23 00:00:00 CET 1999" +System.lineSeparator() +
+                "Beschreibung: so ein Typ" +System.lineSeparator() +
+                "Kontakt:" +System.lineSeparator() +
+                "Anschrift:" +System.lineSeparator() +
+                "Hausanschrift:" +System.lineSeparator() +
+                "Theo Roncoletta" +System.lineSeparator() +
+                "Tenesseeallee 28" +System.lineSeparator() +
+                "76149 Karlsruhe" +System.lineSeparator() +
+                "Telefon: +(49)1578 2770476" +System.lineSeparator() +
                 "E-Mail: theo.roncoletta@posteo.net";
         assertEquals(mitarbeiter.toString(), mitarbeiterAlsString);
     }
