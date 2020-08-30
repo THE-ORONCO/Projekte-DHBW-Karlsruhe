@@ -50,7 +50,7 @@ public class MitarbeiterTest extends PersonTest {
 
     @Before
     public void setUp() throws Exception {
-        String dataRoot = new File("./src/test/resources").getCanonicalPath() + "/";
+        String dataRoot = new File("./src/test/resources").getCanonicalPath() + "/"; //TODO
         resourcePfad = dataRoot + "data/";
         MuseumsManager.ladeDefaultElemente(dataRoot+"/default");
 

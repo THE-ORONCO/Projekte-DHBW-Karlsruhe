@@ -76,11 +76,11 @@ public class SWEMuseumsVerwaltung {
         // test code
 
         // TODO kann man das hinbekommen, dass der PropertyManager uns alle benötigten Strings läd und das uns die Übersetzung einfach machen könnte?
-        try {
+        /*try {
             PropertyManager proppy = new PropertyManager(null, SWEMuseumsVerwaltung.class, "/ger.property");
             System.out.println(proppy.getProperty("ayyyy"));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

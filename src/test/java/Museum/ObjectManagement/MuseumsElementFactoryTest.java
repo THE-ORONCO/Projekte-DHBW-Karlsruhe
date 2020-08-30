@@ -34,15 +34,13 @@ public class MuseumsElementFactoryTest {
     private static Epoche epoche;
     private static Raum raum;
     private static Bild bild;
-    private static User user;
-    private static Admin admin;
-    private static HR hr;
     private static Foerderer foerderer;
     private static Exponat exponat;
 
 
     @Before
     public void setUp() throws Exception {
+        MuseumsManager.clearAlles(); // scheinbar braucht es das in Eclipse
         String dataRoot = new File("./src/test/resources").getCanonicalPath() + "/";
         resourcePfad = dataRoot + "data/";
         defaultResourcePfad = dataRoot + "default/";
