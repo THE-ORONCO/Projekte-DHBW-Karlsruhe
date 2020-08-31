@@ -27,7 +27,7 @@ public class MuseumsManager {
     private static final HashMap<Class<? extends MuseumsElement>, ArrayList<MuseumsElement>> DEFAULT_ELEMENTE = new HashMap<>();
 
     // MuseumsElementManager die die verschiedenen Objekte des Museums speichern
-    private final static MuseumsElementManager mitarbeiterM = new MuseumsElementManager(); //TODO das hier koennte man aufteilen, warum haben wir das nicht?
+    private final static MuseumsElementManager mitarbeiterM = new MuseumsElementManager(); // TODO das hier koennte man aufteilen, warum haben wir das nicht?
     private final static MuseumsElementManager foerdererM = new MuseumsElementManager(); // DIFF PersonenManger aufgesplittet
     private final static MuseumsElementManager raumM = new MuseumsElementManager();
     private final static MuseumsElementManager exponatM = new MuseumsElementManager(); // TODO vielleicht eine Methode zum tracken der Änderungen am Objekt einbauen
