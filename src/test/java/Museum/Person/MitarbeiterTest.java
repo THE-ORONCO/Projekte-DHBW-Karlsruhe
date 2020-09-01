@@ -7,10 +7,6 @@ package Museum.Person;
 import Museum.Bild.Bild;
 import Museum.ObjectManagement.MuseumsElementFactory;
 import Museum.ObjectManagement.MuseumsManager;
-import Museum.Person.Anschrift;
-import Museum.Person.Hausanschrift;
-import Museum.Person.Kontaktdaten;
-import Museum.Person.Mitarbeiter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +14,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;

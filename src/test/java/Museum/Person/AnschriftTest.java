@@ -4,8 +4,8 @@
  */
 package Museum.Person;
 
-import Museum.Person.Anschrift;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 

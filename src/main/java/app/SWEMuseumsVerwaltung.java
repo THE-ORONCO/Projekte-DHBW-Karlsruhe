@@ -2,7 +2,6 @@ package app;
 
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.AppLogger;
-import de.dhbwka.swe.utils.util.PropertyManager;
 import org.apache.commons.cli.*;
 
 

@@ -4,9 +4,6 @@
  */
 package testStuff;
 
-import Museum.Exponat.Epoche;
-import Museum.Exponat.Exponat;
-import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.CSVReader;
 import de.dhbwka.swe.utils.util.CSVWriter;
 

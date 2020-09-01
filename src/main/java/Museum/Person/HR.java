@@ -5,12 +5,10 @@
 package Museum.Person;
 
 import Museum.Bild.Bild;
-import Museum.ObjectManagement.ElementSuche;
 import Museum.ObjectManagement.MuseumsElementManager;
 import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class HR extends Mitarbeiter{

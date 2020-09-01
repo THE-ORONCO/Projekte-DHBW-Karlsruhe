@@ -4,8 +4,6 @@
  */
 package Museum.Bild;
 
-import Museum.Bild.Bild;
-import Museum.MuseumsElement;
 import Museum.ObjectManagement.MuseumsElementFactory;
 import Museum.ObjectManagement.MuseumsManager;
 import org.junit.Before;
@@ -13,7 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class BildTest {
 

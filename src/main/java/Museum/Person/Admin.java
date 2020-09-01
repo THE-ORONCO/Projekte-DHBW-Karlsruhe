@@ -7,7 +7,6 @@ package Museum.Person;
 import Museum.Bild.Bild;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Admin extends Mitarbeiter {

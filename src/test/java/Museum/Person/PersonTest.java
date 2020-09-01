@@ -4,17 +4,6 @@
  */
 package Museum.Person;
 
-import Museum.Person.Anschrift;
-import Museum.Person.Hausanschrift;
-import Museum.Person.Kontaktdaten;
-import Museum.Person.Person;
-import org.junit.Test;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class PersonTest {
 /*
 

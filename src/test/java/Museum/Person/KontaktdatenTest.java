@@ -4,9 +4,6 @@
  */
 package Museum.Person;
 
-import Museum.Person.Anschrift;
-import Museum.Person.Hausanschrift;
-import Museum.Person.Kontaktdaten;
 import org.junit.Test;
 
 import java.util.ArrayList;

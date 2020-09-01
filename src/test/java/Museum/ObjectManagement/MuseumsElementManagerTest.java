@@ -6,7 +6,6 @@ package Museum.ObjectManagement;
 
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
-import Museum.ObjectManagement.MuseumsElementManager;
 import org.junit.Before;
 import org.junit.Test;
 

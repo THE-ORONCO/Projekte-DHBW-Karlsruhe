@@ -9,7 +9,6 @@ import Museum.ObjectManagement.MuseumsElementManager;
 import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class User extends Mitarbeiter{

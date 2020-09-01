@@ -4,7 +4,6 @@
  */
 package Museum.Exponat;
 
-import Museum.Exponat.Ereignis;
 import org.junit.Before;
 import org.junit.Test;
 
