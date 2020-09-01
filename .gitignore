@@ -1,4 +1,4 @@
 target/
-target/classes/*.class
+*.class
 /src/main/java/testStuff
 /src/main/java/testStuff/
