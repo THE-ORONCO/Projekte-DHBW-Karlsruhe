@@ -1,0 +1,6 @@
+# @author Theo Roncoletta
+# diese Datei enthält Beispieldaten um Foerderer zu generieren
+#
+foerdererNr; name; gebDatum; beschreibung; kontakt; gefoerdererteExponate; bild
+f1;Theo Roncoletta;1999.12.23;So ein Typ;theo.roncoletta@gmail.com, 015782770476, SWE-Museumsverwaltungssoftwareprogrammierer co. KG._ Theo Roncoletta_ Tennesseeallee_ 28_ 76149_ Karlsruhe_ Deutschland | 42069_ 76149_ Karlsruhe_ Deutschland;e2;b23
+f2;Kai Haubrich;1997.01.01;So ein anderer Typ;kaido.der@haido.swe, 017675747121, SWE-Museumsverwaltungssoftwareprogrammierer co. KG._ Kai Haubrich_ Strasse_ 1_ 76149_ Karlsruhe_ Deutschland;e2;b0

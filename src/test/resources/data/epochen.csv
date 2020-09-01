@@ -1,0 +1,36 @@
+# @author Theo Roncoletta
+# Diese Datei enthält alle gegebenen und relevanten Epochen aus welchen die von uns ausgestellten Exponate stammen koennen
+#
+epochenID; Epoche; Stil; Zeitalter; Beschreibung
+e1; Griechische Antike; Geometrischer Stil; ca. 1000 - 680 v. Chr.;
+e2;  Griechische Antike; Archaischer Stil; ca. 700 - 480 v. Chr.;
+e3; Griechische Antike; Klassischer Stil; ca. 480 - 330 v. Chr.;
+e4; Griechische Antike; Hellenistischer Stil; ca. 330 v. Chr.  -  0;
+e5; Roemische und fruehchristliche Kunst; Republikanische Zeit; ca. 200 v. Chr. - 40 v. Chr.;
+e6; Roemische und fruehchristliche Kunst; Kaiserzeit; ca. 40 v. Chr. - 320 n. Chr;
+e7; Roemische und fruehchristliche Kunst; Fruehchristliche Zeit; ca. 340 - 600 n. Chr.;
+e8; Mittelalterliche Malerei; Fruehes Mittelalter; ca. 780 - 1000 n. Chr.;
+e9; Mittelalterliche Malerei; Romantik; ca. 1050 - 1250 n. Chr.;
+e10; Mittelalterliche Malerei; Gotik; ab ca. 1150 (Baukunst) / 1250 (Malerei) - ca. 1480 (in Deutschland);
+e11; Neuzeitliche Kunstrichtungen; Renaissance; 16. Jahrhundert: In Italien etwa ab 1400 beginnend, in Deutschland ab ca. 1470;
+e12; Neuzeitliche Kunstrichtungen; Manierismus; ca. ab 1520 bis ca. 1580;
+e13; Neuzeitliche Kunstrichtungen; Barock;;
+e14; Begin der Moderne / 19. Jahrhundert; Klassizismus; ca. 1750 - 1830;
+e15; Begin der Moderne / 19. Jahrhundert; Romantik; ca. 1790 - 1840;
+e16; Begin der Moderne / 19. Jahrhundert; Biedermeier; ca. 1815 - 1848;
+e17; Begin der Moderne / 19. Jahrhundert; Präfaffaeliten; 1848 - 1852, darueber hinaus bis zur Jahrhunderwende;
+e18; Begin der Moderne / 19. Jahrhundert; Realismus; ca. 1850 - 1880;
+e19; Begin der Moderne / 19. Jahrhundert; Impressionismus; ca. 1850 - 1890, darueber hinausgehend bis ins 20. Jahrhundert;
+e20; Begin der Moderne / 19. Jahrhundert; Jugendstil; um 1890 - 1910;
+e21; Moderne / 20. Jahrhundert; Expressionismus; vor dem ersten Weltkrieg;
+e22; Moderne / 20. Jahrhundert; Kubismus;  vor dem ersten Weltkrieg;
+e23; Moderne / 20. Jahrhundert; Futurismus;  vor dem ersten Weltkrieg;
+e24; Moderne / 20. Jahrhundert; Neue Sachlichkeit / Magischer Realismus; Die 20er Jahre;
+e25; Moderne / 20. Jahrhundert; Surrealismus; Die 20er Jahre;
+e26; Moderne / 20. Jahrhundert; 'Kunst' im Faschismus; 1933 - 1945;
+e27; Moderne / 20. Jahrhundert; Abstrakter Expressionismus; Die 50er Jahre;
+e28; Moderne / 20. Jahrhundert; Informel; Die 50er Jahre;
+e29; Moderne / 20. Jahrhundert; Pop Art; Die 60er und 70er Jahre;
+e30; Moderne / 20. Jahrhundert; Op Art; Die 60er und 70er Jahre;
+e31; Moderne / 20. Jahrhundert; Land Art; Die 60er und 70er Jahre;
+e32; Moderne / 20. Jahrhundert; Neue Wilde; Postmoderne;

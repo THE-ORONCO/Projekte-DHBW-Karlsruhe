@@ -1,0 +1,51 @@
+Hallo allerseits,
+
+nachdem die Prüfungswochen jetzt vorbei sind, kommen gleich noch ein paar prüfungsrelevante Infos:
+
+1.  Finaler Abgabetermin ist am Montag, dem31. August 2020bis Mitternacht.
+    Beachten Sie die Abgabezeit und lassen Sie es nicht auf die letzten Minuten ankommen, niemand hindert Sie daran, bereits Tage oder Wochen vorher abzugeben
+    (Sie können ja notfalls eine zweite oder dritte aktualisierte Version hochladen)
+    Jede zu späte Abgabe wird hart gewertet (wie übrigens bei jeder Klausur auch)!
+    Wenn es Probleme mit dem Internet gibt, per Mail zusenden.
+
+2. Abzugeben sind
+ a) ein ZIP- oder TAR-File
+    i)    mit der ausführbaren jar-Bibliothek und den CSV-Dateien,
+    ii)   mit dem kompletten Quellcode
+    iii)  OHNE class- und sonstige für die Bewertung unsinnige Dateien.
+    iiii) mit dem Namen PE2020_Museum_<Name1>_<Name2>.tar oder [...].tar.z oder [...].zip
+    => kein RAR oder 7-Zip oder sonst was!
+    => nur Nachnamen verwenden
+ b) (optional) ein weiteres erklärendes Dokument mit Änderungen und/oder Erklärungen
+
+3.  Das Programm muss mit folgendem Aufruf gestartet werden können:
+    java -jar PE2020_Museum_<Name1>_<Name2>.jar -p <pfad-zu-csv-dateien>
+    (dies gilt sowohl für die Bash- als auch für die Command-Shell)
+
+4. Die Implementierung wird folgendermaßen bewertet:
+ a) Lauffähigkeit, sie sollte prinzipiell sowohl unter Linux (primär) als auch unter WIN lauffähig sein.
+    i)  sicherstellen, dass mit der Java-8-JRE gestartet werden kann
+    ii) da von überall gestartet werden soll, muss der Pfad zu den CSV-Dateien als Kommandozeilen-Argument mitgegeben werden können.
+        Idealerweise erstellen Sie ein kleines Skript oder schreiben eine kurze README-Datei.
+    iii) Sollte das Programm nicht problemlos starten, kann nicht weiterbewertet werden und Sie verlieren eine Menge Punkte (vermutlich ca. 30)
+    => unbedingt auf anderen Rechnern testen, in Ihrer Gruppe haben Sie ja bereits mindestens zwei Stück ;)
+ b) Es muss möglich sein, ein Exponat anzulegen, es zu speichern und wieder zu lesen
+ c) Alle für ein Exponat erforderlichen Referenzen können bereits vorhanden sein (=> CSV-Dateien), d.h. es muss z.B. kein Förderer angelegt werden können.
+ d) Es wird geprüft, ob Ihre GUI ungefähr so aussieht und sich so bedienen lässt, wie Sie es im bisherigen PE "versprochen" haben.
+ e) NPEs sollte es nicht geben, Fehler und/oder Warnungen bzw. Infos sind geeignet auszugeben
+ f) Wählen Sie sinnvolle und ausreichend viele CSV-Beispieldaten (mind. jeweils 3 Zeilen)!
+
+ g) und die Qualität des Codes wird bewertet:
+
+ i) allgemeines, Verständlichkeit, Kommentare etc.
+
+ ii) wie sauber haben Sie die SWE-Utils eingebaut?
+
+ iii) wie haben Sie den/die Observer realisiert?
+
+Ansonsten viel Erfolg, sollte es noch Fragen geben, bitte melden ...
+
+Viele Grüße
+
+
+Richard Lutz
