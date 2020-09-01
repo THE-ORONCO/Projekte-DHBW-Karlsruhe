@@ -114,7 +114,7 @@ public class Kontaktdaten {
         if (this.anschriften.size() > 0) {
             kontakt += String.format("Anschrift:%n");
             for (Anschrift anschrift : this.anschriften) {
-                kontakt += String.format("%s%n", anschrift);
+                kontakt += String.format("%s:%n%s%n", anschrift.getClass().getSimpleName(), anschrift);
             }
         }
         if (this.teleNr.size() > 0) {
@@ -147,9 +147,9 @@ public class Kontaktdaten {
      */
     public String[] parseToCSV() {
         String[] csvDaten = new String[]{
-                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), getEmailAdressen()),
-                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), getTeleNr()),
-                String.join(CSVSeparationLevel.LEVEL2.wSeparator(), parseAnschriftenToCSV())
+                String.join(CSVSeparationLevel.LEVEL3.wSeparator(), getEmailAdressen()),
+                String.join(CSVSeparationLevel.LEVEL3.wSeparator(), getTeleNr()),
+                String.join(CSVSeparationLevel.LEVEL3.wSeparator(), parseAnschriftenToCSV())
         };
         return csvDaten;
     }
@@ -157,7 +157,7 @@ public class Kontaktdaten {
     private String[] parseAnschriftenToCSV() {
         ArrayList<String> exponatCSVData = new ArrayList<>();
         for (Anschrift anschrift : getAnschriften()) {
-            String anschriftAsString = String.join(CSVSeparationLevel.LEVEL2.wSeparator(), anschrift.parseToCSV());
+            String anschriftAsString = String.join(CSVSeparationLevel.LEVEL4.wSeparator(), anschrift.parseToCSV());
             exponatCSVData.add(anschriftAsString);
         }
         return exponatCSVData.toArray(new String[0]);

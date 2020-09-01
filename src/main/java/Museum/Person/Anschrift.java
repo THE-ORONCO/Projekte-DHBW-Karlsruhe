@@ -11,6 +11,7 @@ public class Anschrift {
 
     /**
      * definiert die Anschrift einer Person auf einem Stadt-Level
+     *
      * @param plz Postleitzahl der Stadt
      * @param stadt Stadt die mit der Anschrift refferenziert wird
      * @param land Land der Anschrift (kann auch weggelassen werden)
@@ -21,6 +22,12 @@ public class Anschrift {
         this.land = land;
     }
 
+    /**
+     * definiert die Anschrift einer Person auf einem Stadt-Level ohne das Land
+     *
+     * @param plz Postleitzahl der Stadt
+     * @param stadt Stadt die mit der Anschrift refferenziert wir
+     */
     public Anschrift(String stadt, int plz) {
         this(plz, stadt, "");
     }

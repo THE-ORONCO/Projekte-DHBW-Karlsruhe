@@ -5,6 +5,7 @@
 package Museum.ObjectManagement;
 
 import Museum.MuseumsElement;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,6 +110,10 @@ public class MuseumsElementManager{
         return this.museumsElemente;
     }
 
+    public ArrayList<MuseumsElement> getMuseumsElementeAsList(){
+        return new ArrayList<MuseumsElement>(this.museumsElemente.values());
+    }
+
     /**
      * Diese Methode loescht alle Einträge im MuseumsElementManager
      */
@@ -122,15 +127,5 @@ public class MuseumsElementManager{
             csvStrings.add(element.parsToCSV());
         }
         return csvStrings;
-    }
-
-    public String[] getCSVHeader() throws Exception {
-        if(this.museumsElemente.size() <= 0){
-            throw new Exception("ElementManger hat noch keine Elemente. Die beschaffenheit der Elemente kann nicht bestimmt werden");
-        }
-
-        // methode mit Reflection-API abfragen
-        Class<?> relevanteKlasse = this.museumsElemente.get(0).getClass();
-        return (String[]) relevanteKlasse.getMethod("getCSVHeader").invoke(null);
     }
 }

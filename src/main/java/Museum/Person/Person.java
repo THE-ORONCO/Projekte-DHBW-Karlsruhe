@@ -23,11 +23,10 @@ public abstract class Person extends MuseumsElement {
      * @param kontakt      Kontaktdaten unter der die Person zu erreichen ist
      * @param bild       Bilder von dieser Person
      */
-    public Person(String personenNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public Person(String personenNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(personenNr, beschreibung);
         this.name = name;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        this.gebDatum = sdf.parse(gebDatum);
+        this.gebDatum = gebDatum;
         this.kontakt = kontakt;
         this.bild = bild;
     }
@@ -66,9 +65,6 @@ public abstract class Person extends MuseumsElement {
 
     @Override
     public String toString() {
-        /**
-         * @return schoen formatierter String mit allen Attributen
-         */
         String person = "";
         person += String.format("Name: %s%n", this.name);
         person += String.format("Geburtsdatum: %s%n", this.gebDatum);
@@ -97,4 +93,19 @@ public abstract class Person extends MuseumsElement {
     @Override
     public abstract String[] parsToCSV();
 
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "personenNr",
+                "name",
+                "gebDatum",
+                "beschreibung",
+                "kontakt",
+                "bild"
+        };
+    }
 }

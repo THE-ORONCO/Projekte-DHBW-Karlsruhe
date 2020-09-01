@@ -2,9 +2,9 @@ package Museum.Exponat;
 
 public class Exponatwert {
 
-    private final float einkaufsWert;
-    private float aktuellerSchaetzwert;
-    private float leihwert; // DIFF leihwert statt leihwerte, da mehr als einer vlt nicht sinnvoll ist
+    private final double einkaufsWert;
+    private double aktuellerSchaetzwert;
+    private double leihwert; // DIFF leihwert statt leihwerte, da mehr als einer vlt nicht sinnvoll ist
 
     /**
      * Diese Klasse representiert den Wert den ein Exponat hat
@@ -13,30 +13,35 @@ public class Exponatwert {
      * @param aktuellerSchaetzwert Aktueller schätzwert des Exponats
      * @param leihwert             Leihwert des Exponats
      */
-    public Exponatwert(float einkaufsWert, float aktuellerSchaetzwert, float leihwert) {
+    public Exponatwert(double einkaufsWert, double aktuellerSchaetzwert, double leihwert) {
         this.einkaufsWert = einkaufsWert;
         this.aktuellerSchaetzwert = aktuellerSchaetzwert;
         this.leihwert = leihwert;
     }
 
-    public float getEinkaufsWert() {
+    public double getEinkaufsWert() {
         return einkaufsWert;
     }
 
-    public float getAktuellerSchaetzwert() {
+    public double getAktuellerSchaetzwert() {
         return aktuellerSchaetzwert;
     }
 
-    public void setAktuellerSchaetzwert(float aktuellerSchaetzwert) {
+    public void setAktuellerSchaetzwert(double aktuellerSchaetzwert) {
         this.aktuellerSchaetzwert = aktuellerSchaetzwert;
     }
 
-    public float getLeihwert() {
+    public double getLeihwert() {
         return leihwert;
     }
 
-    public void setLeihwert(float leihwert) {
+    public void setLeihwert(double leihwert) {
         this.leihwert = leihwert;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Einkaufswert: %f€ Schaetzwert: %f€ Leihwert: %f€", einkaufsWert, aktuellerSchaetzwert, leihwert);
     }
 
     @Override
@@ -44,9 +49,9 @@ public class Exponatwert {
         if (this == o) return true;
         if (!(o instanceof Exponatwert)) return false;
         Exponatwert that = (Exponatwert) o;
-        return Float.compare(that.getEinkaufsWert(), getEinkaufsWert()) == 0 &&
-                Float.compare(that.getAktuellerSchaetzwert(), getAktuellerSchaetzwert()) == 0 &&
-                Float.compare(that.getLeihwert(), getLeihwert()) == 0;
+        return Double.compare(that.getEinkaufsWert(), getEinkaufsWert()) == 0 &&
+                Double.compare(that.getAktuellerSchaetzwert(), getAktuellerSchaetzwert()) == 0 &&
+                Double.compare(that.getLeihwert(), getLeihwert()) == 0;
     }
 
     /**

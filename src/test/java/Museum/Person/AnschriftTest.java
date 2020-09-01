@@ -6,6 +6,7 @@ package Museum.Person;
 
 import Museum.Person.Anschrift;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 
 public class AnschriftTest {
@@ -59,8 +60,11 @@ public class AnschriftTest {
     @Test
     public void testToString() {
         initialize();
-        String anschriftAlsString = "Schelklingen 89601\n" +
+        String anschriftAlsString = "Schelklingen 89601" +System.lineSeparator()+
                 "Deutscheland";
+        System.out.println(anschriftAlsString);
+        System.out.println(anschrift.toString());
+        assertEquals(anschriftAlsString, anschrift.toString());
         assert anschrift.toString().equals(anschriftAlsString);
     }
 

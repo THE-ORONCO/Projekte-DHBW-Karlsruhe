@@ -9,7 +9,9 @@ import Museum.Exponat.Exponat;
 import Museum.ObjectManagement.CSVSeparationLevel;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Foerderer extends Person {
 
@@ -20,7 +22,7 @@ public class Foerderer extends Person {
     /**
      * Ein Foerderer unterstuetzt das Museum mit verschiedenen Exponaten die er sponsort
      *
-     * @param foerderNr           eindeutige Identifikationsnummer eines Foerderers
+     * @param foerdererNr           eindeutige Identifikationsnummer eines Foerderers
      * @param name                Name des Foerderers
      * @param gebDatum            Geburtsdatum des Foerderers
      * @param beschreibung        zusätzliche Informationen die interessant sein koennten
@@ -29,12 +31,12 @@ public class Foerderer extends Person {
      * @param bild                Bild des foerderers
      * @throws ParseException wenn Telefonnummer oder E-Mail-Adresse falsch formatiert ist
      */
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
-        super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
+    public Foerderer(String foerdererNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, ArrayList<Exponat> gefoerderteExponate, Bild bild) throws ParseException {
+        super(foerdererNr, name, gebDatum, beschreibung, kontakt, bild);
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
-    public Foerderer(String foerderNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public Foerderer(String foerderNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(foerderNr, name, gebDatum, beschreibung, kontakt, bild);
         this.gefoerderteExponate = new ArrayList<>();
     }
@@ -56,6 +58,12 @@ public class Foerderer extends Person {
         this.gefoerderteExponate = gefoerderteExponate;
     }
 
+    /**
+     * Diese Methode lässt einen Förderer ein weiteres Exponat fördern
+     *
+     * @param exponat das zu fördernde Exponat
+     * @return ob das Exponat zu der FörderListe des Förderers hinzugefügt wurde (true) oder nicht (false)
+     */
     public boolean foerdereWeiteresExponat(Exponat exponat) {
         if (!this.gefoerderteExponate.contains(exponat)) {
             this.gefoerderteExponate.add(exponat);
@@ -84,7 +92,7 @@ public class Foerderer extends Person {
         String[] csvData = new String[]{
                 this.getPrimaryKey(),
                 this.getName(),
-                this.getGebDatum().toString(),
+                new SimpleDateFormat("yyyy.MM.dd").format(this.getGebDatum()),
                 this.getBeschreibung(),
                 String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.getKontakt().parseToCSV()),
                 String.join(CSVSeparationLevel.LEVEL2.wSeparator(), this.parsExponateToCSV()),
@@ -105,5 +113,4 @@ public class Foerderer extends Person {
         }
         return exponatCSVData.toArray(new String[0]);
     }
-
 }

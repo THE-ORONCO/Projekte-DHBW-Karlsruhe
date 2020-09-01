@@ -11,12 +11,16 @@ import Museum.Person.User;
 import Museum.Raum.Raum;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class StringProcessor {
 
+    /**
+     * entferne Whitespaces am Anfang und Ende jedes Element der csvDaten
+     *
+     * @param csvData zu trimmende CSV-Daten
+     * @return die getrimmten CSV-Daten
+     */
     public static String[] trimCSVData(String[] csvData) {
         if (csvData.length == 1) {
             if (csvData[0].trim().isEmpty()) {
@@ -30,7 +34,13 @@ public class StringProcessor {
         return csvData;
     }
 
-    public static void validierePrimaryKey(Class<?> c, String primaryKey) {
+    /**
+     * Validiere den Key fuer den gegebenen Objekttyp
+     *
+     * @param c          Objekttyp
+     * @param primaryKey zu validierender primaryKey
+     */
+    public static void validierePrimaryKey(Class<? extends MuseumsElement> c, String primaryKey) {
         char startCharacter = waehleKeyStartCharakter(c);
         if (primaryKey.matches("[a-zA-Z0-9]*") && primaryKey.startsWith(String.valueOf(startCharacter))) {
         } else {
@@ -39,6 +49,12 @@ public class StringProcessor {
 
     }
 
+    /**
+     * generiere einen zufaelligen alphanumerischen String
+     *
+     * @param laenge laenge des zu generierenden Strings
+     * @return einen zufaelligen alphanumerischen String der gegebenen Laenge
+     */
     public static String generiereRandomAlphaNumString(int laenge) {
         String alphaNumChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
@@ -49,6 +65,11 @@ public class StringProcessor {
         return sb.toString();
     }
 
+    /**
+     * generiere einen zufaelligen alphanumerischen String der Laenge 1 <= l <= 23
+     *
+     * @return einen zufaelligen alphanumerischen String der Laenge 1 <= l <= 23
+     */
     public static String generiereRandomAlphaNumString() {
         Random random = new Random();
         int high = 23;
@@ -58,7 +79,14 @@ public class StringProcessor {
         return generiereRandomAlphaNumString(len);
     }
 
-    public static char waehleKeyStartCharakter(Class<?> c) {
+    /**
+     * Waehle den dem MuseumsElementTyp zugewiesenen Startbuchstaben
+     *
+     * @param c typ des MuseumsElements
+     * @return den zugewiesenen Buchstaben
+     * @throws IllegalArgumentException wenn die Klasse unbekannt ist
+     */
+    public static char waehleKeyStartCharakter(Class<? extends MuseumsElement> c) {
         char startingCharacter;
         if (c == Admin.class) {
             startingCharacter = 'a';
@@ -103,7 +131,24 @@ public class StringProcessor {
         return true;
     }
 
+    /**
+     * generiere einen valieden primary Key
+     *
+     * @param c Objekttyp
+     * @return den generierten PrimaryKey
+     */
     public static String generierePrimaryKey(Class<? extends MuseumsElement> c) {
         return waehleKeyStartCharakter(c) + StringProcessor.generiereRandomAlphaNumString();
+    }
+
+    /**
+     * generiere einen valieden PrimaryKey der gegebenen Laenge fuer den gegebenen Objekttyp
+     *
+     * @param c      Objekttyp
+     * @param laenge laenge des generierten PrimaryKey
+     * @return den generierten PrimaryKey der gegebnen laenge
+     */
+    public static String generierePrimaryKey(Class<? extends MuseumsElement> c, int laenge) {
+        return waehleKeyStartCharakter(c) + StringProcessor.generiereRandomAlphaNumString(laenge - 1);
     }
 }

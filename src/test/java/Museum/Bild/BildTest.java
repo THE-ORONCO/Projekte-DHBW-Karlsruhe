@@ -5,14 +5,21 @@
 package Museum.Bild;
 
 import Museum.Bild.Bild;
+import Museum.MuseumsElement;
+import Museum.ObjectManagement.MuseumsElementFactory;
+import Museum.ObjectManagement.MuseumsManager;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
 
 import static org.junit.Assert.*;
 
 public class BildTest {
 
     private Bild bild;
+    private static String resourcePfad;
+
     private static final String bildNr = "b2344";
     private static final String altText  = "tolles Bild";
     private static final String dateiName = "bild.png";
@@ -20,6 +27,9 @@ public class BildTest {
 
     @Before
     public void setUp() throws Exception {
+        String dataRoot = new File("./src/test/resources").getCanonicalPath() + "/";
+        resourcePfad = dataRoot + "data/";
+
         bild = new Bild(bildNr, altText, dateiName, beschreibung);
     }
 
@@ -61,9 +71,9 @@ public class BildTest {
 
     @Test
     public void testToString() {
-        String bildAlsString = "BildNr: b2344\n" +
-                "Alt-Text: tolles Bild\n" +
-                "Dateiname: bild.png\n" +
+        String bildAlsString = "BildNr: b2344" + System.lineSeparator() +
+                "Alt-Text: tolles Bild" +System.lineSeparator() +
+                "Dateiname: bild.png" +System.lineSeparator() +
                 "Beschreibung: voll tolles Bild";
         assertEquals(bild.toString(), bildAlsString);
     }
@@ -72,5 +82,13 @@ public class BildTest {
     public void testEquals() {
         Bild neuesBild = new Bild(bildNr, altText, dateiName, beschreibung);
         assertEquals(bild, neuesBild);
+    }
+
+    @Test
+    public void parsToCSV() throws Exception {
+        Bild generiertesBild1 = (Bild) MuseumsElementFactory.createElement(Bild.class, resourcePfad + "bilder.csv", 2);
+        MuseumsManager.remove(Bild.class, generiertesBild1.getPrimaryKey());
+        Bild generiertesBild2 = (Bild) MuseumsElementFactory.createBild(generiertesBild1.parsToCSV());
+        assertEquals(generiertesBild1, generiertesBild2);
     }
 }

@@ -10,6 +10,7 @@ import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class User extends Mitarbeiter{
 
@@ -27,10 +28,10 @@ public class User extends Mitarbeiter{
      * @param bild          Bild des Mitarbeiters
      * @throws ParseException wenn Daten bei Kontakt nicht stimmen
      */
-    public User(String mitarbeiterNr, String name, String gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
+    public User(String mitarbeiterNr, String name, Date gebDatum, String beschreibung, Kontaktdaten kontakt, Bild bild) throws ParseException {
         super(mitarbeiterNr, name, gebDatum, beschreibung, kontakt, bild);
-        this.exponatM = MuseumsManager.getExponatManager();
-        this.raumM = MuseumsManager.getRaumManager();
+        this.exponatM = MuseumsManager.getExponatM();
+        this.raumM = MuseumsManager.getRaumM();
     }
 
     public MuseumsElementManager getExponatM() {
@@ -47,5 +48,21 @@ public class User extends Mitarbeiter{
 
     public void setRaumM(MuseumsElementManager raumM) {
         this.raumM = raumM;
+    }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "personalNr",
+                "name",
+                "gebDatum",
+                "beschreibung",
+                "kontakt",
+                "bild"
+        };
     }
 }

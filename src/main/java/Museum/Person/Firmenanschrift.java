@@ -30,10 +30,6 @@ public class Firmenanschrift extends Anschrift {
         this.hausnummer = hausnummer;
     }
 
-    public Firmenanschrift(String firma, String name, String strasse, int hausnummer, int plz, String stadt) {
-        this(firma, name, strasse, hausnummer, plz, stadt, "");
-    }
-
     public String getFirma() {
         return firma;
     }

@@ -3,7 +3,7 @@ package Museum.Exponat;
 import Museum.MuseumsElement;
 
 public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
-    //DIFF so ziemlich das ganze Ding, weil das vorher eher unschoen war -> Epochen Manager
+    //DIFF so ziemlich das ganze Ding, weil das vorher eher kacke war -> Epochen Manager
 
     private final String epochenName;
     private final String stilrichtung;
@@ -67,5 +67,20 @@ public class Epoche extends MuseumsElement { // DIFF erbt von MuseumsElement
                 this.getBeschreibung()
         };
         return csvData;
+    }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "epochenID",
+                "epochenName",
+                "stilrichtung",
+                "zeitalter",
+                "beschreibung"
+        };
     }
 }

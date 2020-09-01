@@ -3,7 +3,6 @@ package Museum.Exponat;
 import Museum.Bild.Bild;
 import Museum.MuseumsElement;
 import Museum.ObjectManagement.CSVSeparationLevel;
-import Museum.ObjectManagement.MuseumsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,11 +71,6 @@ public class Exponat extends MuseumsElement {
     public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, Bild bild) {
         this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, bild, "Exponat");
     }
-
-    /*
-    public Exponat(String inventarNummer, String name, Date entstehungsDatum, ArrayList<String> urheber, double benoetigteAusstellungsflaeche, ArrayList<String> kategorien, Epoche epoche, String herkunftsort, Exponatwert exponatwert, Historie geschichtilcheH, Historie bearbeitungsH, Historie besitzH, String beschreibung) {
-        this(inventarNummer, name, entstehungsDatum, urheber, benoetigteAusstellungsflaeche, kategorien, epoche, herkunftsort, exponatwert, geschichtilcheH, bearbeitungsH, besitzH, (Bild) MuseumsManager.getDefault(Bild.class), "Exponat");
-    }*/
 
     public String getName() {
         return name;
@@ -174,6 +168,30 @@ public class Exponat extends MuseumsElement {
         this.bild = bild;
     }
 
+    @Override
+    public String toString() {
+        String exponatString = "";
+        exponatString += String.format("Inventarnummer: %s%n", getPrimaryKey());
+        exponatString += String.format("Name: %s%n", getName());
+        exponatString += String.format("Entstehungsdatum: %s%n", new SimpleDateFormat("yyyy.MM.dd").format(getEntstehungsDatum()));
+        for (String einzelnerUrheber : getUrheber()) {
+            exponatString += String.format("Urheber: %s%n", einzelnerUrheber);
+        }
+        exponatString += String.format("Benoetigte Ausstellungsflaeche: %f%n", getBenoetigteAusstellungsflaeche());
+        for (String kategorie : getKategorien()) {
+            exponatString += String.format("Kategorie: %s%n", kategorie);
+        }
+        exponatString += String.format("Epoche: %s%n", getEpoche().toString());
+        exponatString += String.format("Herkunftsort: %s%n", getHerkunftsort());
+        exponatString += String.format("Exponatwert: %s%n", getExponatwert().toString());
+        exponatString += String.format("geschichtliche Historie:%n%s%n", getGeschichtilcheH().toString());
+        exponatString += String.format("Bearbeitungshistorie:%n%s%n", getBearbeitungsH().toString());
+        exponatString += String.format("Besitzhistorie:%n%s%n", getBesitzH().toString());
+        exponatString += String.format("Bild: %s%n", getBild().toString());
+        exponatString += String.format("Beschreibung: %s", getBeschreibung());
+        return exponatString;
+    }
+
     /**
      * konvertiert das Objekt in ein vom SWE-Utils-CSV-Reader/Writer verarbeitbares CSV-Format
      *
@@ -219,5 +237,29 @@ public class Exponat extends MuseumsElement {
                 getBearbeitungsH().equals(exponat.getBearbeitungsH()) &&
                 getBesitzH().equals(exponat.getBesitzH()) &&
                 getBild().equals(exponat.getBild());
+    }
+
+    /**
+     * Gibt die Namen der Objektattribute zurück
+     *
+     * @return die Namen der Objektattribute
+     */
+    public static String[] getCSVHeader() {
+        return new String[]{
+                "inventarNr",
+                "name",
+                "entstehungsDatum",
+                "urheber",
+                "benoetigteAusstellungsflaeche",
+                "kategorien",
+                "epoche",
+                "herkunftsort",
+                "exponatwert",
+                "geschichtlicheH",
+                "bearbeitungsH",
+                "besitzH",
+                "bild",
+                "beschreibung"
+        };
     }
 }

@@ -5,16 +5,22 @@
 package Museum.Raum;
 
 import Museum.Bild.Bild;
+import Museum.ObjectManagement.MuseumsElementFactory;
+import Museum.ObjectManagement.MuseumsManager;
 import Museum.Raum.Raum;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
 public class RaumTest {
+
+    private static String resourcePfad;
+    private static String defaultResourcePfad;
 
     private Raum raum;
     private static final String raumNr = "r42";
@@ -28,6 +34,11 @@ public class RaumTest {
 
     @Before
     public void setUp() throws Exception {
+        String dataRoot = new File("./src/test/resources").getCanonicalPath() + "/";
+        resourcePfad = dataRoot + "data/";
+        defaultResourcePfad = dataRoot + "default/";
+        MuseumsManager.ladeDefaultElemente(defaultResourcePfad);
+
         this.raum = new Raum( raumNr, ausstellungsflaeche, ausstellungsthema, bilder, beschreibung);
     }
 
@@ -74,10 +85,10 @@ public class RaumTest {
 
     @Test
     public void testToString() {
-        String raumAlsString = "RaumNr: r42\n" +
-                "Ausstellungsfläche : 420.690000\n" +
-                "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann\n" +
-                "Beschreibung: Abstellraum\n";
+        String raumAlsString = "RaumNr: r42" + System.lineSeparator() +
+                "Ausstellungsfläche : 420.690000" + System.lineSeparator() +
+                "Ausstellungsthema: alles was sonst nirgendwo unterkommen kann" + System.lineSeparator() +
+                "Beschreibung: Abstellraum"+ System.lineSeparator();
         assertEquals(raum.toString(), raumAlsString);
     }
 
@@ -85,5 +96,13 @@ public class RaumTest {
     public void testEquals() throws Exception {
         Raum raum2 = new Raum( raumNr, ausstellungsflaeche, ausstellungsthema, bilder, beschreibung);
         assert raum.equals(raum2);
+    }
+
+    @Test
+    public void testParseToCSV() throws Exception {
+        Raum r1 = (Raum) MuseumsElementFactory.createElement(Raum.class, resourcePfad+"/raeume.csv", 2);
+        MuseumsManager.remove(Raum.class, r1.getPrimaryKey());
+        Raum r2 = MuseumsElementFactory.createRaum(r1.parsToCSV());
+        assertEquals(r1, r2);
     }
 }

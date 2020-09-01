@@ -32,7 +32,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @return das erzeugte Objekt
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String[] csvData) throws Exception {
+    public static MuseumsElement createElement(Class<? extends MuseumsElement> c, String[] csvData) throws Exception {
         if (c == Exponat.class) {
             return createExponat(csvData);
         } else if (c == Bild.class) {
@@ -49,6 +49,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
             return createHR(csvData);
         } else if (c == Epoche.class) {
             return createEpoche(csvData);
+        } else if (c == Mitarbeiter.class) {
+            return createMitarbeiter(csvData);
         } else {
             throw new IllegalArgumentException("Unbekannte Klasse!");
         }
@@ -64,7 +66,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static MuseumsElement createElement(Class c, String dateiPfad, int linie) throws Exception {
+    public static MuseumsElement createElement(Class<? extends MuseumsElement> c, String dateiPfad, int linie) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVReader.DEFAULT_DELIMITER, CSVReader.DEFAULT_COMMENT);
         return createElement(c, csvData.get(linie));
@@ -79,7 +81,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad) throws Exception {
+    public static ArrayList<MuseumsElement> createElement(Class<? extends MuseumsElement> c, String dateiPfad) throws Exception {
         return createElement(c, dateiPfad, true);
     }
 
@@ -93,7 +95,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
      * @throws IOException    wenn der CSV-Reader der SWE-Tools eine exception wirft
      * @throws ParseException wenn Telefonnummer oder Email-Adresse ein falsches Format haben
      */
-    public static ArrayList<MuseumsElement> createElement(Class c, String dateiPfad, boolean dropHeader) throws Exception {
+    public static ArrayList<MuseumsElement> createElement(Class<? extends MuseumsElement> c, String dateiPfad, boolean dropHeader) throws Exception {
         CSVReader reader = new CSVReader(dateiPfad);
         List<String[]> csvData = reader.readData(getNumberOfAttributes(c), CSVReader.DEFAULT_DELIMITER, CSVReader.DEFAULT_COMMENT);
 
@@ -177,9 +179,9 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         checkCSVarghLength(csvData, getNumberOfAttributes(Exponatwert.class));
 
-        float einkaufswert = Float.parseFloat(csvData[0]);
-        float aktuellerSchaetzwert = Float.parseFloat(csvData[1]);
-        float leihwert = Float.parseFloat(csvData[2]);
+        double einkaufswert = Double.parseDouble(csvData[0]);
+        double aktuellerSchaetzwert = Double.parseDouble(csvData[1]);
+        double leihwert = Double.parseDouble(csvData[2]);
 
         Exponatwert exponatwert = new Exponatwert(einkaufswert, aktuellerSchaetzwert, leihwert);
         return exponatwert;
@@ -204,10 +206,8 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
                 Ereignis ereignis = createEreignis(ereignisCSV.split(CSVSeparationLevel.LEVEL3.rSeparator()));
                 ereignisse.put(ereignis.getDatum(), ereignis);
             } catch (Exception e) {
-                System.out.println(Arrays.toString(csvData) + " wurde ignoriert");
                 AppLogger logger = AppLogger.getInstance();
                 logger.info("Datensatz: " + Arrays.toString(csvData) + " konnte nicht in ein Ereignis umgewandelt werden -> ignoriert");
-                // TODO vielleicht logging oder so um den User zu informieren das etwas schief gegangen ist
             }
         }
 
@@ -295,7 +295,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         // Exponate finden
         ArrayList<Exponat> exponate = new ArrayList<>();
         for (String exponatNr : StringProcessor
-                .trimCSVData(csvData[4].split(String.valueOf(CSVSeparationLevel.LEVEL2)))) {
+                .trimCSVData(csvData[4].split(CSVSeparationLevel.LEVEL2.rSeparator()))) {
             if (MuseumsManager.contains(Exponat.class, exponatNr)) {
                 exponate.add((Exponat) MuseumsManager.find(Exponat.class, exponatNr));
             } else {
@@ -330,7 +330,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         ueberpruefeExistenz(Foerderer.class, foerdererNr);
 
         String name = csvData[1];
-        String gebDatum = csvData[2];
+        Date gebDatum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[2]);
         String beschreibung = csvData[3];
         // Kontaktdaten
         Kontaktdaten kontaktdaten = createKontaktdaten(csvData[4].split(CSVSeparationLevel.LEVEL2.rSeparator()));
@@ -362,9 +362,36 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
 
         // Foerderer im Museum ablegen
-        MuseumsManager.persist(Person.class, foerderer);
+        MuseumsManager.persist(Foerderer.class, foerderer);
 
         return foerderer;
+    }
+
+    /**
+     * Diese Methode generiert dynamisch anhand CSV-Daten und der darin enthaltenen Mitarbeiternummer den jeweils
+     * richtigen Mitarbeitertyp.
+     *
+     * @param csvData die csvDaten aus denen das Objekt generiert werden soll
+     * @return das generierte Objekt
+     * @throws Exception      wenn der Mitarbeiter bereits existiert
+     * @throws ValueException wenn die Telefonnummern oder Emailadressen falsch fomatiert sind
+     */
+    public static Mitarbeiter createMitarbeiter(String[] csvData) throws Exception {
+        StringProcessor.trimCSVData(csvData);
+
+        checkCSVarghLength(csvData, getNumberOfAttributes(Mitarbeiter.class));
+
+        String mitarbeiterNr = csvData[0];
+        if (mitarbeiterNr.startsWith(String.valueOf(StringProcessor.waehleKeyStartCharakter(Admin.class)))) {
+            return createAdmin(csvData);
+        }
+        if (mitarbeiterNr.startsWith(String.valueOf(StringProcessor.waehleKeyStartCharakter(User.class)))) {
+            return createUser(csvData);
+        }
+        if (mitarbeiterNr.startsWith(String.valueOf(StringProcessor.waehleKeyStartCharakter(HR.class)))) {
+            return createHR(csvData);
+        }
+        return null;
     }
 
     /**
@@ -383,7 +410,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         String mitarbeiterNr = csvData[0];
 
         String name = csvData[1];
-        String gebDatum = csvData[2];
+        Date gebDatum = new SimpleDateFormat("yyyy.MM.dd").parse(csvData[2]);
         String beschreibung = csvData[3];
 
         //Kontakte laden
@@ -415,7 +442,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         StringProcessor.validierePrimaryKey(Admin.class, mT.getPrimaryKey());
-        Admin admin = new Admin(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
+        Admin admin = new Admin(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(Admin.class, admin.getPrimaryKey());
 
@@ -436,7 +463,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         StringProcessor.validierePrimaryKey(User.class, mT.getPrimaryKey());
-        User user = new User(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
+        User user = new User(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(User.class, user.getPrimaryKey());
 
@@ -457,7 +484,7 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
         Mitarbeiter mT = createMitarbeiterTemplate(csvData);
         StringProcessor.validierePrimaryKey(HR.class, mT.getPrimaryKey());
-        HR hr = new HR(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum().toString(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
+        HR hr = new HR(mT.getPrimaryKey(), mT.getName(), mT.getGebDatum(), mT.getBeschreibung(), mT.getKontakt(), mT.getBild());
 
         ueberpruefeExistenz(HR.class, hr.getPrimaryKey());
 
@@ -468,11 +495,12 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
 
     /**
      * Diese Methode generiert ein Kontaktdaten Objekt aus csvDaten
+     * Diese Methode wird nur von Foerderer-, und Mitarbeiter-Objekten verwendet
      *
-     * @param csvData
-     * @return
+     * @param csvData CSV-Daten aus denen ein Kontakt-Objekt generiert werden soll
+     * @return das generierte Kontakt-Objekt
      */
-    private static Kontaktdaten createKontaktdaten(String[] csvData) {
+    public static Kontaktdaten createKontaktdaten(String[] csvData) {
         StringProcessor.trimCSVData(csvData);
 
         checkCSVarghLength(csvData, 3);
@@ -488,43 +516,69 @@ public class MuseumsElementFactory { // DIFF eine einzelne universal-Factory ans
         // Anschriften
         ArrayList<Anschrift> anschriften = new ArrayList<>();
         // mehrere Anschriften sind mit | separiert, da diese Attribute der Anschriften wiederum mit , separiert sind
+
         for (String anschrift : StringProcessor
                 .trimCSVData(csvData[2].split(CSVSeparationLevel.LEVEL3.rSeparator()))) {
             String[] anschriftAttribute = StringProcessor.trimCSVData(anschrift.split(CSVSeparationLevel.LEVEL4.rSeparator()));
-            //Postfachadresse
-            if (anschriftAttribute.length == 4) {
-                int postfachnummer = Integer.parseInt(anschriftAttribute[0]);
-                int plz = Integer.parseInt(anschriftAttribute[1]);
-                String stadt = anschriftAttribute[2];
-                String land = anschriftAttribute[3];
-                anschriften.add(new Postfachadresse(postfachnummer, plz, stadt, land));
-                //Hausanschrift
-            } else if (anschriftAttribute.length == 6) {
-                String name = anschriftAttribute[0];
-                String strasse = anschriftAttribute[1];
-                int hausnummer = Integer.parseInt(anschriftAttribute[2]);
-                int plz = Integer.parseInt(anschriftAttribute[3]);
-                String stadt = anschriftAttribute[4];
-                String land = anschriftAttribute[5];
-                anschriften.add(new Hausanschrift(name, strasse, hausnummer, plz, stadt, land));
-                //Firmenanschrift
-            } else if (anschriftAttribute.length == 7) {
-                String fimra = anschriftAttribute[0];
-                String name = anschriftAttribute[1];
-                String strasse = anschriftAttribute[2];
-                int hausnummer = Integer.parseInt(anschriftAttribute[3]);
-                int plz = Integer.parseInt(anschriftAttribute[4]);
-                String stadt = anschriftAttribute[5];
-                String land = anschriftAttribute[6];
-                anschriften.add(new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land));
+            Anschrift generierteAnschrift = createAnschrift(anschriftAttribute);
+            if (generierteAnschrift == null) {
+                AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(csvData) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert");
             } else {
-                AppLogger.getInstance().info("CSV-Daten: " + Arrays.toString(anschriftAttribute) + "konnten nicht in eine Anschrifft umgewandelt werden -> ignoriert");
+                anschriften.add(generierteAnschrift);
             }
         }
         Kontaktdaten kontakt = new Kontaktdaten(emailAdressen, teleNr, anschriften);
         return kontakt;
     }
 
+    /**
+     * Diese Methode generiert ein Anschrift Objekt aus csvDaten
+     *
+     * @param csvData CSV-Daten aus denen ein Kontakt-Objekt generiert werden soll
+     * @return das generierte Kontakt-Objekt
+     */
+    private static Anschrift createAnschrift(String[] csvData) {
+        StringProcessor.trimCSVData(csvData);
+
+        if (csvData.length == 4) {
+            //Postfachadresse
+            int postfachnummer = Integer.parseInt(csvData[0]);
+            int plz = Integer.parseInt(csvData[1]);
+            String stadt = csvData[2];
+            String land = csvData[3];
+            return new Postfachadresse(postfachnummer, plz, stadt, land);
+
+        } else if (csvData.length == 6) {
+            //Hausanschrift
+            String name = csvData[0];
+            String strasse = csvData[1];
+            int hausnummer = Integer.parseInt(csvData[2]);
+            int plz = Integer.parseInt(csvData[3]);
+            String stadt = csvData[4];
+            String land = csvData[5];
+            return new Hausanschrift(name, strasse, hausnummer, plz, stadt, land);
+
+        } else if (csvData.length == 7) {
+            //Firmenanschrift
+            String fimra = csvData[0];
+            String name = csvData[1];
+            String strasse = csvData[2];
+            int hausnummer = Integer.parseInt(csvData[3]);
+            int plz = Integer.parseInt(csvData[4]);
+            String stadt = csvData[5];
+            String land = csvData[6];
+            return new Firmenanschrift(fimra, name, strasse, hausnummer, plz, stadt, land);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Diese Methode generiert ein Epochen Objekt aus csvDaten
+     *
+     * @param csvData CSV-Daten aus denen ein Kontakt-Objekt generiert werden soll
+     * @return das generierte Kontakt-Objekt
+     */
     public static Epoche createEpoche(String[] csvData) throws Exception {
         StringProcessor.trimCSVData(csvData);
 
