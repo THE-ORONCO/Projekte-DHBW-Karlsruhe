@@ -2,6 +2,7 @@ package app;
 
 import Museum.ObjectManagement.MuseumsManager;
 import de.dhbwka.swe.utils.util.AppLogger;
+import de.dhbwka.swe.utils.util.PropertyManager;
 import org.apache.commons.cli.*;
 
 
@@ -11,6 +12,8 @@ import org.apache.commons.cli.*;
  */
 public class SWEMuseumsVerwaltung {
     public static void main(String[] args) {
+
+        System.out.println(System.getProperty("user.home"));
 
         // setup aller Comandline-Optionen (aktuell nur eine)
         Options optionen = new Options();
