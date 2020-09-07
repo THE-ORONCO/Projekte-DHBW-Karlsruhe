@@ -1,6 +1,6 @@
 # @author Theo Roncoletta
 # diese Datei enthält Beispieldaten um die Räume zu generieren aus denen sich das Museum zusammensetzt
 #
-raumNr; ausstellungsflaeche; ausstellungsthema; bilder; ausgestellteExponate; beschreibung
+#raumNr; ausstellungsflaeche; ausstellungsthema; bilder; ausgestellteExponate; beschreibung
 r1; 9.3; Bilder ; b12; x1, x2; Raum voller Bilder
 r2; 342; Bananen ; b11; xBanane; Der Bananenaltar Raum

@@ -1,7 +1,7 @@
 # @author Theo Roncoletta
 # diese Datei enthält Beispieldaten um Exponate zu generieren die in diesem Museum ausgestellt werden
 #
-exponatNr;name;erstellungsDatum;urheber;benoetigteAusstellungsflaeche;kategorien;epoche;herkunftsort;exponatwert;geschichtlicheH;bearbeitungsH;besitzH;bild;beschreibung
+#exponatNr;name;erstellungsDatum;urheber;benoetigteAusstellungsflaeche;kategorien;epoche;herkunftsort;exponatwert;geschichtlicheH;bearbeitungsH;besitzH;bild;beschreibung
 x1;mona lisa;2020.08.01;Lenoard Darfintschi;2;Bild;e11;Italien;420.69, 3.50, 1000;2020.08.01 | Erschaffung der Mona Lisa , 2020.08.02|Mona Lisa wurde von unserem Museum aufgekauft;2020.08.02|Exponat wurde angelegt;2020.08.01|Leonad Dafintschi, 2020.08.02|Das Museum;b2;Die noch nicht weltberuemte Mona Lisa von Leonard Dafintschi
 x2;der schrai;2020.08.01;Eduard Mampf;3.2;Bild;e20;Norwegen;420.69, 3.50, 1000;1893.01.01 | Erschaffung des Schrais , 2020.08.02|der Schrai wurde von unserem Museum aufgekauft;2020.08.02|Exponat wurde angelegt;2020.08.01|Eduard Mampf, 2020.08.02|Das Museum;b3;Der noch nicht weltberuemte Schrai
 x3;die heilige Banane;2020.08.01;DK;340.2;Heiligtum;e32;DK-Island;99999, 999999, 9999;2020.08.01 | Erschaffung der Heiligen Banane , 2020.08.02|Die Banane wurde unserem Museum gespendet;2020.08.02|Exponat wurde angelegt;2020.08.01|Leonad Dafintschi, 2020.08.02|Das Museum;b1;Die heilige Banane
