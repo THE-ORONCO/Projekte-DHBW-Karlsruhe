@@ -55,7 +55,7 @@ public class StringProcessor {
      * @param laenge laenge des zu generierenden Strings
      * @return einen zufaelligen alphanumerischen String der gegebenen Laenge
      */
-    public static String generiereRandomAlphaNumString(int laenge) {
+    private static String generiereRandomAlphaNumString(int laenge) {
         String alphaNumChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
 
@@ -70,7 +70,7 @@ public class StringProcessor {
      *
      * @return einen zufaelligen alphanumerischen String der Laenge 1 <= l <= 23
      */
-    public static String generiereRandomAlphaNumString() {
+    private static String generiereRandomAlphaNumString() {
         Random random = new Random();
         int high = 23;
         int low = 1;

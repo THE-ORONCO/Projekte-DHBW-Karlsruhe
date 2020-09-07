@@ -3,24 +3,24 @@
     -> -d -> default-elemente laden
     -> -l -> Pfad für eine Log Datei
 
-+ Musuemslement als neues Überobjekt von Bild, Epoche, Raum, Person, Exponat
-+ Historie -> Hashmap statt hashset
-+ Epoche komplett neu aufgebaut
+- Musuemslement als neues Überobjekt von Bild, Epoche, Raum, Person, Exponat
+- Historie -> Hashmap statt hashset
+- Epoche komplett neu aufgebaut
     -> Stil ist weg
-+ kein Erstellungsdatum (inkonsistenzen mit CSV-Datei-Zeug)
-+ nur ein Leihwert pro Exponat
-+ Refferenz nur von Förderer zu Exponat
-+ nur eine Historie
-+ eine universal Factory für alle Museumselemente
-+ Mitarbeiter nicht mehr abstract
-+ Personenmanager aufgesplittet in Mitarbeitermanager und FördererManager
-+ Epochen Manager hinzugefügt
-+ BildManager hinzugefügt
-+ Land bei Anschriften hinzugefügt
-+ teleNR ist String -> int zu klein + Formatierungs Regex
-+ nur ein Kontaktdatenelement -> warum waren da überhaupt mehrere
-+ Raum hatte keine Exponatliste im Uml diagramm
-+ alles über den gleichen Primary-Key identifiziert (allein der Key-Anfang entscheidet welches Objekt es sein sollte)
-+ Suche ist static
-+ MuseumsManager ist static
-+ Person hat Bild
+- kein Erstellungsdatum (inkonsistenzen mit CSV-Datei-Zeug)
+- nur ein Leihwert pro Exponat
+- Refferenz nur von Förderer zu Exponat
+- nur eine Historie
+- eine universal Factory für alle Museumselemente
+- Mitarbeiter nicht mehr abstract
+- Personenmanager aufgesplittet in Mitarbeitermanager und FördererManager
+- Epochen Manager hinzugefügt
+- BildManager hinzugefügt
+- Land bei Anschriften hinzugefügt
+- teleNR ist String -> int zu klein + Formatierungs Regex
+- nur ein Kontaktdatenelement -> warum waren da überhaupt mehrere
+- Raum hatte keine Exponatliste im Uml diagramm
+- alles über den gleichen Primary-Key identifiziert (allein der Key-Anfang entscheidet welches Objekt es sein sollte)
+- Suche ist static
+- MuseumsManager ist static
+- Person hat Bild
