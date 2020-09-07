@@ -134,9 +134,16 @@ public class MuseumsManager {
         return relevanterManager.remove(element);
     }
 
-    @Deprecated
-    public static void importieren(Class<? extends MuseumsElement> c, String dateiPfad) throws Exception {
-        MuseumsElementFactory.createElement(c, dateiPfad);
+    /**
+     * Mit dieser Methode ist es möglich MuseumsElemente aus einer Datei zu importieren.
+     *
+     * @param c         Klasse der zu importierenden Elemente
+     * @param dateiPfad Pfad zu der CSV-Datei die importiert werden soll
+     * @return die importieren MuseumsElemente
+     * @throws Exception wenn die CSV-Datei fehlerhaft ist
+     */
+    public static ArrayList<MuseumsElement> importieren(Class<? extends MuseumsElement> c, String dateiPfad, boolean dropHeader) throws Exception {
+        return MuseumsElementFactory.createElement(c, dateiPfad, dropHeader);
     }
 
 
@@ -150,7 +157,7 @@ public class MuseumsManager {
         exportieren(c, path, dateiName, ueberSchreiben, alleElementeDerKlasse.getMuseumsElementeAsList());
     }
 
-    public static void exportieren(Class<? extends MuseumsElement> c, String path, String dateiName, boolean ueberSchreiben, ArrayList<MuseumsElement> exportElemente) throws Exception{
+    public static void exportieren(Class<? extends MuseumsElement> c, String path, String dateiName, boolean ueberSchreiben, ArrayList<MuseumsElement> exportElemente) throws Exception {
         //TODO exportieren ausgiebig testen!
         String dateiPfad = path + File.separator + dateiName;
         File exportDatei = new File(dateiPfad);
@@ -193,15 +200,14 @@ public class MuseumsManager {
             } else throw new IllegalArgumentException("Unbekante Klasse: " + c);
 
             ArrayList<String[]> csvData = new ArrayList<>();
-            for (MuseumsElement element : exportElemente){
+            for (MuseumsElement element : exportElemente) {
                 csvData.add(element.parsToCSV());
             }
 
-            if(csvData.size() > 0){
+            if (csvData.size() > 0) {
                 CSVWriter writer = new CSVWriter(exportDatei.getAbsolutePath(), true);
-                System.out.println(csvData);
                 writer.writeDataToFile(csvData, header);
-            }else {
+            } else {
                 AppLogger.getInstance().info("keine Daten zu exportieren!");
             }
 

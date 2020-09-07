@@ -1,6 +1,0 @@
-# @author Theo Roncoletta
-# diese Datei enthält Beispieldaten um Mitarbeiter zu generieren die in diesem Museum arbeiten
-#
-mitarbeiterNr; name; gebDatum; beschreibung; kontakt; bild
-a1;Theo Roncoletta;1999.12.23;So ein Typ;theo.roncoletta@gmail.com, 015782770476, SWE-Museumsverwaltungssoftwareprogrammierer co. KG.| Theo Roncoletta| Tennesseeallee| 28| 76149| Karlsruhe| Deutschland _ 42069| 76149| Karlsruhe| Deutschland;b23
-h1;Kai Haubrich;1997.01.01;So ein anderer Typ;kaido.der@haido.swe, 017675747121, SWE-Museumsverwaltungssoftwareprogrammierer co. KG.| Kai Haubrich| Strasse| 1| 76149| Karlsruhe| Deutschland;b0

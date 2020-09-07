@@ -1,7 +1,7 @@
 # @author Theo Roncoletta
 # Diese Datei enthält alle gegebenen und relevanten Epochen aus welchen die von uns ausgestellten Exponate stammen koennen
 #
-epochenID; Epoche; Stil; Zeitalter; Beschreibung
+#epochenID; Epoche; Stil; Zeitalter; Beschreibung
 e1; Griechische Antike; Geometrischer Stil; ca. 1000 - 680 v. Chr.;
 e2;  Griechische Antike; Archaischer Stil; ca. 700 - 480 v. Chr.;
 e3; Griechische Antike; Klassischer Stil; ca. 480 - 330 v. Chr.;
